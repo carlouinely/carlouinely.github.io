@@ -142,6 +142,19 @@ export function elementIds(html: string): string[] {
   return [...html.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1])
 }
 
+/**
+ * The opening `<svg>` tag of the decorative mark rendered immediately before a
+ * tool name, or `null` when the tool has no mark. Reading the actual delivered
+ * adjacency is what makes "an icon beside the name" an observable claim.
+ */
+export function toolMarkBefore(html: string, tool: string): string | null {
+  const escaped = tool.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const match = html.match(
+    new RegExp(`(<svg\\b[^>]*>)[\\s\\S]*?</svg>(?:<!--[\\s\\S]*?-->|\\s)*${escaped}`),
+  )
+  return match?.[1] ?? null
+}
+
 /** Resolve a site-relative link the way GitHub Pages serves the prerendered output. */
 export function pageExists(href: string): boolean {
   const path = href.split(/[?#]/)[0]

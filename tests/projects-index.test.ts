@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
+import { toolGlyphs } from '~src/components/toolGlyphs'
 import { projects } from '~src/content/index'
 import {
   htmlToText,
@@ -6,6 +7,7 @@ import {
   pageExists,
   readClientPage,
   requireFreshBuild,
+  toolMarkBefore,
 } from './built-output'
 
 /**
@@ -77,5 +79,30 @@ describe('the Projects Index', () => {
     expect(html).toContain('<footer')
     expect(internalLinks(html)).toContain('/projects')
     expect(htmlToText(html)).not.toContain('Built with')
+  })
+
+  it('shows a mark for React on Darkroom System and none for AI/LLM on Agentic Lead Pipeline', () => {
+    expect(toolMarkBefore(rowFor('Darkroom System'), 'React')).toMatch(/aria-hidden="true"/)
+    // AI/LLM has no single mark, so it stays text-only.
+    expect(toolMarkBefore(rowFor('Agentic Lead Pipeline'), 'AI/LLM')).toBeNull()
+  })
+
+  it('renders a decorative currentColor mark beside every stack tool that has one, and the name alone otherwise', () => {
+    for (const project of projects) {
+      const row = rowFor(project.title)
+      for (const tool of project.stack) {
+        const mark = toolMarkBefore(row, tool)
+        if (toolGlyphs[tool]) {
+          expect(mark, `Expected a mark before "${tool}" on ${project.title}.`).not.toBeNull()
+          expect(mark).toContain('aria-hidden="true"')
+          expect(mark).toContain('focusable="false"')
+          expect(mark).toContain('fill="currentColor"')
+        } else {
+          expect(mark, `Expected no mark before "${tool}" on ${project.title}.`).toBeNull()
+        }
+
+        expect(htmlToText(row)).toContain(tool)
+      }
+    }
   })
 })

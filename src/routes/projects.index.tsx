@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ChevronGlyph } from '~src/components/glyphs'
+import { ToolGlyph } from '~src/components/toolGlyphs'
 import { projects } from '~src/content/index'
 import type { Project } from '~src/content/projects'
 import { pageHead } from '~src/meta'
@@ -36,7 +37,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           {project.tag}
         </span>
         <span className="font-system-sans-serif text-caption text-obsidian">{project.year}</span>
-        <span className="font-dm-sans text-body-sm text-obsidian">{project.stack.join(' · ')}</span>
+        <span className="flex flex-wrap items-center gap-x-12 gap-y-4 font-dm-sans text-body-sm text-obsidian">
+          {project.stack.map((tool) => (
+            <span key={tool} className="inline-flex items-center gap-4">
+              <ToolGlyph tool={tool} className="shrink-0" />
+              {tool}
+            </span>
+          ))}
+        </span>
         <ChevronGlyph className="ml-auto transition-transform group-open:rotate-180 motion-reduce:transition-none" />
       </summary>
 

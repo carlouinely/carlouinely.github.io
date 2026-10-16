@@ -1,4 +1,5 @@
 import { Media } from '~src/components/Media'
+import { ToolGlyph } from '~src/components/toolGlyphs'
 import { about } from '~src/content/about'
 
 /**
@@ -30,7 +31,10 @@ export function About() {
                 </h3>
                 <ul className="mt-16 space-y-8 font-dm-sans text-body text-obsidian">
                   {group.tools.map((tool) => (
-                    <li key={tool}>{tool}</li>
+                    <li key={tool} className="flex items-center gap-8">
+                      <ToolGlyph tool={tool} className="shrink-0" />
+                      {tool}
+                    </li>
                   ))}
                 </ul>
               </div>
