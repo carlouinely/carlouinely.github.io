@@ -26,6 +26,7 @@ export function Contact() {
 
           <a
             href={site.github}
+            rel="me"
             className="inline-flex items-center gap-8 font-dm-sans text-body text-chalk underline"
           >
             <GitHubGlyph />

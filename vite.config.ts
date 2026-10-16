@@ -1,12 +1,32 @@
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
 import mdx from '@mdx-js/rollup'
-import { defineConfig } from 'vite-plus'
+import { defineConfig, type Plugin } from 'vite-plus'
 import viteReact from '@vitejs/plugin-react'
 import rehypeSlug from 'rehype-slug'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import { rehypeOutline } from './src/content/outline'
+import { writeSeoFiles } from './src/sitemap'
+
+/**
+ * Write the sitemap and robots.txt from the pages the prerender actually wrote.
+ */
+function seoFiles(): Plugin {
+  return {
+    name: 'carlouinely:seo-files',
+    apply: 'build',
+    // Both levels of ordering are needed to land after `tanstackStart`'s
+    // post-build plugin, which is where the prerender runs.
+    enforce: 'post',
+    buildApp: {
+      order: 'post',
+      async handler(builder) {
+        writeSeoFiles({ clientDir: builder.environments.client.config.build.outDir })
+      },
+    },
+  }
+}
 
 export default defineConfig({
   server: {
@@ -27,6 +47,7 @@ export default defineConfig({
       prerender: { enabled: true, failOnError: true },
     }),
     viteReact(),
+    seoFiles(),
   ],
 
   test: {

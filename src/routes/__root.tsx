@@ -19,9 +19,12 @@ export const Route = createRootRoute({
       { property: 'og:title', content: site.defaultTitle },
       { property: 'og:description', content: site.description },
       { property: 'og:image', content: siteUrl(site.assets.openGraphImage) },
+      { property: 'og:image:width', content: String(site.assets.openGraphImageWidth) },
+      { property: 'og:image:height', content: String(site.assets.openGraphImageHeight) },
       { property: 'og:image:alt', content: `${site.wordmark} | ${site.role}` },
       { property: 'og:url', content: siteUrl() },
       { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'theme-color', content: site.themeColor },
     ],
     links: [
       { rel: 'stylesheet', href: styles },

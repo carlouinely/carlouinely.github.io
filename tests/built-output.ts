@@ -53,12 +53,17 @@ export function requireFreshBuild(): void {
   }
 }
 
-export function readClientPage(path: string): string {
+/** Any file the build shipped under `dist/client`, read through the same seam as a page. */
+export function readBuiltFile(path: string): string {
   const file = join(clientDir, path)
   if (!existsSync(file)) {
-    throw new Error(`Expected a built page at dist/client/${path}, but it was not found.`)
+    throw new Error(`Expected a built file at dist/client/${path}, but it was not found.`)
   }
   return readFileSync(file, 'utf8')
+}
+
+export function readClientPage(path: string): string {
+  return readBuiltFile(path)
 }
 
 export type BuiltPage = {

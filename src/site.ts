@@ -1,4 +1,10 @@
 /**
+ * The owner's location, kept structured so the hero copy and the Person
+ * structured data can never disagree about where they are.
+ */
+const address = { locality: 'Cebu', country: 'Philippines' } as const
+
+/**
  * Every volatile site value lives here. Swapping the wordmark, email, GitHub
  * URL, canonical origin, title, description, availability label, or shared
  * brand asset is a one-file edit; nothing else hard-codes them.
@@ -9,7 +15,9 @@ export const site = {
 
   role: 'Full-Stack Engineer',
 
-  location: 'Cebu, Philippines',
+  location: `${address.locality}, ${address.country}`,
+
+  address,
 
   // TODO(placeholder:email): replace with a real, deliverable address before launch.
   // The address on the current CV must never enter git history. See PLACEHOLDERS.md.
@@ -27,6 +35,12 @@ export const site = {
 
   availability: 'Open to full-time roles',
 
+  /** The university the About copy names, for the Person structured data. */
+  alumniOf: 'University of San Carlos',
+
+  /** The browser chrome colour, matching the Pumice page background. */
+  themeColor: '#e2e2df',
+
   /** Shared brand assets referenced from the document head. */
   assets: {
     // TODO(placeholder:favicon): replace with a real mark. See PLACEHOLDERS.md.
@@ -35,6 +49,9 @@ export const site = {
     appleTouchIcon: '/apple-touch-icon.png',
     // TODO(placeholder:open-graph-image): replace with a real share image. See PLACEHOLDERS.md.
     openGraphImage: '/og-image.png',
+    // Declared in the head so crawlers can lay out a share card without fetching it.
+    openGraphImageWidth: 1200,
+    openGraphImageHeight: 630,
   },
 } as const
 

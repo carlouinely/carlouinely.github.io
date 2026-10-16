@@ -2,7 +2,7 @@ import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { Media } from '~src/components/Media'
 import { adjacentProjects, findProject } from '~src/content/index'
 import type { Project } from '~src/content/projects'
-import { pageHead } from '~src/meta'
+import { articleStructuredData, breadcrumbStructuredData, jsonLd, pageHead } from '~src/meta'
 import { site } from '~src/site'
 
 export const Route = createFileRoute('/projects/$slug')({
@@ -13,11 +13,15 @@ export const Route = createFileRoute('/projects/$slug')({
     const project = findProject(params.slug)
     if (!project) return {}
 
-    return pageHead({
-      title: `${project.title} | ${site.wordmark}`,
-      description: project.summary,
-      path: `/projects/${project.slug}`,
-    })
+    return {
+      ...pageHead({
+        title: `${project.title} | ${site.wordmark}`,
+        description: project.summary,
+        path: `/projects/${project.slug}`,
+        ogType: 'article',
+      }),
+      scripts: [jsonLd(breadcrumbStructuredData(project)), jsonLd(articleStructuredData(project))],
+    }
   },
   component: CaseStudy,
 })

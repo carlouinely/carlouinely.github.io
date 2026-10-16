@@ -2,13 +2,14 @@ import { MountainGlyph } from '~src/components/glyphs'
 import { site } from '~src/site'
 
 /** The footer's five entry points, in scan order. */
-const LINKS = [
+const LINKS: ReadonlyArray<{ label: string; href: string; rel?: string }> = [
   { label: 'Projects', href: '/projects' },
   { label: 'About me', href: '/#about' },
   { label: "Where I've worked", href: '/#experience' },
   { label: 'Email', href: `mailto:${site.email}` },
-  { label: 'GitHub', href: site.github },
-] as const
+  // `rel="me"` marks the GitHub profile as the same person this site is about.
+  { label: 'GitHub', href: site.github, rel: 'me' },
+]
 
 /**
  * The page closes with the wordmark, the five ways back into the site, and the
@@ -28,7 +29,11 @@ export function Footer() {
           <ul className="flex flex-wrap gap-x-16 gap-y-8">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="font-dm-sans text-body text-obsidian underline">
+                <a
+                  href={link.href}
+                  rel={link.rel}
+                  className="font-dm-sans text-body text-obsidian underline"
+                >
                   {link.label}
                 </a>
               </li>

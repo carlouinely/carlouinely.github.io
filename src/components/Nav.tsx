@@ -89,6 +89,7 @@ export function Nav() {
         <a
           href={site.github}
           aria-label="GitHub"
+          rel="me"
           className="hidden items-center px-12 py-4 text-obsidian md:flex"
         >
           <GitHubGlyph />

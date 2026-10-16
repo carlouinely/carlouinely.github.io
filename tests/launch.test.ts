@@ -1,10 +1,12 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { findProject, projects } from '~src/content/index'
+import type { Project } from '~src/content/projects'
 import { projectsIndex, site, siteUrl } from '~src/site'
 import {
   builtPages,
   htmlToText,
   pageExists,
+  readBuiltFile,
   readClientPage,
   requireFreshBuild,
 } from './built-output'
@@ -74,8 +76,25 @@ function metaDescriptions(html: string): string[] {
     .map((meta) => htmlToText(meta.content ?? ''))
 }
 
-function metaContent(html: string, property: string): string {
-  const meta = tags(head(html), 'meta').find((tag) => tag.property === property)
+type JsonLd = { '@type'?: string; [key: string]: unknown }
+
+/** Every JSON-LD block in a page, parsed. */
+function jsonLd(html: string): JsonLd[] {
+  return [
+    ...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g),
+  ].map((match) => JSON.parse(match[1]) as JsonLd)
+}
+
+/** The Project a Case Study route was built from. */
+function projectFor(path: string): Project {
+  const project = findProject(path.replace(/^\/projects\//, ''))
+  if (!project) throw new Error(`No Project for the built route ${path}.`)
+  return project
+}
+
+/** The content of the first meta tag keyed by `property` or `name`, or an empty string. */
+function metaContent(html: string, key: string): string {
+  const meta = tags(head(html), 'meta').find((tag) => tag.property === key || tag.name === key)
   return meta ? htmlToText(meta.content ?? '') : ''
 }
 
@@ -143,6 +162,24 @@ describe('per-route metadata', () => {
       expect(metaContent(page.html, 'og:url')).toBe(siteUrl(page.path))
     }
   })
+
+  it('gives every route the full social metadata set', () => {
+    for (const page of pages()) {
+      const ogType = page.path.startsWith('/projects/') ? 'article' : 'website'
+
+      expect(metaContent(page.html, 'og:type')).toBe(ogType)
+      expect(metaContent(page.html, 'og:image')).toBe(siteUrl(site.assets.openGraphImage))
+      expect(metaContent(page.html, 'og:image:width')).toBe(String(site.assets.openGraphImageWidth))
+      expect(metaContent(page.html, 'og:image:height')).toBe(
+        String(site.assets.openGraphImageHeight),
+      )
+      expect(metaContent(page.html, 'og:image:alt')).toBe(`${site.wordmark} | ${site.role}`)
+      expect(metaContent(page.html, 'twitter:card')).toBe('summary_large_image')
+      expect(metaContent(page.html, 'twitter:title')).toBe(page.expected.title)
+      expect(metaContent(page.html, 'twitter:description')).toBe(page.expected.description)
+      expect(metaContent(page.html, 'theme-color')).toBe(site.themeColor)
+    }
+  })
 })
 
 describe('the share and install surface', () => {
@@ -166,6 +203,74 @@ describe('the share and install surface', () => {
     }
 
     expect(pageExists(new URL(image).pathname)).toBe(true)
+  })
+})
+
+describe('structured data', () => {
+  it('describes the owner as a Person on the home page', () => {
+    const person = jsonLd(readClientPage('index.html')).find((block) => block['@type'] === 'Person')
+
+    expect(person).toBeDefined()
+    expect(person?.['@context']).toBe('https://schema.org')
+    expect(person?.name).toBe(site.wordmark)
+    expect(person?.jobTitle).toBe(site.role)
+    expect(person?.url).toBe(siteUrl('/'))
+    expect(person?.address).toEqual(
+      expect.objectContaining({ '@type': 'PostalAddress', addressCountry: site.address.country }),
+    )
+    expect(person?.alumniOf).toEqual(
+      expect.objectContaining({ '@type': 'CollegeOrUniversity', name: site.alumniOf }),
+    )
+    expect(person?.sameAs).toContain(site.github)
+  })
+
+  it('describes every Case Study with a BreadcrumbList and an Article', () => {
+    for (const page of pages().filter((candidate) => candidate.path.startsWith('/projects/'))) {
+      const project = projectFor(page.path)
+      const blocks = jsonLd(page.html)
+      const breadcrumb = blocks.find((block) => block['@type'] === 'BreadcrumbList')
+      const article = blocks.find((block) => block['@type'] === 'Article')
+
+      expect(breadcrumb?.itemListElement).toEqual([
+        expect.objectContaining({ position: 1, item: siteUrl('/') }),
+        expect.objectContaining({ position: 2, item: siteUrl('/projects') }),
+        expect.objectContaining({ position: 3, item: siteUrl(page.path) }),
+      ])
+
+      expect(article?.headline).toBe(project.title)
+      expect(article?.description).toBe(project.summary)
+      expect(article?.mainEntityOfPage).toBe(siteUrl(page.path))
+    }
+  })
+})
+
+describe('the discoverability files', () => {
+  it('lists exactly the shipped routes in the sitemap, from the site origin', () => {
+    const locations = [...readBuiltFile('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => match[1],
+    )
+
+    expect(locations).toEqual(builtPages().map((page) => siteUrl(page.path)))
+  })
+
+  it('points robots.txt at the sitemap', () => {
+    const robots = readBuiltFile('robots.txt')
+
+    expect(robots).toContain('User-agent: *')
+    expect(robots).toContain(`Sitemap: ${siteUrl('/sitemap.xml')}`)
+  })
+})
+
+describe('the identity link', () => {
+  it('marks every GitHub link as the owner with rel="me"', () => {
+    for (const page of pages()) {
+      const github = tags(page.html, 'a').filter((anchor) => anchor.href === site.github)
+
+      expect(github.length).toBeGreaterThan(0)
+      for (const anchor of github) {
+        expect((anchor.rel ?? '').split(/\s+/)).toContain('me')
+      }
+    }
   })
 })
 
