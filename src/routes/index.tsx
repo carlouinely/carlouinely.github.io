@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { About } from '~src/components/About'
+import { Experience } from '~src/components/Experience'
 import { Hero } from '~src/components/Hero'
 import { projects } from '~src/content/index'
 
@@ -12,8 +14,7 @@ function Home() {
       <Hero />
 
       {/* Section landmarks the nav anchors resolve to. Work carries the interim
-          Project list until the Project cards land; Experience and About are
-          filled by their own tickets. */}
+          Project list until the Project cards land. */}
       <section id="work" aria-label="Things I've built" className="mx-auto max-w-page px-24 py-48">
         <ul>
           {projects.map((project) => (
@@ -26,8 +27,8 @@ function Home() {
         </ul>
       </section>
 
-      <section id="experience" aria-label="Experience" />
-      <section id="about" aria-label="About" />
+      <Experience />
+      <About />
     </main>
   )
 }
