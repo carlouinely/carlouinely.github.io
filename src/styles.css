@@ -53,7 +53,9 @@
   --leading-heading-3xl: 0.95;
   --leading-display: 0.94;
 
-  --tracking-heading: 0.64px;
+  /* Positive tracking is documented at 0.64px at 32px and scaling proportionally
+     to ~3.78px at the 189px display size, so the token is em-based. */
+  --tracking-heading: 0.02em;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -101,6 +103,17 @@
 }
 
 @layer components {
+  /* The signature Caldera motif: orange halftone dots over the plasma-violet to
+     ember gradient, used at hero scale for brand artwork and Placeholders. */
+  .media-halftone {
+    background-image:
+      radial-gradient(circle, var(--color-ember) 1.5px, transparent 1.6px),
+      linear-gradient(45deg, var(--color-plasma-violet), var(--color-ember));
+    background-size:
+      10px 10px,
+      100% 100%;
+  }
+
   /* The reader of a Case Study gets the same type and colour language as the
      rest of the site, applied to MDX output whose markup we do not control. */
   .prose {

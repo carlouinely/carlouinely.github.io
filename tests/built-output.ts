@@ -85,6 +85,11 @@ export function internalLinks(html: string): string[] {
   return [...new Set(links)]
 }
 
+/** Every `id` a visitor could jump to with an anchor. */
+export function elementIds(html: string): string[] {
+  return [...html.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1])
+}
+
 /** Resolve a site-relative link the way GitHub Pages serves the prerendered output. */
 export function pageExists(href: string): boolean {
   const path = href.split(/[?#]/)[0]

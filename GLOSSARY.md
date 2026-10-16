@@ -5,7 +5,7 @@ The personal portfolio site of Jan Carlo Juab: a single recruiter-facing home pa
 ## Language
 
 **Wordmark**:
-The site's brand name, rendered as `carlouinely`. It is deliberately not the person's legal name; `Jan Carlo Juab` appears only in CV and About copy.
+The site's brand name, rendered as `carlouinely`. It is deliberately not the person's legal name; `Jan Carlo Juab` appears in the hero subline, About, and CV copy.
 _Avoid_: Logo, handle, username, brand
 
 **Project**:

@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react'
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
+import { Footer } from '~src/components/Footer'
+import { Nav } from '~src/components/Nav'
+import { site } from '~src/site'
 import styles from '~src/styles.css?url'
 
 export const Route = createRootRoute({
@@ -7,7 +10,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'carlouinely' },
+      { title: site.defaultTitle },
+      { name: 'description', content: site.description },
     ],
     links: [{ rel: 'stylesheet', href: styles }],
   }),
@@ -17,7 +21,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
+      <Nav />
       <Outlet />
+      <Footer />
     </RootDocument>
   )
 }
