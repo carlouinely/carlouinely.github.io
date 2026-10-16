@@ -26,3 +26,15 @@ Study header.
 The loader in `src/content/projects.ts` validates required fields and fails the
 build with the offending file and field named. The MDX body is compiled by
 `@mdx-js/rollup`; an unparseable body fails the build too.
+
+## Media in a body
+
+Place media in the body where it is relevant rather than in a fixed slot:
+
+```mdx
+<Media kind="image" ratio="16 / 9" label="WILDFIRE dashboard screenshot" />
+```
+
+The Case Study route supplies `Media`, so a body never imports it. With no `src`
+it renders a labelled Placeholder; adding a `src` swaps in the real asset. Keep
+the asset listed in `PLACEHOLDERS.md` while it is still a Placeholder.

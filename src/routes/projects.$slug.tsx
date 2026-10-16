@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
+import { Media } from '~src/components/Media'
 import { findProject } from '~src/content/index'
 
 export const Route = createFileRoute('/projects/$slug')({
@@ -28,7 +29,7 @@ function CaseStudy() {
           {project.credit ? <p>In collaboration with {project.credit}</p> : null}
         </header>
         <div className="prose">
-          <CaseStudyBody />
+          <CaseStudyBody components={{ Media }} />
         </div>
       </article>
     </main>

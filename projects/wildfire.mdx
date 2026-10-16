@@ -18,14 +18,47 @@ repo: https://github.com/jcajuab/wildfire-frontend
 live: https://wildfire.dcism.org/
 ---
 
-## One dashboard for every screen
+## Announcements used to move one screen at a time
 
-University announcements used to be updated one display at a time. **WILDFIRE**
-is a centralized digital signage platform that publishes to every screen from a
-single dashboard.
+A campus runs on announcements — class suspensions, org events, deadlines — and
+the screens that carry them were updated one display at a time. Every message
+meant repeating the same work across the fleet, and a screen that was missed kept
+showing something that was no longer true.
 
-Screens run on Raspberry Pi devices attached to ordinary monitors, so a campus
-can reuse the hardware it already owns. The dashboard publishes text, images,
-video, and PDFs, schedules content per screen or per group, onboards a new screen
-by link, and monitors the fleet's health remotely. A campus-wide emergency
-override can interrupt every screen at once.
+**WILDFIRE** is a centralized digital signage platform built so the whole campus
+can be updated from one dashboard.
+
+## Publishing to a fleet, not to a screen
+
+The dashboard is built around the unit a campus actually thinks in: a set of
+screens. A notice is written once, scheduled, and published to the screens or
+groups that should carry it, whether that is one hallway or the whole campus.
+New screens join by link, and the dashboard tracks which are online and playing,
+so a display that has lost power is visible instead of quietly showing an old
+notice.
+
+{/* TODO(placeholder): replace with a real screenshot of the dashboard by adding a `src`. See PLACEHOLDERS.md. */}
+
+<Media kind="image" ratio="16 / 9" label="WILDFIRE dashboard screenshot" />
+
+The emergency override is the exception the rest of the design has to respect:
+one action that interrupts every screen at once, ahead of whatever was
+scheduled.
+
+## Reusing the hardware a campus already owns
+
+Purpose-built signage hardware is expensive, and a campus rarely has the budget
+to replace every display. WILDFIRE drives each screen from a Raspberry Pi
+attached to an ordinary monitor, so the screens already mounted in hallways and
+lobbies become part of the fleet.
+
+Behind the dashboard, the API is Bun and Hono over MySQL through Drizzle ORM,
+which keeps the schema typed from the database to the interface. The dashboard is
+Next.js and TypeScript, so the same language runs from the query to the screen.
+
+## The outcome
+
+Announcements now reach every affected screen from one dashboard instead of one
+display at a time, and the emergency override gives the campus a channel it did
+not have before. The platform is live at
+[wildfire.dcism.org](https://wildfire.dcism.org/).

@@ -1,11 +1,20 @@
 import type { ComponentType } from 'react'
 
 /**
+ * Props an MDX body accepts. `components` maps the element names a body uses to
+ * the components that render them, so a Case Study body carries no imports from
+ * `src/` and content stays independent of the source tree.
+ */
+export type CaseStudyBodyProps = {
+  components?: Record<string, unknown>
+}
+
+/**
  * One compiled MDX module, as imported from `projects/*.mdx`: the rendered
  * Case Study body plus the frontmatter `remark-mdx-frontmatter` exports beside it.
  */
 export type ProjectModule = {
-  default: ComponentType
+  default: ComponentType<CaseStudyBodyProps>
   frontmatter?: unknown
 }
 
@@ -26,7 +35,7 @@ export type Project = {
   repo: string | null
   live: string | null
   credit: string | null
-  CaseStudyBody: ComponentType
+  CaseStudyBody: ComponentType<CaseStudyBodyProps>
 }
 
 const REQUIRED_FIELDS = ['title', 'summary', 'tag', 'year', 'order'] as const
