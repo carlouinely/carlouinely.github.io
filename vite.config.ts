@@ -54,14 +54,18 @@ export default defineConfig({
     include: ['tests/**/*.test.ts'],
   },
 
+  // Vendored skills under `.agents/skills/` are third-party content, and
+  // `skills-lock.json` pins each one by content hash. Reformatting them to
+  // satisfy this project's rules would diverge the install from the version the
+  // lock records, so they are left exactly as installed.
   fmt: {
-    ignorePatterns: ['routeTree.gen.ts'],
+    ignorePatterns: ['routeTree.gen.ts', '.agents/skills/**'],
     semi: false,
     singleQuote: true,
     sortPackageJson: true,
   },
   lint: {
-    ignorePatterns: ['routeTree.gen.ts'],
+    ignorePatterns: ['routeTree.gen.ts', '.agents/skills/**'],
     jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
     rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
     options: { typeAware: true, typeCheck: true },
