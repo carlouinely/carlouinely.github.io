@@ -30,7 +30,7 @@ describe('the home page frame', () => {
   it('renders the location and the availability badge', () => {
     const text = htmlToText(home())
     expect(text).toContain('Cebu, Philippines')
-    expect(text).toContain('OPEN TO FULL-TIME ROLES')
+    expect(text).toContain('Open to full-time roles')
   })
 
   it('points every nav anchor at an id that exists on the page', () => {

@@ -16,28 +16,28 @@ const CARDS = [
   {
     employer: 'DEVGO Studio',
     title: 'Software Engineer',
-    dates: ['Mar 2024 – Aug 2025', 'Mar 2026 – present'],
+    dates: ['Mar 2024 to Aug 2025', 'Mar 2026 to now'],
     engagement: 'Freelance',
     outcome: 'offline-capable ERP',
   },
   {
     employer: 'Zaigo',
     title: 'Software Engineer',
-    dates: ['Sep 2025 – Feb 2026'],
+    dates: ['Sep 2025 to Feb 2026'],
     engagement: 'Full-time',
     outcome: 'long-term retainer',
   },
   {
     employer: 'Project 11 Advertising',
     title: 'DevOps Engineer',
-    dates: ['May 2025 – Aug 2025'],
+    dates: ['May 2025 to Aug 2025'],
     engagement: 'Freelance',
     outcome: 'monitoring',
   },
   {
     employer: 'Velez College Supreme Student Council',
     title: 'WordPress Developer',
-    dates: ['Sep 2024 – Oct 2024'],
+    dates: ['Sep 2024 to Oct 2024'],
     engagement: 'Freelance',
     outcome: 'e-commerce platform',
   },
@@ -89,8 +89,8 @@ describe('the Experience section', () => {
 
     const devgo = cards().find((html) => html.includes('DEVGO Studio')) ?? ''
     const devgoText = htmlToText(devgo)
-    expect(devgoText).toContain('Mar 2024 – Aug 2025')
-    expect(devgoText).toContain('Mar 2026 – present')
+    expect(devgoText).toContain('Mar 2024 to Aug 2025')
+    expect(devgoText).toContain('Mar 2026 to now')
     expect(devgoText).toContain('Freelance')
   })
 

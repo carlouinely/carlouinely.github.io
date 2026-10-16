@@ -16,7 +16,7 @@ export function Hero() {
 
         <p className="mt-24 font-dm-sans text-body text-obsidian">{site.location}</p>
 
-        <p className="mt-16 w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+        <p className="mt-16 w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian uppercase">
           {site.availability}
         </p>
 

@@ -3,14 +3,14 @@ import { about } from '~src/content/about'
 
 /**
  * About: the summary, the stack grouped for keyword-matching, a prose passage on
- * how the work actually happens, a single line for the degree, and the portrait
- * slot — a Placeholder through Media until a real duotone portrait exists.
+ * how the work actually happens, and the portrait slot: a Placeholder through
+ * Media until a real duotone portrait exists.
  */
 export function About() {
   return (
-    <section id="about" aria-label="About" className="mx-auto max-w-page px-24 py-48">
+    <section id="about" aria-label="About me" className="mx-auto max-w-page px-24 py-48">
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
-        About
+        About me
       </h2>
 
       <div className="mt-40 grid gap-40 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
@@ -40,8 +40,6 @@ export function About() {
               {paragraph}
             </p>
           ))}
-
-          <p className="mt-32 font-system-sans-serif text-caption text-obsidian">{about.degree}</p>
         </div>
 
         {/* The portrait slot. */}

@@ -7,9 +7,13 @@ import { experience } from '~src/content/experience'
  */
 export function Experience() {
   return (
-    <section id="experience" aria-label="Experience" className="mx-auto max-w-page px-24 py-48">
+    <section
+      id="experience"
+      aria-label="Where I've worked"
+      className="mx-auto max-w-page px-24 py-48"
+    >
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
-        Experience
+        Where I&apos;ve worked
       </h2>
 
       <div className="mt-40 flex flex-col gap-24">

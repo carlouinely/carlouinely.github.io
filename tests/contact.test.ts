@@ -29,7 +29,7 @@ describe('the contact strip', () => {
 
   it('carries the heading, the email, the GitHub link, and the CV action', () => {
     const text = htmlToText(contactRegion())
-    expect(text).toContain('Get in touch')
+    expect(text).toContain("Let's talk")
     expect(text).toContain(site.email)
     expect(text).toContain('Download CV')
     expect(contactRegion()).toContain(`href="${site.github}"`)

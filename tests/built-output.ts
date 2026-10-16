@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, relative, sep } from 'node:path'
 
 const root = process.cwd()
 export const clientDir = join(root, 'dist', 'client')
@@ -59,6 +59,31 @@ export function readClientPage(path: string): string {
     throw new Error(`Expected a built page at dist/client/${path}, but it was not found.`)
   }
   return readFileSync(file, 'utf8')
+}
+
+export type BuiltPage = {
+  /** The route path, as it appears in canonical and Open Graph URLs. */
+  path: string
+  html: string
+}
+
+/**
+ * Every page the build shipped, as its route path and delivered HTML, sorted by
+ * path. Deriving from the built output means a new route is covered the moment
+ * it ships, with no source list to keep in step.
+ */
+export function builtPages(): BuiltPage[] {
+  return walkFiles(clientDir)
+    .filter((file) => file.endsWith(`${sep}index.html`))
+    .map((file) => {
+      const relativePath = relative(clientDir, file).split(sep).join('/')
+      return {
+        path:
+          relativePath === 'index.html' ? '/' : `/${relativePath.replace(/\/index\.html$/, '')}`,
+        html: readFileSync(file, 'utf8'),
+      }
+    })
+    .sort((a, b) => a.path.localeCompare(b.path))
 }
 
 /** The delivered home page from its start marker to an end marker, end exclusive. */

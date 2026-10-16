@@ -29,7 +29,7 @@ function paragraphs(): string[] {
 describe('the About section', () => {
   it('renders the summary with no duration claim', () => {
     const summary = paragraphs()[0] ?? ''
-    expect(summary).toContain('Full-stack engineer')
+    expect(summary).toMatch(/full-stack engineer/i)
     expect(summary).not.toMatch(/\b\d+\+?\s*years?\b/i)
     expect(summary).not.toMatch(/\byears of experience\b/i)
   })
@@ -67,11 +67,11 @@ describe('the About section', () => {
     expect(prose.join(' ')).toContain('Fedora Linux')
   })
 
-  it('states the degree in a single line', () => {
-    const text = htmlToText(aboutRegion())
-    expect(text).toContain('University of San Carlos')
-    expect(text).toContain('Information Technology')
-    expect(text.match(/University of San Carlos/g)).toHaveLength(1)
+  it('states the degree in the summary', () => {
+    const summary = paragraphs()[0] ?? ''
+    expect(summary).toContain('BSIT')
+    expect(summary).toContain('University of San Carlos')
+    expect(summary.match(/University of San Carlos/g)).toHaveLength(1)
   })
 
   it('renders the portrait as a labelled Media Placeholder', () => {

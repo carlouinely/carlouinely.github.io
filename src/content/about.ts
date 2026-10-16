@@ -1,5 +1,5 @@
 /**
- * The About copy. The summary paragraph deliberately makes no duration claim —
+ * The About copy. The summary paragraph deliberately makes no duration claim:
  * nothing here can be disproved by subtracting the dates printed above it. The
  * stack is grouped so a recruiter can keyword-match, and the working-style
  * passage is prose because a tool list cannot describe how the work happens.
@@ -11,7 +11,7 @@ export type StackGroup = {
 
 export const about = {
   summary:
-    'Full-stack engineer who ships production web applications for clients ranging from startups to enterprises, the largest at $5B in ARR. I work across the whole stack — polished frontends, scalable backends, and the CI/CD that connects them — and treat AI as core to the workflow rather than a novelty. My work spans PE-firm clients and music and nightlife brands, plus agentic pipelines that handle lead sourcing, site auditing, and outreach end to end.',
+    "I'm a full-stack engineer from Cebu, Philippines, and a BSIT graduate of the University of San Carlos. I've shipped production web apps for everyone from scrappy startups to a company doing $5B a year. I like working across the whole stack: polished frontends, solid backends, and the CI/CD that holds them together. I treat AI as part of the team, not a party trick. My work has run from PE-firm clients to music and nightlife brands, plus agentic pipelines that source leads, audit sites, and send outreach on their own.",
 
   stack: [
     {
@@ -23,9 +23,7 @@ export const about = {
   ] satisfies StackGroup[],
 
   howIWork: [
-    'I treat agents as a real part of the team rather than a novelty. The day-to-day toolchain runs on DeepSeek and OpenCode Go, with the Pi Coding Agent driving longer multi-step work through agent skills and Model Context Protocol (MCP) servers where a task calls for them. The point is leverage: the agents take the repetitive scaffolding, and I spend the time on the decisions that shape the product.',
-    'The environment is deliberately boring and fast — Fedora Linux, in NeoVim or Zed depending on the shape of the task. NeoVim for long, keyboard-driven sessions; Zed when a lighter editor suits reviewing and writing. The tooling disappears so the work stays in front of me.',
+    'Agents are part of my team, not a novelty. I run on DeepSeek and OpenCode Go day to day, and hand longer multi-step work to the Pi Coding Agent through agent skills and MCP servers when a task needs them. The point is leverage. The agents take the repetitive scaffolding, and I spend my time on the decisions that shape the product.',
+    "My setup is deliberately boring and fast: Fedora Linux, with NeoVim or Zed depending on the shape of the task. NeoVim for long keyboard-driven sessions, Zed when I'm reviewing or writing. The tools get out of the way so the work stays in front of me.",
   ],
-
-  degree: 'Bachelor of Science in Information Technology, University of San Carlos',
 }

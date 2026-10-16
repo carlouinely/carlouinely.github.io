@@ -3,9 +3,9 @@ import { GitHubGlyph, MountainGlyph } from '~src/components/glyphs'
 import { site } from '~src/site'
 
 const SECTIONS = [
-  { label: 'Work', hash: 'work' },
-  { label: 'Experience', hash: 'experience' },
-  { label: 'About', hash: 'about' },
+  { label: "Things I've built", hash: 'work' },
+  { label: "Where I've worked", hash: 'experience' },
+  { label: 'About me', hash: 'about' },
 ] as const
 
 export function Nav() {

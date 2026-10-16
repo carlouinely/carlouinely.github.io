@@ -55,9 +55,9 @@ describe('the Darkroom System Case Study', () => {
     expect(text).toContain('Density readings stay attached to the frame')
   })
 
-  it('renders the body link to the source repository', () => {
+  it('ships no link to the private source repository', () => {
     const html = readClientPage(CASE_STUDY)
-    expect(html).toContain('href="https://github.com/carlouinely/darkroom-system"')
+    expect(html).not.toContain('https://github.com/carlouinely/darkroom-system')
   })
 
   it('credits DEVGO Studio in the header metadata', () => {

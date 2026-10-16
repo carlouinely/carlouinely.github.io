@@ -13,7 +13,7 @@ export const Route = createFileRoute('/projects/$slug')({
     if (!project) return {}
 
     return pageHead({
-      title: `${project.title} — ${site.wordmark}`,
+      title: `${project.title} | ${site.wordmark}`,
       description: project.summary,
       path: `/projects/${project.slug}`,
     })

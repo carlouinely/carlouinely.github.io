@@ -10,10 +10,10 @@ import { site } from '~src/site'
  */
 export function Contact() {
   return (
-    <section id="contact" aria-label="Contact" className="bg-obsidian px-24 py-80">
+    <section id="contact" aria-label="Let's talk" className="bg-obsidian px-24 py-80">
       <div className="mx-auto max-w-page">
         <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-chalk uppercase md:text-heading-2xl">
-          Get in touch
+          Let&apos;s talk
         </h2>
 
         <div className="mt-40 flex flex-wrap items-center gap-24">

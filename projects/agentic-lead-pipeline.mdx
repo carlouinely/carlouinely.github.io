@@ -13,9 +13,9 @@ credit: Zaigo
 
 ## Cold outreach starts with the list
 
-An outreach list is only as good as the prospects on it, and a generic list
-produces generic email. The first message is usually spent convincing someone
-that the sender looked at their site at all.
+An outreach list is only as good as the prospects on it, and a generic list turns
+into generic email. The first message is usually spent proving the sender
+actually looked at their site.
 
 This internal pipeline at **Zaigo** was built so that first message is specific,
 and so the research behind it happens without anyone sitting down to do it.
@@ -23,30 +23,30 @@ and so the research behind it happens without anyone sitting down to do it.
 ## Scoring a website instead of guessing
 
 The pipeline sources prospects and then reads their websites, scoring each one on
-how well it is doing the job its owner needs it to do. A site that already works
-is a poor fit for a rebuild; a low score identifies a business whose web presence
-is holding it back.
+how well it does the job its owner needs it to do. A site that already works is a
+poor fit for a rebuild; a low score points at a business whose web presence is
+holding it back.
 
-That score is the decision point. Prospects below the threshold continue down the
-pipeline, and everyone else is filtered out before any message is written.
+That score is the decision point. Prospects below the threshold keep moving
+through the pipeline, and everyone else drops out before any message is written.
 
 ## The mockup is the first contact
 
-For a low-scoring prospect, the pipeline generates a custom mockup of what their
+For a low-scoring prospect, the pipeline builds a custom mockup of what their
 site could be and emails it to them. Instead of a template claiming their site
-"could be better", the first contact shows a version of the work.
+"could be better", the first contact shows them a version of the work.
 
 {/* TODO(placeholder:mockup-email): replace with a real screenshot of a generated mockup by adding a `src`. See PLACEHOLDERS.md. */}
 
 <Media kind="image" ratio="16 / 9" label="Generated mockup email" />
 
-Sourcing, scoring, and sending run on their own, so a list is worked through
+Sourcing, scoring, and sending run on their own, so a list gets worked through
 while the people behind it do something else. The implementation is TypeScript,
 with language models doing the reading and the mockup generation.
 
 ## The outcome
 
-Outreach starts from evidence about each prospect's actual site rather than a
+Outreach starts from evidence about each prospect's actual site instead of a
 guess from their industry. The first email carries something the recipient can
-look at, and the manual research and message writing that used to precede it is a
-pipeline that runs continuously.
+look at, and the manual research and message writing that used to come before it
+is now a pipeline that runs continuously.

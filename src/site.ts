@@ -20,11 +20,12 @@ export const site = {
   // TODO(placeholder:origin): replace with the custom domain's origin once it exists. See PLACEHOLDERS.md.
   origin: 'https://carlouinely.github.io',
 
-  defaultTitle: 'carlouinely — Full-Stack Engineer',
+  defaultTitle: 'carlouinely | Full-Stack Engineer',
 
-  description: 'Full-stack engineer based in Cebu, Philippines, open to full-time roles.',
+  description:
+    "Full-stack engineer in Cebu, Philippines. I build web apps end to end and I'm open to full-time work.",
 
-  availability: 'OPEN TO FULL-TIME ROLES',
+  availability: 'Open to full-time roles',
 
   /** Shared brand assets referenced from the document head. */
   assets: {

@@ -1,14 +1,12 @@
-import { relative, sep } from 'node:path'
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { findProject, projects } from '~src/content/index'
 import { site, siteUrl } from '~src/site'
 import {
-  clientDir,
+  builtPages,
   htmlToText,
   pageExists,
   readClientPage,
   requireFreshBuild,
-  walkFiles,
 } from './built-output'
 
 /**
@@ -27,17 +25,6 @@ type Page = {
   expected: { title: string; description: string }
 }
 
-/** The route path of every built `index.html`, as it appears in a URL. */
-function builtRoutes(): string[] {
-  return walkFiles(clientDir)
-    .filter((file) => file.endsWith(`${sep}index.html`))
-    .map((file) => {
-      const relativePath = relative(clientDir, file).split(sep).join('/')
-      return relativePath === 'index.html' ? '/' : `/${relativePath.replace(/\/index\.html$/, '')}`
-    })
-    .sort()
-}
-
 function expectedFor(path: string): { title: string; description: string } {
   if (path === '/') return { title: site.defaultTitle, description: site.description }
 
@@ -47,15 +34,11 @@ function expectedFor(path: string): { title: string; description: string } {
       `No metadata expectation for the built route ${path}. Add one to tests/launch.test.ts.`,
     )
   }
-  return { title: `${project.title} — ${site.wordmark}`, description: project.summary }
+  return { title: `${project.title} | ${site.wordmark}`, description: project.summary }
 }
 
 function pages(): Page[] {
-  return builtRoutes().map((path) => ({
-    path,
-    html: readClientPage(path === '/' ? 'index.html' : `${path.replace(/^\//, '')}/index.html`),
-    expected: expectedFor(path),
-  }))
+  return builtPages().map((page) => ({ ...page, expected: expectedFor(page.path) }))
 }
 
 function head(html: string): string {
@@ -125,7 +108,7 @@ beforeAll(() => {
 
 describe('per-route metadata', () => {
   it('covers every built route: the home page and every Project', () => {
-    const routes = builtRoutes()
+    const routes = builtPages().map((page) => page.path)
     expect(routes).toContain('/')
     for (const project of projects) expect(routes).toContain(`/projects/${project.slug}`)
     expect(routes).toHaveLength(projects.length + 1)

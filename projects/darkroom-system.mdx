@@ -14,13 +14,13 @@ credit: DEVGO Studio
 
 ## Why a darkroom in the browser
 
-Film photographers do the hard part in the physical world — exposing, developing,
-sleeving — and then lose the thread the moment the scan lands on a disk. The
-negative is an object with provenance; the file next to it is usually an
-anonymous `IMG_0421.tif`. **Darkroom System** puts the two back together.
+Film photographers do the hard part in the physical world: exposing, developing,
+sleeving. Then the scan lands on a disk and the thread gets lost. The negative is
+an object with a history; the file beside it is usually an anonymous
+`IMG_0421.tif`. **Darkroom System** puts the two back together.
 
-Density readings stay attached to the frame that produced them, so a grade is
-reproducible months later instead of being retyped from a paper log.
+Density readings stay attached to the frame that produced them, so you can
+reproduce a grade months later instead of retyping it from a paper log.
 
 ### What it does
 
@@ -32,8 +32,5 @@ reproducible months later instead of being retyped from a paper log.
 
 The catalogue is a small Postgres schema: a roll has frames, a frame has
 readings, and a reading has a developer, a dilution, and a time. The interface is
-React over a typed query layer, so the shape of a grade is the shape of the data
-rather than a pile of form state.
-
-You can read the implementation in the
-[source repository](https://github.com/carlouinely/darkroom-system).
+React over a typed query layer, so a grade's shape is the data's shape instead of
+a pile of form state.

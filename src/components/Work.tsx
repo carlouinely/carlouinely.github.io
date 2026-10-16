@@ -31,7 +31,9 @@ function ProjectCard({ project }: { project: Project }) {
             {project.title}
           </h3>
           <p className="mt-16 font-dm-sans text-body text-obsidian">{project.summary}</p>
-          <p className="mt-16 font-dm-sans text-body-sm text-obsidian underline">View case study</p>
+          <p className="mt-16 font-dm-sans text-body-sm text-obsidian underline">
+            Read the case study
+          </p>
         </div>
       </Link>
     </article>
