@@ -1,10 +1,22 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Media } from '~src/components/Media'
 import { findProject } from '~src/content/index'
+import { pageHead } from '~src/meta'
+import { site } from '~src/site'
 
 export const Route = createFileRoute('/projects/$slug')({
   loader: ({ params }) => {
     if (!findProject(params.slug)) throw notFound()
+  },
+  head: ({ params }) => {
+    const project = findProject(params.slug)
+    if (!project) return {}
+
+    return pageHead({
+      title: `${project.title} — ${site.wordmark}`,
+      description: project.summary,
+      path: `/projects/${project.slug}`,
+    })
   },
   component: CaseStudy,
 })

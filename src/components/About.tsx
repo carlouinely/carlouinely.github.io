@@ -45,7 +45,7 @@ export function About() {
         </div>
 
         {/* The portrait slot. */}
-        {/* TODO(placeholder): add a `src` to the Media prop once a real duotone portrait exists. See PLACEHOLDERS.md. */}
+        {/* TODO(placeholder:portrait): add a `src` to the Media prop once a real duotone portrait exists. See PLACEHOLDERS.md. */}
         <Media kind="halftone" ratio="4 / 5" label="Portrait" />
       </div>
     </section>

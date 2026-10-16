@@ -32,7 +32,7 @@ export function Hero() {
       </div>
 
       {/* The hero card is reserved for brand artwork, never a portrait. */}
-      {/* TODO(placeholder): replace the placeholder with real brand artwork by adding a `src`. See PLACEHOLDERS.md. */}
+      {/* TODO(placeholder:hero-artwork): replace the placeholder with real brand artwork by adding a `src`. See PLACEHOLDERS.md. */}
       <Media kind="halftone" ratio="4 / 3" label="Hero brand artwork" />
     </section>
   )

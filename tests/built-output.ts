@@ -6,12 +6,13 @@ export const clientDir = join(root, 'dist', 'client')
 
 const BUILD_INPUTS = ['src', 'projects', 'package.json', 'tsconfig.json', 'vite.config.ts']
 
-function walk(dir: string): string[] {
+/** Every file under a directory, skipping `node_modules` and dot-folders. */
+export function walkFiles(dir: string): string[] {
   const files: string[] = []
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue
     const path = join(dir, entry.name)
-    if (entry.isDirectory()) files.push(...walk(path))
+    if (entry.isDirectory()) files.push(...walkFiles(path))
     else files.push(path)
   }
   return files
@@ -20,7 +21,7 @@ function walk(dir: string): string[] {
 function newestMtime(path: string): number {
   const stats = statSync(path)
   if (!stats.isDirectory()) return stats.mtimeMs
-  return walk(path).reduce(
+  return walkFiles(path).reduce(
     (newest, file) => Math.max(newest, statSync(file).mtimeMs),
     stats.mtimeMs,
   )

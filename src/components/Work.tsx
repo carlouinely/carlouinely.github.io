@@ -36,7 +36,7 @@ function ProjectCard({ project }: { project: Project }) {
         params={{ slug: project.slug }}
         className={`group flex h-full flex-col rounded-cards bg-limestone p-40 ${layout.link}`}
       >
-        {/* TODO(placeholder): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
+        {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
         <Media
           kind={layout.kind}
           ratio={layout.ratio}

@@ -3,7 +3,7 @@
  * It renders as a disabled control: it is not focusable, cannot be activated,
  * and references no CV file, so it does not present itself as usable.
  *
- * TODO(placeholder): publish a redacted CV, then turn this into a real link.
+ * TODO(placeholder:cv-action): publish a redacted CV, then turn this into a real link.
  * See PLACEHOLDERS.md.
  */
 export function CvAction() {
