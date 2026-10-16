@@ -63,6 +63,14 @@ describe('the home page frame', () => {
     expect(html).not.toContain('Placeholder:')
   })
 
+  it("renders the sections in the order About me, Things I've built, Where I've worked, Let's talk", () => {
+    const html = home()
+    const order = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1])
+
+    expect(order).toEqual(['about', 'work', 'experience', 'contact'])
+    expect(html.indexOf('aria-label="Hero brand artwork"')).toBeLessThan(html.indexOf('id="about"'))
+  })
+
   it('renders the CV action inert, not as an anchor', () => {
     const html = home()
     const anchorBodies = [...html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)].map((match) => match[1])

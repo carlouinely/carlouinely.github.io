@@ -45,7 +45,7 @@ const CARDS = [
 
 /** The Experience landmark and everything up to the next section. */
 function experienceRegion(): string {
-  return homeSection('experience', 'about')
+  return homeSection('experience', 'contact')
 }
 
 /** The rendered cards, in document order. */

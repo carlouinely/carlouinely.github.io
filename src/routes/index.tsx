@@ -16,9 +16,9 @@ function Home() {
   return (
     <main>
       <Hero />
+      <About />
       <Work />
       <Experience />
-      <About />
       <Contact />
     </main>
   )

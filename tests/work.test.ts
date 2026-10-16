@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
-import { projects } from '~src/content/index'
+import { highlights, projects } from '~src/content/index'
 import {
   cardsIn,
   homeSection,
@@ -27,7 +27,7 @@ function workRegion(): string {
   return homeSection('work', 'experience')
 }
 
-/** The rendered cards, in document order. */
+/** The rendered Highlight cards, in document order. */
 function cards(): string[] {
   return cardsIn(workRegion())
 }
@@ -86,23 +86,38 @@ function caseStudyText(slug: string): string {
 }
 
 describe('the work section', () => {
-  it('renders one card per Project, in the order the loader produces', () => {
-    expect(cards()).toHaveLength(projects.length)
+  it('renders one card per Highlight, in the order the loader produces', () => {
+    const expected = highlights
+    expect(cards()).toHaveLength(expected.length)
 
-    const positions = projects.map((project) => workRegion().indexOf(project.title))
+    const positions = expected.map((project) => workRegion().indexOf(project.title))
     expect(positions.every((position) => position !== -1)).toBe(true)
     expect(positions).toEqual([...positions].sort((a, b) => a - b))
   })
 
-  it('links every card to a Case Study that exists in the built output', () => {
-    for (const project of projects) {
+  it('leaves the Projects that are not Highlights off the home page', () => {
+    const hidden = projects.filter((project) => !project.highlight)
+    expect(hidden.length).toBeGreaterThan(0)
+    for (const project of hidden) expect(workRegion()).not.toContain(project.title)
+  })
+
+  it('links every Highlight card to a Case Study that exists in the built output', () => {
+    for (const project of highlights) {
       expect(internalLinks(cardFor(project.title))).toContain(`/projects/${project.slug}`)
       expect(pageExists(`/projects/${project.slug}`)).toBe(true)
     }
   })
 
-  it('renders each thumbnail as a Placeholder until a real image exists', () => {
-    for (const project of projects) {
+  it('links to the Projects Index, where every remaining Project stays reachable', () => {
+    expect(internalLinks(workRegion())).toContain('/projects')
+    expect(pageExists('/projects')).toBe(true)
+
+    const indexLinks = internalLinks(readClientPage('projects/index.html'))
+    for (const project of projects) expect(indexLinks).toContain(`/projects/${project.slug}`)
+  })
+
+  it('renders each Highlight thumbnail as a Placeholder until a real image exists', () => {
+    for (const project of highlights) {
       const card = cardFor(project.title)
       if (project.thumbnail) {
         expect(card).toContain(`src="${project.thumbnail}"`)

@@ -9,6 +9,9 @@ const modules = import.meta.glob('~projects/*.mdx', { eager: true }) as Record<
 
 export const projects: Project[] = loadProjects(modules)
 
+/** The Projects the home page surfaces: the loader's Highlights, in order. */
+export const highlights: Project[] = projects.filter((project) => project.highlight)
+
 export function findProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug)
 }

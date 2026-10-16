@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Media } from '~src/components/Media'
-import { projects } from '~src/content/index'
+import { highlights } from '~src/content/index'
 import type { Project } from '~src/content/projects'
 
 /**
@@ -41,9 +41,10 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 /**
- * The home page's work section: every Project, in frontmatter order, as a card
- * that links to its Case Study. Adding, removing, or reordering a Project is a
- * content edit under `projects/`, never a change here.
+ * The home page's work section: only the Highlights, in the order the loader
+ * produces, as cards that link to their Case Studies. The "See everything I've
+ * built" link is the way to the full catalogue. Marking a Project as a
+ * Highlight is a content edit under `projects/`, never a change here.
  */
 export function Work() {
   return (
@@ -53,7 +54,7 @@ export function Work() {
       </h2>
 
       <div className="mt-40 grid gap-24 md:grid-cols-2">
-        {projects.map((project) => (
+        {highlights.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>

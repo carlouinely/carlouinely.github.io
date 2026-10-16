@@ -13,11 +13,11 @@ Something the owner built and shipped. Every Project has exactly one Case Study.
 _Avoid_: Work, portfolio piece, side project
 
 **Highlight**:
-One of the three Projects surfaced on the home page under "Things I've built", each linking to the Projects Index rather than carrying its own card. A Highlight is always a Project; most Projects are not Highlights.
+One of the three Projects surfaced on the home page under "Things I've built", each a card that links to its Case Study. A Highlight is always a Project; most Projects are not Highlights.
 _Avoid_: Feature, featured, pinned, selected work
 
 **Projects Index**:
-The page at `/projects` listing every Project as a row that expands to its summary and Case Study link. It is the catalogue the home page's Highlights point at.
+The page at `/projects` listing every Project as a row that expands to its summary and Case Study link. It is the catalogue the home page's work section links to.
 _Avoid_: Archive, catalogue, work page, listing
 
 **Case Study**:
