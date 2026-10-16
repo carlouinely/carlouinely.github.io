@@ -1,4 +1,5 @@
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite-plus'
 import viteReact from '@vitejs/plugin-react'
 
@@ -10,13 +11,13 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
+    tailwindcss(),
     tanstackStart({
       prerender: { enabled: true, failOnError: true },
     }),
     viteReact(),
   ],
 
-  // VITE+
   fmt: {
     ignorePatterns: ['routeTree.gen.ts'],
     semi: false,
