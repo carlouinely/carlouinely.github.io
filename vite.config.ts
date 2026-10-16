@@ -1,7 +1,10 @@
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
+import mdx from '@mdx-js/rollup'
 import { defineConfig } from 'vite-plus'
 import viteReact from '@vitejs/plugin-react'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 export default defineConfig({
   server: {
@@ -11,12 +14,17 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
+    mdx({ remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter] }),
     tailwindcss(),
     tanstackStart({
       prerender: { enabled: true, failOnError: true },
     }),
     viteReact(),
   ],
+
+  test: {
+    include: ['tests/**/*.test.ts'],
+  },
 
   fmt: {
     ignorePatterns: ['routeTree.gen.ts'],

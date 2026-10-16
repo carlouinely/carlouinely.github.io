@@ -99,3 +99,60 @@
     font-weight: var(--font-weight-medium);
   }
 }
+
+@layer components {
+  /* The reader of a Case Study gets the same type and colour language as the
+     rest of the site, applied to MDX output whose markup we do not control. */
+  .prose {
+    max-width: 68ch;
+    color: var(--color-obsidian);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .prose > * + * {
+    margin-top: var(--spacing-24);
+  }
+
+  .prose h2 {
+    margin-top: var(--spacing-64);
+    font-family: var(--font-pp-neue-corp-compact);
+    font-size: var(--text-heading-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-heading-lg);
+  }
+
+  .prose h3 {
+    margin-top: var(--spacing-48);
+    font-size: var(--text-subheading);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-subheading);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: var(--spacing-24);
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li + li {
+    margin-top: var(--spacing-8);
+  }
+
+  .prose a {
+    color: var(--color-obsidian);
+    text-decoration: underline;
+  }
+
+  .prose code {
+    padding: var(--spacing-4) var(--spacing-8);
+    border-radius: var(--radius-small);
+    background-color: var(--color-limestone);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--text-body-sm);
+  }
+}
