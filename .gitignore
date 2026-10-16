@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Dotenv
+.env*
+!.env.example
+
+# Build
+dist/
+dist-ssr/
+.tanstack/
+*.local
+
+# Logs
+logs/
+*.log/
+pnpm-debug.log*
+
+# Editors
+.idea/
+.vscode/
+.zed/*
+!.zed/settings.json
+
+# Miscellaneous
+.DS_Store
+Thumbs.db

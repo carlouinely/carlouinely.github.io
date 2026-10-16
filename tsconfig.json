@@ -1,0 +1,24 @@
+{
+  "include": ["**/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "types": ["vite/client"],
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "ES2023"],
+    "target": "es2022",
+    "skipLibCheck": true,
+    "allowArbitraryExtensions": true,
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "erasableSyntaxOnly": true
+  }
+}

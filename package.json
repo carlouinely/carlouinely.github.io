@@ -1,0 +1,27 @@
+{
+  "name": "carlouinely",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vp build",
+    "dev": "vp dev",
+    "prepare": "vp config",
+    "preview": "vp preview"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.170.44",
+    "@tanstack/react-start": "^1.169.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "~6.0.3",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
