@@ -1,0 +1,3 @@
+# The home page shows Highlights, the full catalogue lives at `/projects`
+
+The home page used to render every Project as a full card, which grew without bound as Projects were added and pushed the other sections further down. Instead, the home page surfaces three **Highlights** under "Things I've built" and links to a **Projects Index** at `/projects`, where every Project is a compact row that expands to its summary and Case Study link. The trade-off is a second surface to maintain and a home page that no longer shows the whole body of work at a glance. We accepted the extra click because a recruiter scans three strong Projects faster than a growing grid, and the catalogue stays complete one link away.

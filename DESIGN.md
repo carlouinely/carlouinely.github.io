@@ -226,6 +226,15 @@ Deliberately shadowless. The design relies on color contrast (warm gray vs light
 
 Imagery is minimal and deliberate. The hero uses an abstract halftone dot pattern (orange dots on a violet-to-orange gradient) rather than photography — it functions as brand artwork, not decoration. Product and announcement cards use either solid Ember blocks or the Plasma Violet halftone as image-area fills, keeping a consistent graphic system. Partner/integration logos are rendered as monochrome marks on light backgrounds. No photography, no 3D renders, no lifestyle imagery anywhere. Icons are small, monochrome, and minimal — Discord, X, and Telegram sit in the nav as simple glyphs. The visual language is graphic and editorial, not photographic: think poster design, not stock imagery.
 
+## Voice
+
+Copy is casual and plain-spoken, with the register set by the home page's "Things I've built": contractions, short sentences, and a first person that talks to a person rather than a hiring committee. Headings and nav labels follow the same tone, so the type never sounds more formal than the words inside it. Two rules hold everywhere a visitor can read:
+
+- **No em dashes.** Reach for a period, comma, colon, or parentheses instead.
+- **Date ranges read "to".** `Mar 2024 to Aug 2025`, never `Mar 2024 – Aug 2025`.
+
+Internal docs (`README.md`, `PLACEHOLDERS.md`, `docs/`) are exempt; this governs visitor-facing copy only.
+
 ## Agent Prompt Guide
 
 ### Quick Color Reference

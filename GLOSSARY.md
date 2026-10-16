@@ -1,6 +1,6 @@
 # carlouinely
 
-The portfolio site behind the wordmark `carlouinely`: a single recruiter-facing home page, plus one page per Project. Prerendered to static HTML and served from GitHub Pages.
+The portfolio site behind the wordmark `carlouinely`: a single recruiter-facing home page, a Projects Index, and one page per Project. Prerendered to static HTML and served from GitHub Pages.
 
 ## Language
 
@@ -9,11 +9,19 @@ The site's brand name, rendered as `carlouinely`. It is the only name the site u
 _Avoid_: Logo, handle, username, brand
 
 **Project**:
-Something the owner built and shipped, listed on the home page. Every Project has exactly one Case Study.
+Something the owner built and shipped. Every Project has exactly one Case Study. Every Project appears in the Projects Index; three of them are also Highlights.
 _Avoid_: Work, portfolio piece, side project
 
+**Highlight**:
+One of the three Projects surfaced on the home page under "Things I've built", each linking to the Projects Index rather than carrying its own card. A Highlight is always a Project; most Projects are not Highlights.
+_Avoid_: Feature, featured, pinned, selected work
+
+**Projects Index**:
+The page at `/projects` listing every Project as a row that expands to its summary and Case Study link. It is the catalogue the home page's Highlights point at.
+_Avoid_: Archive, catalogue, work page, listing
+
 **Case Study**:
-The long-form page describing one Project, at `/projects/<slug>`. It is what a home page card links to.
+The long-form page describing one Project, at `/projects/<slug>`. It is what a Projects Index row links to.
 _Avoid_: Project page, article, post
 
 **Article**:
