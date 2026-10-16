@@ -97,14 +97,15 @@ Captions, meta text, dates, micro-labels. Only used at 12px where weight and bra
 
 ### Border Radius
 
-| Element | Value | Token              |
-| ------- | ----- | ------------------ |
-| cards   | 40px  | `--radius-cards`   |
-| pills   | 800px | `--radius-pills`   |
-| small   | 16px  | `--radius-small`   |
-| inputs  | 100px | `--radius-inputs`  |
-| medium  | 20px  | `--radius-medium`  |
-| buttons | 40px  | `--radius-buttons` |
+| Element | Value | Token             |
+| ------- | ----- | ----------------- |
+| cards   | 40px  | `--radius-cards`  |
+| pills   | 800px | `--radius-pills`  |
+| small   | 16px  | `--radius-small`  |
+| inputs  | 100px | `--radius-inputs` |
+| medium  | 20px  | `--radius-medium` |
+
+Buttons are always pills, so they carry `--radius-pills` and there is no separate button radius.
 
 ### Layout
 
@@ -119,13 +120,13 @@ Captions, meta text, dates, micro-labels. Only used at 12px where weight and bra
 
 **Role:** Main conversion action
 
-Filled Ember (#fc5000) with Obsidian (#070607) text. 800px border-radius (full pill). Padding 12px vertical, 24px horizontal. DM Sans 500 weight at 16px. No shadow. The pill shape is the most distinctive control shape in the system — never rectangular.
+Filled Ember (#fc5000) with Obsidian (#070607) text. 800px border-radius (full pill). Padding 12px vertical, 24px horizontal. DM Sans 500 weight at 16px. No shadow. The pill shape is the most distinctive control shape in the system — never rectangular. Every action on the site, in the nav, the hero, and the dark contact strip alike, wears this one recipe and the 1.5px border it shares with the secondary, so paired actions are always the same size. Hover inverts it to Obsidian with Chalk text.
 
 ### Secondary Pill Button
 
 **Role:** Alternative action or paired CTA
 
-Transparent background, 1.5px Obsidian (#070607) border, Obsidian text. 40px border-radius. Padding 16px all sides. DM Sans 500 at 16px. Border style is solid here, not dotted. Sits beside the primary CTA as the quieter counterpart.
+Transparent background, 1.5px Obsidian (#070607) border, Obsidian text. 800px border-radius, the same pill as the primary. Padding 12px vertical, 24px horizontal, and the same 1.5px border, so a row pairing it with the primary CTA stays level instead of stepping in height and shape. DM Sans 500 at 16px. Border style is solid here, not dotted. Hover shifts the border and the label to Ember. Sits beside the primary CTA as the quieter counterpart.
 
 ### Outlined Ghost Link
 
@@ -167,7 +168,7 @@ Pumice (#e2e2df) page background continues through. Nav items are Obsidian text 
 
 **Role:** Hero section visual centerpiece
 
-Large rounded rectangle filled with a Plasma Violet (#524ae9) to Ember (#fc5000) gradient overlaid with an orange halftone dot pattern. 40px border-radius. Dimensions are hero-scale (roughly 50% of viewport width). The halftone effect is the system's most distinctive visual signature — pixel-art-like, high-density dot grid that fades to solid orange at the top right.
+Large rounded rectangle filled with a Plasma Violet (#524ae9) to Ember (#fc5000) gradient overlaid with an orange halftone dot pattern. 40px border-radius. Dimensions are hero-scale: it takes the right-hand column of the claim's row and shares the claim's baseline, so the display type stays at full width and the pair reads as one block. The halftone effect is the system's most distinctive visual signature — pixel-art-like, high-density dot grid that fades to solid orange at the top right.
 
 ### Input Field
 
@@ -198,6 +199,7 @@ Limestone (#f7f6f2) background card, 40px radius, 40px padding. Logos arranged i
 - Keep body text at DM Sans 500 (Medium) — never drop to Regular weight, which reads as anemic against the ultrabold display type
 - Use the halftone dot pattern (orange dots on violet) as the hero/signature visual treatment — it is the system's most recognizable motif
 - Layer surfaces using color contrast (Pumice canvas → Limestone cards → Ember features) rather than shadows or borders
+- Theme the browser's own surfaces from the palette: a visible focus ring is a 2px Ember outline with a 2px offset, and selection is Ember behind Obsidian text
 
 ### Don't
 
@@ -226,7 +228,7 @@ Deliberately shadowless. The design relies on color contrast (warm gray vs light
 
 Motion is restrained and one-shot: it establishes arrival, then gets out of the way. Nothing loops, nothing moves on hover beyond a color or a small rotation, and no route transition animates.
 
-- **Hero entrance.** The hero's two columns rise 16px and fade in once on load, the second column 90ms behind the first.
+- **Hero entrance.** The hero arrives as one cascade: the display claim rises 16px and fades in, the artwork panel 90ms behind it, the dotted axis rule drawing out from the left at 120ms, and the meta-and-action rail at 180ms.
 - **Section reveal.** Each home section fades up 24px the first time it enters the viewport, then is left alone; a reveal runs once per element, so scrolling back does not replay it. Sections that enter together carry a short stagger, and the Projects Index rows reveal one after another with the same step.
 - **Hover feedback.** A card or Index-row title shifts to Ember, and the disclosure chevron rotates when its row opens.
 - **Easing and duration.** `--ease-reveal` (a soft ease-out) with `--duration-reveal` (600ms) for scroll reveals and `--duration-entrance` (700ms) for the hero.
@@ -270,7 +272,7 @@ Internal docs (`README.md`, `PLACEHOLDERS.md`, `docs/`) are exempt; this governs
 
 ## Signature Motifs
 
-Three visual signatures define Caldera's identity and should be reused across new pages: (1) The halftone dot pattern — orange dots on a violet-to-orange gradient, always at hero scale with 40px radius, is the most recognizable motif. (2) The 189px display headline — ultrabold compressed type at near-architectural scale, with tight 0.94 line-height, signals the page is a Caldera page. (3) The triple-radius system — 100px for inputs, 40px for cards and rectangular buttons, 800px for pills — creates a consistent roundness without monotony.
+Three visual signatures define Caldera's identity and should be reused across new pages: (1) The halftone dot pattern — orange dots on a violet-to-orange gradient, always at hero scale with 40px radius, is the most recognizable motif. (2) The 189px display headline — ultrabold compressed type at near-architectural scale, with tight 0.94 line-height, signals the page is a Caldera page. (3) The triple-radius system — 100px for inputs, 40px for cards and content surfaces, 800px for pills — creates a consistent roundness without monotony.
 
 ## Similar Brands
 

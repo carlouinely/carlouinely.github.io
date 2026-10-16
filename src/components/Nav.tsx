@@ -16,9 +16,10 @@ const LINKS = [
 
 /**
  * The site nav. On wide viewports the links sit inline in the pill; below the
- * medium breakpoint they collapse behind a trigger whose panel holds the same
- * links. The CV action never enters the panel, so the primary action stays
- * visible whichever way the menu is.
+ * large breakpoint they collapse behind a trigger whose panel holds the same
+ * links, because four labels and the CV action stop fitting on one row before
+ * that and would otherwise break mid-phrase. The CV action never enters the
+ * panel, so the primary action stays visible whichever way the menu is.
  */
 export function Nav() {
   const [open, setOpen] = useState(false)
@@ -35,7 +36,7 @@ export function Nav() {
       if (!navRef.current?.contains(event.target as Node)) close()
     }
     // A resize past the breakpoint would otherwise leave the state stuck open.
-    const wide = window.matchMedia('(min-width: 48rem)')
+    const wide = window.matchMedia('(min-width: 64rem)')
     const onWide = () => {
       if (wide.matches) close()
     }
@@ -71,14 +72,14 @@ export function Nav() {
           id={PANEL_ID}
           className={`${
             open ? 'flex' : 'hidden'
-          } absolute left-0 right-0 top-full z-10 mt-8 flex-col gap-4 rounded-cards bg-limestone p-16 md:static md:mt-0 md:flex md:flex-row md:items-center md:gap-9 md:rounded-none md:bg-transparent md:p-0`}
+          } absolute left-0 right-0 top-full z-10 mt-8 flex-col gap-4 rounded-cards bg-limestone p-16 lg:static lg:mt-0 lg:flex lg:flex-row lg:items-center lg:gap-9 lg:rounded-none lg:bg-transparent lg:p-0`}
         >
           {LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-pills px-12 py-8 font-dm-sans text-body text-obsidian md:py-0"
+                className="block rounded-pills px-12 py-8 font-dm-sans text-body text-obsidian lg:py-0"
               >
                 {link.label}
               </a>
@@ -90,7 +91,7 @@ export function Nav() {
           href={site.github}
           aria-label="GitHub"
           rel="me"
-          className="hidden items-center px-12 py-4 text-obsidian md:flex"
+          className="hidden items-center px-12 py-4 text-obsidian lg:flex"
         >
           <GitHubGlyph />
         </a>
@@ -103,7 +104,7 @@ export function Nav() {
           aria-controls={PANEL_ID}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((value) => !value)}
-          className="flex shrink-0 items-center rounded-pills px-8 py-8 text-obsidian md:hidden"
+          className="flex shrink-0 items-center rounded-pills px-8 py-8 text-obsidian lg:hidden"
         >
           {open ? <CloseGlyph /> : <MenuGlyph />}
         </button>

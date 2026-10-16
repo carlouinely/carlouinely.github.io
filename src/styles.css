@@ -83,7 +83,6 @@
   --radius-small: 16px;
   --radius-medium: 20px;
   --radius-cards: 40px;
-  --radius-buttons: 40px;
   --radius-inputs: 100px;
   --radius-pills: 800px;
 
@@ -106,6 +105,19 @@
     font-family: var(--font-dm-sans);
     font-weight: var(--font-weight-medium);
   }
+
+  /* Browser surfaces carry the palette too: focus is Ember against every
+     canvas in the system, and the caret and selection are the primary
+     action's own pairing of Ember with Obsidian. */
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-ember);
+    color: var(--color-obsidian);
+  }
 }
 
 @layer components {
@@ -118,6 +130,60 @@
     background-size:
       10px 10px,
       100% 100%;
+  }
+
+  /* One control recipe for every action on the site. Both variants declare the
+     border, so a filled CTA and its outlined partner are never a pixel apart in
+     height, shape, or label size. */
+  .action-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-pills);
+    padding: var(--spacing-12) var(--spacing-24);
+    font-family: var(--font-dm-sans);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-body);
+    white-space: nowrap;
+    transition:
+      background-color 150ms var(--ease-reveal),
+      border-color 150ms var(--ease-reveal),
+      color 150ms var(--ease-reveal);
+  }
+
+  .action-pill--primary {
+    border-color: var(--color-ember);
+    background-color: var(--color-ember);
+    color: var(--color-obsidian);
+  }
+
+  .action-pill--primary:not(:disabled):hover {
+    border-color: var(--color-obsidian);
+    background-color: var(--color-obsidian);
+    color: var(--color-chalk);
+  }
+
+  .action-pill--quiet {
+    border-color: var(--color-obsidian);
+    color: var(--color-obsidian);
+  }
+
+  .action-pill--quiet:not(:disabled):hover {
+    border-color: var(--color-ember);
+    color: var(--color-ember);
+  }
+
+  /* Disabled keeps the pill's full size and fill and fades only the label, so
+     the control still reads as the primary action everywhere it sits, the dark
+     contact strip included, without pretending to be usable. */
+  .action-pill:disabled {
+    cursor: not-allowed;
+  }
+
+  .action-pill--primary:disabled {
+    color: color-mix(in srgb, var(--color-obsidian) 55%, transparent);
   }
 
   /* The reader of a Case Study gets the same type and colour language as the
@@ -235,12 +301,23 @@
       transform: none;
     }
 
+    /* The hero arrives as one cascade: the claim, its artwork a beat behind,
+       the axis rule drawing out from the left, then the rail. */
     .reveal-enabled [data-hero] > * {
       animation: hero-enter var(--duration-entrance) var(--ease-reveal) both;
     }
 
+    .reveal-enabled [data-hero] > :first-child > :nth-child(2) {
+      animation: hero-enter var(--duration-entrance) var(--ease-reveal) 90ms both;
+    }
+
     .reveal-enabled [data-hero] > :nth-child(2) {
-      animation-delay: 90ms;
+      transform-origin: left center;
+      animation: hero-rule var(--duration-entrance) var(--ease-reveal) 120ms both;
+    }
+
+    .reveal-enabled [data-hero] > :nth-child(3) {
+      animation-delay: 180ms;
     }
 
     /* Sections that enter together read as a short stagger; the delay is a
@@ -263,6 +340,18 @@
   from {
     opacity: 0;
     transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-rule {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
   }
 
   to {
