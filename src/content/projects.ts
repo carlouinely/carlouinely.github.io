@@ -29,11 +29,10 @@ export type Project = {
   tag: string
   year: number
   order: number
-  featured: boolean
+  highlight: boolean
   thumbnail: string | null
   stack: string[]
   repo: string | null
-  live: string | null
   credit: string | null
   CaseStudyBody: ComponentType<CaseStudyBodyProps>
 }
@@ -96,11 +95,10 @@ function toProject(path: string, module: ProjectModule): Project {
     tag: requiredString(data, 'tag', file),
     year: requiredNumber(data, 'year', file),
     order: requiredNumber(data, 'order', file),
-    featured: data.featured === true,
+    highlight: data.highlight === true,
     thumbnail: optionalString(data, 'thumbnail'),
     stack: Array.isArray(data.stack) ? data.stack.map(String) : [],
     repo: optionalString(data, 'repo'),
-    live: optionalString(data, 'live'),
     credit: optionalString(data, 'credit'),
     CaseStudyBody: module.default,
   }

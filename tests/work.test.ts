@@ -94,15 +94,6 @@ describe('the work section', () => {
     expect(positions).toEqual([...positions].sort((a, b) => a - b))
   })
 
-  it('presents the featured Project as the wide card', () => {
-    const featured = projects.filter((project) => project.featured)
-    expect(featured).toHaveLength(1)
-
-    const featuredCards = cards().filter((html) => html.includes('data-featured'))
-    expect(featuredCards).toHaveLength(1)
-    expect(featuredCards[0]).toContain(featured[0].title)
-  })
-
   it('links every card to a Case Study that exists in the built output', () => {
     for (const project of projects) {
       expect(internalLinks(cardFor(project.title))).toContain(`/projects/${project.slug}`)
@@ -121,7 +112,7 @@ describe('the work section', () => {
     }
   })
 
-  it('renders no repository or live link on a card', () => {
+  it('renders no repository link on a card', () => {
     for (const card of cards()) {
       expect(card).not.toMatch(/href=["']https?:/i)
     }

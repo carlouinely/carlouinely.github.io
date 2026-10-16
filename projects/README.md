@@ -16,11 +16,10 @@ Study header.
 | `tag`       | yes      | —       | Category label (for example `Web App`)            |
 | `year`      | yes      | —       | Number                                            |
 | `order`     | yes      | —       | Number; ascending order on the home page          |
-| `featured`  | no       | `false` | The wide card in the Project grid                 |
+| `highlight` | no       | `false` | Marks the Project as a Highlight                  |
 | `thumbnail` | no       | `null`  | Absent means the card uses a Placeholder          |
 | `stack`     | no       | `[]`    | Technology names                                  |
 | `repo`      | no       | `null`  | Source URL; absent means no source link           |
-| `live`      | no       | `null`  | Deployment URL; absent means no live link         |
 | `credit`    | no       | `null`  | Client or collaborator credited on the Case Study |
 
 The loader in `src/content/projects.ts` validates required fields and fails the
