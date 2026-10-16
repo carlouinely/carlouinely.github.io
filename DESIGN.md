@@ -222,6 +222,17 @@ Limestone (#f7f6f2) background card, 40px radius, 40px padding. Logos arranged i
 
 Deliberately shadowless. The design relies on color contrast (warm gray vs lighter off-white vs vivid orange) and generous 40px corner radii to create surface hierarchy. No element casts a shadow anywhere in the system — the flatness keeps the heavy type and bold orange from feeling overwrought.
 
+## Motion
+
+Motion is restrained and one-shot: it establishes arrival, then gets out of the way. Nothing loops, nothing moves on hover beyond a color or a small rotation, and no route transition animates.
+
+- **Hero entrance.** The hero's two columns rise 16px and fade in once on load, the second column 90ms behind the first.
+- **Section reveal.** Each home section fades up 24px the first time it enters the viewport, then is left alone; a reveal runs once per element, so scrolling back does not replay it. Sections that enter together carry a short stagger, and the Projects Index rows reveal one after another with the same step.
+- **Hover feedback.** A card or Index-row title shifts to Ember, and the disclosure chevron rotates when its row opens.
+- **Easing and duration.** `--ease-reveal` (a soft ease-out) with `--duration-reveal` (600ms) for scroll reveals and `--duration-entrance` (700ms) for the hero.
+
+Every transition and entrance above sits inside a `prefers-reduced-motion: no-preference` guard, so reduced motion suppresses the animation; discrete state changes such as the chevron flip still land instantly. The document only opts in when a script can reveal the sections again: reduced motion, and no JavaScript at all, ship the page fully visible and unanimated.
+
 ## Imagery
 
 Imagery is minimal and deliberate. The hero uses an abstract halftone dot pattern (orange dots on a violet-to-orange gradient) rather than photography — it functions as brand artwork, not decoration. Product and announcement cards use either solid Ember blocks or the Plasma Violet halftone as image-area fills, keeping a consistent graphic system. Partner/integration logos are rendered as monochrome marks on light backgrounds. No photography, no 3D renders, no lifestyle imagery anywhere. Icons are small, monochrome, and minimal — Discord, X, and Telegram sit in the nav as simple glyphs. The visual language is graphic and editorial, not photographic: think poster design, not stock imagery.

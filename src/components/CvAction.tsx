@@ -11,7 +11,7 @@ export function CvAction() {
     <button
       type="button"
       disabled
-      className="rounded-pills bg-ember px-24 py-12 font-dm-sans text-body text-obsidian disabled:cursor-not-allowed disabled:opacity-60"
+      className="shrink-0 whitespace-nowrap rounded-pills bg-ember px-16 py-10 font-dm-sans text-body text-obsidian disabled:cursor-not-allowed disabled:opacity-60 md:px-24 md:py-12"
     >
       Download CV
     </button>

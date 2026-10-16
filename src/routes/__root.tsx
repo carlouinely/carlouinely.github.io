@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
 import { Footer } from '~src/components/Footer'
 import { Nav } from '~src/components/Nav'
+import { revealBootstrap, useReveal } from '~src/reveal'
 import { site, siteUrl } from '~src/site'
 import styles from '~src/styles.css?url'
 
@@ -27,11 +28,15 @@ export const Route = createRootRoute({
       { rel: 'icon', type: 'image/svg+xml', href: site.assets.favicon },
       { rel: 'apple-touch-icon', href: site.assets.appleTouchIcon },
     ],
+    // Runs before first paint so a section is never shown and then hidden.
+    scripts: [{ children: revealBootstrap }],
   }),
   component: RootComponent,
 })
 
 function RootComponent() {
+  useReveal()
+
   return (
     <RootDocument>
       <Nav />

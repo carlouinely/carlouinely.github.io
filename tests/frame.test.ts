@@ -21,6 +21,30 @@ function home(): string {
   return readClientPage('index.html')
 }
 
+/** The primary nav landmark, from `<nav` through `</nav>`. */
+function primaryNav(): string {
+  const match = home().match(/<nav\b[^>]*aria-label="Primary"[^>]*>[\s\S]*?<\/nav>/)
+  if (!match) throw new Error('The home page has no primary nav.')
+  return match[0]
+}
+
+/** The menu panel, from the `id` the trigger controls through its closing list tag. */
+function menuPanel(id: string): string {
+  const nav = primaryNav()
+  const start = nav.indexOf(`id="${id}"`)
+  const end = nav.indexOf('</ul>', start)
+  if (start === -1 || end === -1) throw new Error(`Could not find the menu panel "${id}".`)
+  return nav.slice(start, end)
+}
+
+/** The collapsed-menu trigger, and the panel id it controls. */
+function menuTrigger(): { html: string; controls: string } {
+  const html = primaryNav().match(/<button\b[^>]*aria-controls="[^"]+"[^>]*>/)?.[0] ?? ''
+  const controls = html.match(/aria-controls="([^"]+)"/)?.[1] ?? ''
+  if (!html || !controls) throw new Error('The primary nav has no menu trigger.')
+  return { html, controls }
+}
+
 /** The footer landmark through to the end of the page body. */
 function footerRegion(): string {
   const html = home()
@@ -105,5 +129,29 @@ describe('the home page frame', () => {
 
   it('ships no build credit in the footer', () => {
     expect(htmlToText(footerRegion())).not.toContain('Built with')
+  })
+})
+
+describe('the responsive nav', () => {
+  it('collapses below the medium breakpoint behind a trigger that controls the panel', () => {
+    const { html, controls } = menuTrigger()
+    expect(html).toContain('aria-expanded="false"')
+    expect(primaryNav()).toContain(`id="${controls}"`)
+  })
+
+  it('names the collapsed links and the Projects Index in the panel', () => {
+    const links = internalLinks(menuPanel(menuTrigger().controls))
+    for (const href of ['/#about', '/#work', '/#experience', '/projects']) {
+      expect(links).toContain(href)
+    }
+  })
+
+  it('keeps the CV action outside the panel so it stays visible', () => {
+    expect(menuPanel(menuTrigger().controls)).not.toContain('Download CV')
+    expect(primaryNav()).toContain('Download CV')
+  })
+
+  it('gives the trigger an accessible name', () => {
+    expect(menuTrigger().html).toMatch(/aria-label="[^"]+"/)
   })
 })

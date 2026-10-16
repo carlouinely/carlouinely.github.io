@@ -8,7 +8,12 @@ import { about } from '~src/content/about'
  */
 export function About() {
   return (
-    <section id="about" aria-label="About me" className="mx-auto max-w-page px-24 py-48">
+    <section
+      id="about"
+      aria-label="About me"
+      data-reveal
+      className="mx-auto max-w-page px-24 py-32 md:py-48"
+    >
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
         About me
       </h2>

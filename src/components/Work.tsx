@@ -13,7 +13,7 @@ function ProjectCard({ project }: { project: Project }) {
       <Link
         to="/projects/$slug"
         params={{ slug: project.slug }}
-        className="group flex h-full flex-col rounded-cards bg-limestone p-40"
+        className="group flex h-full flex-col rounded-cards bg-limestone p-24 md:p-40"
       >
         {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
         <Media
@@ -27,7 +27,7 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
             {project.tag}
           </p>
-          <h3 className="mt-16 font-pp-neue-corp-compact text-heading font-regular tracking-heading text-obsidian uppercase">
+          <h3 className="mt-16 font-pp-neue-corp-compact text-heading font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember">
             {project.title}
           </h3>
           <p className="mt-16 font-dm-sans text-body text-obsidian">{project.summary}</p>
@@ -48,7 +48,12 @@ function ProjectCard({ project }: { project: Project }) {
  */
 export function Work() {
   return (
-    <section id="work" aria-label="Things I've built" className="mx-auto max-w-page px-24 py-48">
+    <section
+      id="work"
+      aria-label="Things I've built"
+      data-reveal
+      className="mx-auto max-w-page px-24 py-32 md:py-48"
+    >
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
         Things I&apos;ve built
       </h2>

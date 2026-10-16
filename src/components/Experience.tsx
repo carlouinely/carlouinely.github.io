@@ -10,7 +10,8 @@ export function Experience() {
     <section
       id="experience"
       aria-label="Where I've worked"
-      className="mx-auto max-w-page px-24 py-48"
+      data-reveal
+      className="mx-auto max-w-page px-24 py-32 md:py-48"
     >
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
         Where I&apos;ve worked
@@ -20,7 +21,7 @@ export function Experience() {
         {experience.map((role) => (
           <article
             key={`${role.employer}-${role.dates}`}
-            className="rounded-cards bg-limestone p-40"
+            className="rounded-cards bg-limestone p-24 md:p-40"
           >
             <div className="grid gap-24 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
               <div>

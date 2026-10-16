@@ -8,9 +8,12 @@ import { site } from '~src/site'
  */
 export function Hero() {
   return (
-    <section className="mx-auto grid w-full max-w-page items-center gap-40 px-24 py-48 md:grid-cols-2">
+    <section
+      data-hero
+      className="mx-auto grid w-full max-w-page items-center gap-32 px-24 py-32 md:grid-cols-2 md:gap-40 md:py-48"
+    >
       <div>
-        <h1 className="font-pp-neue-corp-compact text-heading-2xl font-regular tracking-heading text-obsidian uppercase md:text-heading-3xl lg:text-display">
+        <h1 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase sm:text-heading-2xl md:text-heading-3xl lg:text-display">
           {site.role.toUpperCase()}
         </h1>
 
