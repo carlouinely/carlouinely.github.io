@@ -57,6 +57,12 @@ export function Work() {
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
+
+      <div className="mt-40">
+        <a href="/projects" className="font-dm-sans text-body text-obsidian underline">
+          See everything I&apos;ve built
+        </a>
+      </div>
     </section>
   )
 }

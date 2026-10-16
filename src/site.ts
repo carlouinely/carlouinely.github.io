@@ -38,6 +38,17 @@ export const site = {
   },
 } as const
 
+/**
+ * The Projects Index at `/projects` is a distinct indexed surface, so its title
+ * and description live beside the rest of the volatile site values rather than
+ * being hand-written in the route and the metadata test separately.
+ */
+export const projectsIndex = {
+  title: `Projects | ${site.wordmark}`,
+  description:
+    "Every project I've built, with the stack behind it and a link to the full case study.",
+} as const
+
 /** The absolute URL for a site path, for canonical and Open Graph tags. */
 export function siteUrl(path = '/'): string {
   return `${site.origin.replace(/\/+$/, '')}${path.startsWith('/') ? path : `/${path}`}`

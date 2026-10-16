@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { findProject, projects } from '~src/content/index'
-import { site, siteUrl } from '~src/site'
+import { projectsIndex, site, siteUrl } from '~src/site'
 import {
   builtPages,
   htmlToText,
@@ -27,6 +27,9 @@ type Page = {
 
 function expectedFor(path: string): { title: string; description: string } {
   if (path === '/') return { title: site.defaultTitle, description: site.description }
+  if (path === '/projects') {
+    return { title: projectsIndex.title, description: projectsIndex.description }
+  }
 
   const project = findProject(path.replace(/^\/projects\//, ''))
   if (!project) {
@@ -107,11 +110,12 @@ beforeAll(() => {
 })
 
 describe('per-route metadata', () => {
-  it('covers every built route: the home page and every Project', () => {
+  it('covers every built route: the home page, the Projects Index, and every Project', () => {
     const routes = builtPages().map((page) => page.path)
     expect(routes).toContain('/')
+    expect(routes).toContain('/projects')
     for (const project of projects) expect(routes).toContain(`/projects/${project.slug}`)
-    expect(routes).toHaveLength(projects.length + 1)
+    expect(routes).toHaveLength(projects.length + 2)
   })
 
   it('gives every built route a distinct title', () => {

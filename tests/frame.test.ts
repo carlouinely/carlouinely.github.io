@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
+import { site } from '~src/site'
 import {
   elementIds,
   htmlToText,
@@ -18,6 +19,15 @@ beforeAll(() => {
 
 function home(): string {
   return readClientPage('index.html')
+}
+
+/** The footer landmark through to the end of the page body. */
+function footerRegion(): string {
+  const html = home()
+  const start = html.indexOf('<footer')
+  const end = html.indexOf('</body>')
+  if (start === -1 || end === -1 || end < start) throw new Error('The home page has no footer.')
+  return html.slice(start, end)
 }
 
 describe('the home page frame', () => {
@@ -68,10 +78,24 @@ describe('the home page frame', () => {
     expect(html).toContain('href="mailto:hello@carlouinely.example"')
   })
 
-  it('renders the footer with the wordmark, a copyright line, and a build credit', () => {
-    const text = htmlToText(home())
+  it('renders the footer with the wordmark, a copyright line, and exactly five entry points', () => {
+    const html = home()
+    const text = htmlToText(html)
     expect(text).toContain('carlouinely')
     expect(text).toMatch(/©\s*\d{4}\s*carlouinely/)
-    expect(text).toContain('Built with TanStack Start, React, and Vite+')
+
+    const footer = footerRegion()
+    expect(footer.match(/<a\b/g) ?? []).toHaveLength(5)
+
+    const links = internalLinks(footer)
+    expect(links).toContain('/projects')
+    expect(links).toContain('/#about')
+    expect(links).toContain('/#experience')
+    expect(footer).toContain(`href="mailto:${site.email}"`)
+    expect(footer).toContain(`href="${site.github}"`)
+  })
+
+  it('ships no build credit in the footer', () => {
+    expect(htmlToText(footerRegion())).not.toContain('Built with')
   })
 })
