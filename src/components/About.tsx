@@ -1,6 +1,5 @@
 import { Media } from '~src/components/Media'
 import { about } from '~src/content/about'
-import { site } from '~src/site'
 
 /**
  * About: the summary, the stack grouped for keyword-matching, a prose passage on
@@ -47,7 +46,7 @@ export function About() {
 
         {/* The portrait slot. */}
         {/* TODO(placeholder): add a `src` to the Media prop once a real duotone portrait exists. See PLACEHOLDERS.md. */}
-        <Media kind="halftone" ratio="4 / 5" label={`Portrait of ${site.name}`} />
+        <Media kind="halftone" ratio="4 / 5" label="Portrait" />
       </div>
     </section>
   )

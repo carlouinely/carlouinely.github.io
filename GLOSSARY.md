@@ -1,15 +1,15 @@
 # carlouinely
 
-The personal portfolio site of Jan Carlo Juab: a single recruiter-facing home page, plus one page per Project. Prerendered to static HTML and served from GitHub Pages.
+The portfolio site behind the wordmark `carlouinely`: a single recruiter-facing home page, plus one page per Project. Prerendered to static HTML and served from GitHub Pages.
 
 ## Language
 
 **Wordmark**:
-The site's brand name, rendered as `carlouinely`. It is deliberately not the person's legal name; `Jan Carlo Juab` appears in the hero subline, About, and CV copy.
+The site's brand name, rendered as `carlouinely`. It is the only name the site uses; the owner's legal name appears nowhere.
 _Avoid_: Logo, handle, username, brand
 
 **Project**:
-Something Jan Carlo built and shipped, listed on the home page. Every Project has exactly one Case Study.
+Something the owner built and shipped, listed on the home page. Every Project has exactly one Case Study.
 _Avoid_: Work, portfolio piece, side project
 
 **Case Study**:

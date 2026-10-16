@@ -27,9 +27,8 @@ describe('the home page frame', () => {
     expect(text).toContain('FULL-STACK ENGINEER')
   })
 
-  it('renders the real name, location, and the availability badge', () => {
+  it('renders the location and the availability badge', () => {
     const text = htmlToText(home())
-    expect(text).toContain('Jan Carlo Juab')
     expect(text).toContain('Cebu, Philippines')
     expect(text).toContain('OPEN TO FULL-TIME ROLES')
   })

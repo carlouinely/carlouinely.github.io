@@ -75,6 +75,6 @@ describe('the About section', () => {
   })
 
   it('renders the portrait as a labelled Media Placeholder', () => {
-    expect(aboutRegion()).toContain('aria-label="Portrait of Jan Carlo Juab"')
+    expect(aboutRegion()).toContain('aria-label="Portrait"')
   })
 })

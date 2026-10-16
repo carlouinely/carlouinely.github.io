@@ -14,9 +14,7 @@ export function Hero() {
           {site.role.toUpperCase()}
         </h1>
 
-        <p className="mt-24 font-dm-sans text-body text-obsidian">
-          {site.name} · {site.location}
-        </p>
+        <p className="mt-24 font-dm-sans text-body text-obsidian">{site.location}</p>
 
         <p className="mt-16 w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
           {site.availability}
