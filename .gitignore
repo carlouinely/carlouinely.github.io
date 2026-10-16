@@ -25,3 +25,6 @@ pnpm-debug.log*
 # Miscellaneous
 .DS_Store
 Thumbs.db
+
+# Agent workspace
+.pi/
