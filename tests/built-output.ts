@@ -60,17 +60,25 @@ export function readClientPage(path: string): string {
   return readFileSync(file, 'utf8')
 }
 
-/** The delivered home page between two section landmarks, end exclusive. */
-export function homeSection(fromId: string, toId: string): string {
+/** The delivered home page from its start marker to an end marker, end exclusive. */
+function sliceHome(fromId: string, endMarker: string, endLabel: string): string {
   const html = readClientPage('index.html')
   const start = html.indexOf(`id="${fromId}"`)
-  const end = html.indexOf(`id="${toId}"`)
+  const end = html.indexOf(endMarker)
   if (start === -1 || end === -1 || end < start) {
-    throw new Error(
-      `Could not find the "${fromId}" landmark before the "${toId}" landmark on the home page.`,
-    )
+    throw new Error(`Could not find the "${fromId}" landmark before ${endLabel} on the home page.`)
   }
   return html.slice(start, end)
+}
+
+/** The delivered home page between two section landmarks, end exclusive. */
+export function homeSection(fromId: string, toId: string): string {
+  return sliceHome(fromId, `id="${toId}"`, `the "${toId}" landmark`)
+}
+
+/** The delivered home page from a section landmark to a literal marker, end exclusive. */
+export function homeSectionUntil(fromId: string, marker: string): string {
+  return sliceHome(fromId, marker, `the "${marker}" marker`)
 }
 
 /** The rendered cards in a section of the home page, in document order. */
