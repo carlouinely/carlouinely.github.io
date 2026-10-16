@@ -60,6 +60,24 @@ export function readClientPage(path: string): string {
   return readFileSync(file, 'utf8')
 }
 
+/** The delivered home page between two section landmarks, end exclusive. */
+export function homeSection(fromId: string, toId: string): string {
+  const html = readClientPage('index.html')
+  const start = html.indexOf(`id="${fromId}"`)
+  const end = html.indexOf(`id="${toId}"`)
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error(
+      `Could not find the "${fromId}" landmark before the "${toId}" landmark on the home page.`,
+    )
+  }
+  return html.slice(start, end)
+}
+
+/** The rendered cards in a section of the home page, in document order. */
+export function cardsIn(region: string): string[] {
+  return region.split(/(?=<article\b)/).slice(1)
+}
+
 /** The delivered HTML a visitor (or crawler) actually receives, with tags removed. */
 export function htmlToText(html: string): string {
   return html

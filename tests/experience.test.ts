@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
-import { htmlToText, readClientPage, requireFreshBuild } from './built-output'
+import { cardsIn, homeSection, htmlToText, readClientPage, requireFreshBuild } from './built-output'
 
 /**
  * The Experience section, observed through the delivered home page. The card
@@ -45,22 +45,12 @@ const CARDS = [
 
 /** The Experience landmark and everything up to the next section. */
 function experienceRegion(): string {
-  const html = readClientPage('index.html')
-  const start = html.indexOf('id="experience"')
-  const end = html.indexOf('id="about"')
-  if (start === -1 || end === -1 || end < start) {
-    throw new Error(
-      'Could not find the Experience landmark before the About landmark on the home page.',
-    )
-  }
-  return html.slice(start, end)
+  return homeSection('experience', 'about')
 }
 
 /** The rendered cards, in document order. */
 function cards(): string[] {
-  return experienceRegion()
-    .split(/(?=<article\b)/)
-    .slice(1)
+  return cardsIn(experienceRegion())
 }
 
 describe('the Experience section', () => {

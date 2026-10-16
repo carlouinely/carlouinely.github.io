@@ -10,4 +10,5 @@ also marked with a `TODO` comment where it appears in source.
 | Canonical origin   | `src/site.ts` (`site.origin`)                  | The custom domain's origin, once one is configured.                                 |
 | Hero brand artwork | `src/components/Hero.tsx` (the `Media` block)  | Real brand artwork, by adding a `src` to the `Media` prop.                          |
 | About portrait     | `src/components/About.tsx` (the `Media` block) | A real duotone portrait, by adding a `src` to the `Media` prop.                     |
+| Project thumbnails | `projects/*.mdx` (`thumbnail`)                 | Real screenshots, by adding a `thumbnail` to each Project.                          |
 | CV action (inert)  | `src/components/CvAction.tsx`                  | A redacted CV PDF, turning the disabled control into a real link.                   |
