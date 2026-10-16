@@ -53,6 +53,17 @@ describe('the Project loader', () => {
     expect(project).not.toHaveProperty('featured')
     expect(project).not.toHaveProperty('live')
   })
+
+  it('normalises the body outline to heading ids and text, defaulting to empty', () => {
+    const outline = [{ id: 'a-section', text: 'A section' }]
+    const [marked] = loadProjects({
+      'a-project.mdx': { ...moduleWith(REQUIRED), outline },
+    })
+    const [unmarked] = loadProjects({ 'a-project.mdx': moduleWith(REQUIRED) })
+
+    expect(marked.outline).toEqual(outline)
+    expect(unmarked.outline).toEqual([])
+  })
 })
 
 describe('the shipped Projects', () => {
@@ -67,5 +78,9 @@ describe('the shipped Projects', () => {
 
   it('leaves repo unset on every Project', () => {
     expect(projects.every((project) => project.repo === null)).toBe(true)
+  })
+
+  it('exposes the section headings of every Case Study body', () => {
+    for (const project of projects) expect(project.outline.length).toBeGreaterThan(0)
   })
 })

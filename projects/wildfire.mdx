@@ -37,7 +37,11 @@ notice.
 
 {/* TODO(placeholder:wildfire-screenshot): replace with a real screenshot of the dashboard by adding a `src`. See PLACEHOLDERS.md. */}
 
-<Media kind="image" ratio="16 / 9" label="WILDFIRE dashboard screenshot" />
+<figure>
+  <Media kind="image" ratio="16 / 9" label="WILDFIRE dashboard screenshot" />
+
+  <figcaption>The dashboard, where a notice is written once and published to the screens that should carry it.</figcaption>
+</figure>
 
 The emergency override is the exception the rest of the design has to respect:
 one action that interrupts every screen at once, ahead of whatever was
@@ -53,6 +57,8 @@ lobbies become part of the fleet.
 Behind the dashboard, the API is Bun and Hono over MySQL through Drizzle ORM,
 which keeps the schema typed from the database to the interface. The dashboard is
 Next.js and TypeScript, so the same language runs from the query to the screen.
+
+---
 
 ## The outcome
 

@@ -127,6 +127,11 @@
     margin-top: var(--spacing-24);
   }
 
+  /* The first heading anchors the reading column, so it carries no top gap. */
+  .prose > :first-child {
+    margin-top: 0;
+  }
+
   .prose h2 {
     margin-top: var(--spacing-64);
     font-family: var(--font-pp-neue-corp-compact);
@@ -142,9 +147,38 @@
     line-height: var(--leading-subheading);
   }
 
+  .prose figure {
+    margin-top: var(--spacing-40);
+  }
+
+  .prose figcaption {
+    margin-top: var(--spacing-8);
+    font-family: var(--font-system-sans-serif);
+    font-size: var(--text-caption);
+    line-height: var(--leading-caption);
+  }
+
+  .prose blockquote {
+    padding-left: var(--spacing-24);
+    border-left: 1.5px dotted var(--color-obsidian);
+    font-family: var(--font-pp-neue-corp-compact);
+    font-size: var(--text-subheading);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-subheading);
+  }
+
+  .prose hr {
+    margin-top: var(--spacing-48);
+    border: 0;
+    border-top: 1.5px dotted var(--color-obsidian);
+  }
+
   .prose ul,
   .prose ol {
     padding-left: var(--spacing-24);
+  }
+
+  .prose ul {
     list-style: disc;
   }
 
@@ -156,9 +190,18 @@
     margin-top: var(--spacing-8);
   }
 
+  .prose li::marker {
+    color: var(--color-ember);
+  }
+
   .prose a {
     color: var(--color-obsidian);
     text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: var(--color-ember);
   }
 
   .prose code {

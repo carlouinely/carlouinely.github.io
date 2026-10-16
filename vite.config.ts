@@ -3,8 +3,10 @@ import tailwindcss from '@tailwindcss/vite'
 import mdx from '@mdx-js/rollup'
 import { defineConfig } from 'vite-plus'
 import viteReact from '@vitejs/plugin-react'
+import rehypeSlug from 'rehype-slug'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import { rehypeOutline } from './src/content/outline'
 
 export default defineConfig({
   server: {
@@ -14,7 +16,12 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
-    mdx({ remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter] }),
+    mdx({
+      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+      // `rehype-slug` gives every heading its stable id; `rehypeOutline` then
+      // exports the level-2 headings so the Case Study can build its contents.
+      rehypePlugins: [rehypeSlug, rehypeOutline],
+    }),
     tailwindcss(),
     tanstackStart({
       prerender: { enabled: true, failOnError: true },

@@ -12,3 +12,15 @@ export const projects: Project[] = loadProjects(modules)
 export function findProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug)
 }
+
+/** The Projects immediately before and after `slug` in Project order. */
+export function adjacentProjects(slug: string): {
+  previous: Project | undefined
+  next: Project | undefined
+} {
+  const position = projects.findIndex((project) => project.slug === slug)
+  return {
+    previous: position > 0 ? projects[position - 1] : undefined,
+    next: position >= 0 && position < projects.length - 1 ? projects[position + 1] : undefined,
+  }
+}

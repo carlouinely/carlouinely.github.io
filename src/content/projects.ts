@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import type { CaseStudyHeading } from '~src/content/outline'
 
 /**
  * Props an MDX body accepts. `components` maps the element names a body uses to
@@ -16,6 +17,8 @@ export type CaseStudyBodyProps = {
 export type ProjectModule = {
   default: ComponentType<CaseStudyBodyProps>
   frontmatter?: unknown
+  /** The level-2 heading outline `rehypeOutline` exports beside the body. */
+  outline?: unknown
 }
 
 /**
@@ -34,6 +37,8 @@ export type Project = {
   stack: string[]
   repo: string | null
   credit: string | null
+  /** The level-2 headings of the Case Study body, in document order. */
+  outline: CaseStudyHeading[]
   CaseStudyBody: ComponentType<CaseStudyBodyProps>
 }
 
@@ -72,6 +77,24 @@ function optionalString(data: Record<string, unknown>, field: string): string | 
   return typeof value === 'string' && value.trim() !== '' ? value : null
 }
 
+function toOutline(value: unknown, file: string): CaseStudyHeading[] {
+  if (value === undefined || value === null) return []
+
+  if (!Array.isArray(value)) {
+    throw new Error(`Content error in ${file}: expected the MDX body outline to be an array`)
+  }
+
+  return value.map((entry) => {
+    const heading = entry as Record<string, unknown>
+    if (typeof heading?.id !== 'string' || typeof heading.text !== 'string') {
+      throw new Error(
+        `Content error in ${file}: every MDX body outline entry needs a string id and text`,
+      )
+    }
+    return { id: heading.id, text: heading.text }
+  })
+}
+
 function toProject(path: string, module: ProjectModule): Project {
   const file = contentPath(path)
   const { frontmatter } = module
@@ -100,6 +123,7 @@ function toProject(path: string, module: ProjectModule): Project {
     stack: Array.isArray(data.stack) ? data.stack.map(String) : [],
     repo: optionalString(data, 'repo'),
     credit: optionalString(data, 'credit'),
+    outline: toOutline(module.outline, file),
     CaseStudyBody: module.default,
   }
 }
