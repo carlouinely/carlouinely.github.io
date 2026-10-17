@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useLocation } from '@tanstack/react-router'
 
 /**
  * The inline head script that opts the document into reveals. It runs before
@@ -12,28 +11,47 @@ export const revealBootstrap = `(function(){try{if(!('IntersectionObserver' in w
 /**
  * Reveals each `[data-reveal]` element once it enters the viewport, by marking
  * it `data-visible`. An element is unobserved after its single reveal, so the
- * motion runs once. The observer rebuilds per route so client-side navigation
- * picks up the new page's sections.
+ * motion runs once.
+ *
+ * A single observer watches the document for the app's lifetime, because a
+ * client-side route swap mounts its DOM after the router reports the new
+ * location. Rebuilding the observer per route would query the outgoing page and
+ * miss the incoming sections, leaving the back button's restored page blank.
  */
 export function useReveal(): void {
-  const { pathname } = useLocation()
-
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-visible])')
-    if (elements.length === 0) return
-
-    const observer = new IntersectionObserver(
+    const reveal = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue
           entry.target.setAttribute('data-visible', '')
-          observer.unobserve(entry.target)
+          reveal.unobserve(entry.target)
         }
       },
       { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
     )
 
-    for (const element of elements) observer.observe(element)
-    return () => observer.disconnect()
-  }, [pathname])
+    const pending = (root: Element | Document) =>
+      root.querySelectorAll('[data-reveal]:not([data-visible])')
+
+    const watch = (node: Node) => {
+      if (!(node instanceof Element)) return
+      if (node.matches('[data-reveal]:not([data-visible])')) reveal.observe(node)
+      for (const element of pending(node)) reveal.observe(element)
+    }
+
+    for (const element of pending(document)) reveal.observe(element)
+
+    const arrivals = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) watch(node)
+      }
+    })
+    arrivals.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      reveal.disconnect()
+      arrivals.disconnect()
+    }
+  }, [])
 }
