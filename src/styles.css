@@ -189,13 +189,23 @@
   /* The reader of a Case Study gets the same type and colour language as the
      rest of the site, applied to MDX output whose markup we do not control. */
   .prose {
-    /* `ch` measures the "0" glyph, which in DM Sans is about 1.4x the average
-       character, so 49ch is the width that lands near 70 characters a line.
-       The old 68ch was read as 68 characters and actually bought 95. */
-    max-width: 49ch;
     color: var(--color-obsidian);
     font-size: var(--text-body);
     line-height: var(--leading-body);
+  }
+
+  /* Running text holds the measure; media keeps the article's full width, so an
+     in-body figure matches the lead image above it. The cap is in rem, not ch:
+     `ch` tracks the element's own font-size, which would give a 48px heading a
+     48px-wide character and break it out of the column the paragraphs sit in. */
+  .prose > :is(p, ul, ol, h2, h3, blockquote, hr) {
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+
+  /* The caption hangs on the media's edge, not the article's. */
+  .prose figcaption {
+    max-width: 34rem;
   }
 
   .prose > * + * {

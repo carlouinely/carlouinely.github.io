@@ -49,17 +49,17 @@ function HeaderMeta({ project }: { project: Project }) {
 }
 
 /**
- * The table of contents, built from the body's level-2 headings. It sticks only
- * from the wide breakpoint, where there is a spare column; below it, it reads as
- * a short list above the prose.
+ * The table of contents, built from the body's level-2 headings. It reads as one
+ * strip above the prose rather than a sticky rail: a rail would sit in the path
+ * of the in-body figures, which span the article's full width.
  */
 function TableOfContents({ outline }: { outline: Project['outline'] }) {
   if (outline.length === 0) return null
 
   return (
-    <nav aria-label="On this page" className="mb-40 lg:sticky lg:top-24 lg:mb-0 lg:self-start">
+    <nav aria-label="On this page" className="mt-48 md:mt-64">
       <p className="font-system-sans-serif text-caption text-obsidian uppercase">On this page</p>
-      <ol className="mt-12 flex flex-col gap-8">
+      <ol className="mt-12 flex flex-wrap gap-x-24 gap-y-8">
         {outline.map((heading) => (
           <li key={heading.id}>
             <a
@@ -82,7 +82,7 @@ function ReadingNavigation({ project }: { project: Project }) {
   return (
     <nav
       aria-label="Project navigation"
-      className="mx-auto mt-80 flex max-w-[49ch] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24 lg:max-w-[52rem]"
+      className="mx-auto mt-80 flex max-w-[52rem] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24"
     >
       {previous ? (
         <Link
@@ -150,17 +150,12 @@ function CaseStudy() {
           />
         </div>
 
-        {/* The text column and the header share one capped width, so the table
-            of contents, the prose measure, and the title all land on the same
-            edges. The lead image above stays the article's one full-width
-            block. Below the two-column breakpoint there is no contents rail, so
-            the cap becomes the measure itself and the column stays centred
-            instead of sitting against the left edge of a wider box. */}
-        <div className="mx-auto mt-48 max-w-[49ch] md:mt-64 lg:grid lg:max-w-[52rem] lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-64">
-          <TableOfContents outline={outline} />
-          <div className="prose min-w-0">
-            <CaseStudyBody components={{ Media }} />
-          </div>
+        <TableOfContents outline={outline} />
+
+        {/* The prose runs the article's width so an in-body figure can match the
+            lead image; the measure lives on its running text instead. */}
+        <div className="prose mt-32 min-w-0">
+          <CaseStudyBody components={{ Media }} />
         </div>
 
         <ReadingNavigation project={project} />
