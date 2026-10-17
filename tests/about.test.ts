@@ -10,9 +10,9 @@ import {
 } from './built-output'
 
 /**
- * The About section, observed through the delivered home page. The summary,
- * stack, working-style prose, degree, and the labelled portrait Placeholder are
- * asserted as a visitor reads them.
+ * The About section, observed through the delivered home page. The summary, the
+ * degree, the stack, and the working-style prose are asserted as a visitor
+ * reads them.
  */
 
 beforeAll(() => {
@@ -80,10 +80,6 @@ describe('the About section', () => {
     expect(summary).toContain('BSIT')
     expect(summary).toContain('University of San Carlos')
     expect(summary.match(/University of San Carlos/g)).toHaveLength(1)
-  })
-
-  it('renders the portrait as a labelled Media Placeholder', () => {
-    expect(aboutRegion()).toContain('aria-label="Portrait"')
   })
 })
 

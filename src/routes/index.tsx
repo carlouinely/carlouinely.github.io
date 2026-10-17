@@ -3,6 +3,7 @@ import { About } from '~src/components/About'
 import { Contact } from '~src/components/Contact'
 import { Experience } from '~src/components/Experience'
 import { Hero } from '~src/components/Hero'
+import { HowIWork } from '~src/components/HowIWork'
 import { Work } from '~src/components/Work'
 import { pageHead, jsonLd, personStructuredData } from '~src/meta'
 import { site } from '~src/site'
@@ -20,6 +21,7 @@ function Home() {
     <main>
       <Hero />
       <About />
+      <HowIWork />
       <Work />
       <Experience />
       <Contact />

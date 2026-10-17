@@ -333,6 +333,10 @@
     .reveal-enabled main > [data-reveal]:nth-child(5) {
       transition-delay: 180ms;
     }
+
+    .reveal-enabled main > [data-reveal]:nth-child(6) {
+      transition-delay: 240ms;
+    }
   }
 }
 

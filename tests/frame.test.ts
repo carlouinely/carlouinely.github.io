@@ -73,7 +73,7 @@ describe('the home page frame', () => {
       .filter((href) => href.includes('#'))
       .map((href) => href.split('#')[1])
 
-    expect(fragments).toEqual(expect.arrayContaining(['work', 'experience', 'about']))
+    expect(fragments).toEqual(expect.arrayContaining(['work', 'experience', 'about', 'how-i-work']))
     expect(fragments.filter((fragment) => !ids.includes(fragment))).toEqual([])
   })
 
@@ -87,11 +87,11 @@ describe('the home page frame', () => {
     expect(html).not.toContain('Placeholder:')
   })
 
-  it("renders the sections in the order About me, Things I've built, Where I've worked, Let's talk", () => {
+  it("renders the sections in the order About me, How I work, Things I've built, Where I've worked, Let's talk", () => {
     const html = home()
     const order = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1])
 
-    expect(order).toEqual(['about', 'work', 'experience', 'contact'])
+    expect(order).toEqual(['about', 'how-i-work', 'work', 'experience', 'contact'])
     expect(html.indexOf('aria-label="Hero brand artwork"')).toBeLessThan(html.indexOf('id="about"'))
   })
 
@@ -141,7 +141,7 @@ describe('the responsive nav', () => {
 
   it('names the collapsed links and the Projects Index in the panel', () => {
     const links = internalLinks(menuPanel(menuTrigger().controls))
-    for (const href of ['/#about', '/#work', '/#experience', '/projects']) {
+    for (const href of ['/#about', '/#how-i-work', '/#work', '/#experience', '/projects']) {
       expect(links).toContain(href)
     }
   })

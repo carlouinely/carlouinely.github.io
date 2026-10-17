@@ -27,7 +27,7 @@ A full-stack engineer in Cebu, Philippines who ships end to end (polished fronte
 
 ## Capabilities and Constraints
 
-Surfaces: a home page ordered Hero, About me, Things I've built, Where I've worked, Let's talk; a Projects Index at `/projects` built on native disclosure rows that expand without JavaScript; and one Case Study per Project at `/projects/<slug>` with a table of contents and previous/next reading navigation. No other surfaces exist and none are planned. There is no Article surface: the reserved "Article" term in `GLOSSARY.md` exists only to keep Case Studies from drifting into blog-style writing.
+Surfaces: a home page ordered Hero, About me, How I work, Things I've built, Where I've worked, Let's talk; a Projects Index at `/projects` built on native disclosure rows that expand without JavaScript; and one Case Study per Project at `/projects/<slug>` with a table of contents and previous/next reading navigation. No other surfaces exist and none are planned. There is no Article surface: the reserved "Article" term in `GLOSSARY.md` exists only to keep Case Studies from drifting into blog-style writing.
 
 - Project content lives in a root `projects/` directory outside `src`, per ADR-0002, imported through the `~projects/*` alias. YAML frontmatter is the single source of truth for both the home page card and the Case Study header.
 - The content loader skips `_`-prefixed files, derives the slug from the filename, validates required fields and fails the build naming the offending file and field, sorts by `order`, and normalizes optional fields to explicit defaults.
@@ -38,7 +38,7 @@ Surfaces: a home page ordered Hero, About me, Things I've built, Where I've work
 - TanStack Start file-based routing prerendered to static HTML for GitHub Pages, with `failOnError` so a throwing route fails the build. No component library, no state management, and no routing beyond the home page, the Projects Index, and the Case Study route.
 - The owner's legal name appears nowhere; the wordmark is the only name the site uses.
 
-Undecided and not yet real: the email address, the canonical custom-domain origin, the favicon, the apple touch icon, the Open Graph share image, hero brand artwork, the About portrait, Project thumbnails and in-body screenshots, and a redacted CV PDF.
+Undecided and not yet real: the email address, the canonical custom-domain origin, the favicon, the apple touch icon, the Open Graph share image, hero brand artwork, Project thumbnails and in-body screenshots, and a redacted CV PDF.
 
 ## Brand Commitments
 
@@ -56,7 +56,7 @@ Real, and sufficient to build from:
 
 Absent, and future work must not fabricate it:
 
-- No imagery of any kind: no hero brand artwork, no portrait, no Project thumbnails, no in-body Case Study media.
+- No imagery of any kind: no hero brand artwork, no Project thumbnails, no in-body Case Study media.
 - No favicon, apple touch icon, or Open Graph share image.
 - No real email address, no custom domain, and no verified live URL for any Project.
 - No public repository URLs; `repo` is unset everywhere by intention.
