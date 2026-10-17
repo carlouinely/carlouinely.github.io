@@ -272,7 +272,7 @@ Internal docs (`README.md`, `PLACEHOLDERS.md`, `docs/`) are exempt; this governs
 
 ## Signature Motifs
 
-Three visual signatures define Caldera's identity and should be reused across new pages: (1) The halftone dot pattern — orange dots on a violet-to-orange gradient, always at hero scale with 40px radius, is the most recognizable motif. (2) The 189px display headline — ultrabold compressed type at near-architectural scale, with tight 0.94 line-height, signals the page is a Caldera page. (3) The triple-radius system — 100px for inputs, 40px for cards and content surfaces, 800px for pills — creates a consistent roundness without monotony.
+Three visual signatures define Caldera's identity and should be reused across new pages: (1) The halftone dot pattern — orange dots on a violet-to-orange gradient — is the most recognizable motif. It carries brand artwork and Placeholders at hero scale with 40px radius, and steps down to the small radius only when it fills a compact thumbnail. (2) The 189px display headline — ultrabold compressed type at near-architectural scale, with tight 0.94 line-height, signals the page is a Caldera page. (3) The triple-radius system — 100px for inputs, 40px for cards and content surfaces, 800px for pills — creates a consistent roundness without monotony.
 
 ## Similar Brands
 

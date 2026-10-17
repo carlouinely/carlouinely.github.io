@@ -1,52 +1,109 @@
 import { Link } from '@tanstack/react-router'
+import { ArrowGlyph } from '~src/components/glyphs'
 import { Media } from '~src/components/Media'
 import { highlights } from '~src/content/index'
 import type { Project } from '~src/content/projects'
 
 /**
- * One Project card. The whole card is the link to its Case Study, so the target
- * is the same wherever a visitor clicks.
+ * The lead Project: the section's one card, and the only place a Project
+ * thumbnail keeps hero-scale weight. Title and thumbnail share the card the way
+ * the hero's claim shares its row with the artwork, so the lead reads as the
+ * highlight while the titles below it stay compact. The whole card is the link
+ * to the Case Study, so the target is the same wherever a visitor clicks.
  */
-function ProjectCard({ project }: { project: Project }) {
+function LeadCard({ project }: { project: Project }) {
   return (
     <article>
       <Link
         to="/projects/$slug"
         params={{ slug: project.slug }}
-        className="group flex h-full flex-col rounded-cards bg-limestone p-24 md:p-40"
+        className="group grid gap-24 rounded-cards bg-limestone p-24 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:items-center md:gap-x-40 md:p-40"
       >
-        {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
-        <Media
-          kind="image"
-          ratio="16 / 10"
-          src={project.thumbnail ?? undefined}
-          label={`${project.title} thumbnail`}
-        />
-
-        <div className="mt-24">
+        <div>
           <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
             {project.tag}
           </p>
-          <h3 className="mt-16 font-pp-neue-corp-compact text-heading font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember">
+          <h3 className="mt-16 font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember lg:text-heading-2xl">
             {project.title}
           </h3>
           <p className="mt-16 font-dm-sans text-body text-obsidian">{project.summary}</p>
-          <p className="mt-16 font-dm-sans text-body-sm text-obsidian underline">
-            Read the case study
+          <p className="mt-24 flex items-center gap-8 font-dm-sans text-body text-obsidian">
+            <span className="underline">Read the case study</span>
+            <ArrowGlyph />
           </p>
         </div>
+
+        {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
+        <Media
+          kind="image"
+          ratio="16 / 9"
+          src={project.thumbnail ?? undefined}
+          label={`${project.title} thumbnail`}
+        />
       </Link>
     </article>
   )
 }
 
 /**
- * The home page's work section: only the Highlights, in the order the loader
- * produces, as cards that link to their Case Studies. The "See everything I've
- * built" link is the way to the full catalogue. Marking a Project as a
+ * A supporting Highlight: a compact row on the page canvas, its thumbnail
+ * reduced to a chip and the dotted rule above it the same one the rest of the
+ * page divides with. Only the title carries display type, so the rows scan as
+ * one list under the lead card instead of competing with it.
+ */
+function HighlightRow({ project }: { project: Project }) {
+  return (
+    <article>
+      <Link
+        to="/projects/$slug"
+        params={{ slug: project.slug }}
+        className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-16 gap-y-8 py-16 md:grid-cols-[auto_minmax(0,0.9fr)_minmax(0,1.3fr)_auto] md:gap-x-24 md:py-20"
+      >
+        <div className="w-64 self-center md:w-72">
+          <Media
+            kind="image"
+            ratio="1 / 1"
+            radius="small"
+            src={project.thumbnail ?? undefined}
+            label={`${project.title} thumbnail`}
+          />
+        </div>
+
+        <div className="min-w-0 md:col-start-2">
+          <h3 className="font-pp-neue-corp-compact text-subheading font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember md:text-heading">
+            {project.title}
+          </h3>
+          <div className="mt-8 flex items-center gap-12">
+            <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+              {project.tag}
+            </span>
+            <span className="font-system-sans-serif text-caption text-obsidian">
+              {project.year}
+            </span>
+          </div>
+        </div>
+
+        <p className="col-span-2 col-start-2 font-dm-sans text-body-sm text-obsidian md:col-span-1 md:col-start-3 md:row-start-1">
+          {project.summary}
+        </p>
+
+        <ArrowGlyph className="col-start-3 row-start-1 self-center text-obsidian transition-colors group-hover:text-ember md:col-start-4" />
+      </Link>
+    </article>
+  )
+}
+
+/**
+ * The home page's work section: the Highlights, in the order the loader
+ * produces, led by the first as a card and followed by the rest as compact rows
+ * that link to their Case Studies. The "See everything I've built" action sits
+ * in the heading row so it is on screen the moment the section is, and the
+ * section itself stays short enough to read in one pass. Marking a Project as a
  * Highlight is a content edit under `projects/`, never a change here.
  */
 export function Work() {
+  const [lead, ...supporting] = highlights
+
   return (
     <section
       id="work"
@@ -54,21 +111,38 @@ export function Work() {
       data-reveal
       className="mx-auto max-w-page px-24 py-32 md:py-48"
     >
-      <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
-        Things I&apos;ve built
-      </h2>
+      <div className="flex flex-wrap items-center justify-between gap-x-24 gap-y-16">
+        <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
+          Things I&apos;ve built
+        </h2>
 
-      <div className="mt-40 grid gap-24 md:grid-cols-2">
-        {highlights.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
-
-      <div className="mt-40">
-        <a href="/projects" className="font-dm-sans text-body text-obsidian underline">
+        <a
+          href="/projects"
+          className="action-pill action-pill--primary w-full justify-center gap-8 sm:w-auto"
+        >
           See everything I&apos;ve built
+          <ArrowGlyph />
         </a>
       </div>
+
+      {lead ? (
+        <div className="mt-32">
+          <LeadCard project={lead} />
+        </div>
+      ) : null}
+
+      {supporting.length > 0 ? (
+        <ul className="mt-16 flex flex-col">
+          {supporting.map((project, index) => (
+            <li
+              key={project.slug}
+              className={index > 0 ? 'border-t-[1.5px] border-dotted border-obsidian' : ''}
+            >
+              <HighlightRow project={project} />
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </section>
   )
 }

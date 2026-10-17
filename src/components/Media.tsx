@@ -2,6 +2,13 @@ export type MediaKind = 'halftone' | 'ember' | 'image' | 'video'
 
 export type MediaRatio = `${number} / ${number}`
 
+/**
+ * The corner radius step the block wears. Media at card and hero scale takes the
+ * card radius; a compact thumbnail sharing that radius on a small box rounds
+ * into a blob, so it steps down to the system's smaller radius instead.
+ */
+export type MediaRadius = 'cards' | 'medium' | 'small'
+
 export type MediaProps = {
   /**
    * The final kind of the asset. With no `src`, it selects the Placeholder
@@ -16,6 +23,14 @@ export type MediaProps = {
   src?: string
   /** Names the asset for screen readers and the development caption. */
   label: string
+  /** Defaults to the card radius, which suits every block the size of a card. */
+  radius?: MediaRadius
+}
+
+const RADIUS_CLASS: Record<MediaRadius, string> = {
+  cards: 'rounded-cards',
+  medium: 'rounded-medium',
+  small: 'rounded-small',
 }
 
 function placeholderTreatment(kind: MediaKind): string {
@@ -29,14 +44,15 @@ function placeholderTreatment(kind: MediaKind): string {
  * readers, and in development only it also carries a dotted border and a 12px
  * caption naming the asset it stands in for.
  */
-export function Media({ kind, ratio, src, label }: MediaProps) {
+export function Media({ kind, ratio, src, label, radius = 'cards' }: MediaProps) {
+  const corner = RADIUS_CLASS[radius]
   const shape = { aspectRatio: ratio }
 
   if (src) {
     if (kind === 'video') {
       return (
         <video
-          className="w-full rounded-cards object-cover"
+          className={`w-full ${corner} object-cover`}
           style={shape}
           src={src}
           controls
@@ -45,12 +61,12 @@ export function Media({ kind, ratio, src, label }: MediaProps) {
       )
     }
 
-    return <img className="w-full rounded-cards object-cover" style={shape} src={src} alt={label} />
+    return <img className={`w-full ${corner} object-cover`} style={shape} src={src} alt={label} />
   }
 
   const block = (
     <div
-      className={`w-full rounded-cards ${placeholderTreatment(kind)}`}
+      className={`w-full ${corner} ${placeholderTreatment(kind)}`}
       style={shape}
       role="img"
       aria-label={label}
@@ -63,7 +79,7 @@ export function Media({ kind, ratio, src, label }: MediaProps) {
 
   return (
     <figure
-      className="rounded-cards border-[1.5px] border-dotted border-obsidian p-4"
+      className={`${corner} border-[1.5px] border-dotted border-obsidian p-4`}
       data-placeholder
     >
       {block}

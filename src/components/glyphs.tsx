@@ -51,6 +51,25 @@ export function CloseGlyph(props: SVGProps<SVGSVGElement>) {
   )
 }
 
+/**
+ * The forward affordance on a link that leaves the section for more of the
+ * catalogue. Decorative: the link's own label carries the meaning.
+ */
+export function ArrowGlyph(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M4 12h15m-6-7 7 7-7 7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 /** The disclosure indicator on a Projects Index row. Decorative. */
 export function ChevronGlyph(props: SVGProps<SVGSVGElement>) {
   return (
