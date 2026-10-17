@@ -139,6 +139,12 @@ Filled Ember (#fc5000) with Obsidian (#070607) text. 800px border-radius (full p
 
 Transparent background, 1.5px Obsidian (#070607) border, Obsidian text. 800px border-radius, the same pill as the primary. Padding 12px vertical, 24px horizontal, and the same 1.5px border, so a row pairing it with the primary CTA stays level instead of stepping in height and shape. DM Sans 500 at 16px. Border style is solid here, not dotted. Hover shifts the border and the label to Ember. Sits beside the primary CTA as the quieter counterpart.
 
+### Dark Surface Action Pill
+
+**Role:** The outlined action on the footer, the site's only dark surface
+
+Transparent background, 1.5px Chalk (#ffffff) border, Chalk text, 800px border-radius, and the same padding and label size as the other pills. The secondary pill inverted: the outline is Chalk where the light surfaces draw it in Obsidian, so the action keeps the same weight against Obsidian instead of disappearing into it. Hover shifts the border and the label to Ember. Carries the footer's address, so it is also the one control on the site whose label is the destination rather than a verb.
+
 ### Outlined Ghost Link
 
 **Role:** Low-emphasis text link or nav item

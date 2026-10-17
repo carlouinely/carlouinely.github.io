@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { toolGlyphs } from '~src/components/toolGlyphs'
 import { projects } from '~src/content/index'
 import {
+  footerRegion,
   htmlToText,
   internalLinks,
   pageExists,
@@ -84,10 +85,10 @@ describe('the Projects Index', () => {
     }
   })
 
-  it('carries the site footer with its entry points', () => {
+  it('carries the site footer with the closing ask', () => {
     const html = index()
     expect(html).toContain('<footer')
-    expect(internalLinks(html)).toContain('/projects')
+    expect(htmlToText(footerRegion(html))).toContain("Let's talk")
     expect(htmlToText(html)).not.toContain('Built with')
   })
 

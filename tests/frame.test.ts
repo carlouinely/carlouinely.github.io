@@ -3,6 +3,7 @@ import { site } from '~src/site'
 import {
   elementIds,
   footerRegion,
+  homeSection,
   htmlToText,
   internalLinks,
   readClientPage,
@@ -109,21 +110,16 @@ describe('the home page frame', () => {
     expect(html).toContain(`href="mailto:${site.email}"`)
   })
 
-  it('renders the footer with the wordmark, a copyright line, and the ways on it offers', () => {
+  it('renders the footer with the wordmark, a copyright line, and the address alone', () => {
     const html = home()
     const text = htmlToText(html)
     expect(text).toContain('carlouinely')
     expect(text).toMatch(/©\s*\d{4}\s*carlouinely/)
 
     const footer = footerHtml()
-    expect(footer.match(/<a\b/g) ?? []).toHaveLength(5)
-
-    const links = internalLinks(footer)
-    expect(links).toContain('/projects')
-    expect(links).toContain('/#about')
-    expect(links).toContain('/#experience')
-    expect(footer).toContain(`href="${site.github}"`)
+    expect(footer.match(/<a\b/g) ?? []).toHaveLength(1)
     expect(footer).toContain(`href="mailto:${site.email}"`)
+    expect(internalLinks(footer)).toEqual([])
   })
 
   it('ships no build credit in the footer', () => {
@@ -145,9 +141,9 @@ describe('the responsive nav', () => {
     }
   })
 
-  it('leaves the Projects Index to the Work section and the footer', () => {
+  it('leaves the Projects Index to the Work section', () => {
     expect(primaryNav()).not.toContain('href="/projects"')
-    expect(internalLinks(footerHtml())).toContain('/projects')
+    expect(internalLinks(homeSection('work', 'experience'))).toContain('/projects')
   })
 
   it('keeps the CV action outside the panel so it stays visible', () => {
