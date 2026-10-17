@@ -6,19 +6,22 @@ import { site } from '~src/site'
 /** The panel id the trigger controls. One nav per page, so one stable id. */
 const PANEL_ID = 'primary-menu'
 
-/** Where the nav goes: the home sections, then the full catalogue. */
+/**
+ * Where the nav goes: the home page's sections, in the order they read. The
+ * Projects Index is not among them, because the Work section's own action and
+ * the footer both open it, and a fifth label would only crowd the row.
+ */
 const LINKS = [
   { label: 'About me', href: '/#about' },
   { label: 'How I work', href: '/#how-i-work' },
   { label: "Things I've built", href: '/#work' },
   { label: "Where I've worked", href: '/#experience' },
-  { label: 'Projects', href: '/projects' },
 ] as const
 
 /**
  * The site nav. On wide viewports the links sit inline in the pill; below the
  * extra-large breakpoint they collapse behind a trigger whose panel holds the
- * same links, because five labels and the CV action stop fitting on one row
+ * same links, because the labels and the CV action stop fitting on one row
  * before that and would otherwise break mid-phrase. The extra-large breakpoint
  * is the page's own max width, so the nav only opens up once the row it sits in
  * can hold it. The CV action never enters the panel, so the primary action

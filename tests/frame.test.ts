@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { site } from '~src/site'
 import {
   elementIds,
+  footerRegion,
   htmlToText,
   internalLinks,
   readClientPage,
@@ -46,12 +47,8 @@ function menuTrigger(): { html: string; controls: string } {
 }
 
 /** The footer landmark through to the end of the page body. */
-function footerRegion(): string {
-  const html = home()
-  const start = html.indexOf('<footer')
-  const end = html.indexOf('</body>')
-  if (start === -1 || end === -1 || end < start) throw new Error('The home page has no footer.')
-  return html.slice(start, end)
+function footerHtml(): string {
+  return footerRegion(home())
 }
 
 describe('the home page frame', () => {
@@ -87,12 +84,14 @@ describe('the home page frame', () => {
     expect(html).not.toContain('Placeholder:')
   })
 
-  it("renders the sections in the order About me, How I work, Things I've built, Where I've worked, Let's talk", () => {
+  it("renders the sections in the order About me, How I work, Things I've built, Where I've worked, then the closing block", () => {
     const html = home()
     const order = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1])
 
-    expect(order).toEqual(['about', 'how-i-work', 'work', 'experience', 'contact'])
+    expect(order).toEqual(['about', 'how-i-work', 'work', 'experience'])
     expect(html.indexOf('aria-label="Hero brand artwork"')).toBeLessThan(html.indexOf('id="about"'))
+    expect(html.indexOf('id="contact"')).toBeGreaterThan(html.indexOf('id="experience"'))
+    expect(html.indexOf('</main>')).toBeLessThan(html.indexOf('<footer'))
   })
 
   it('renders the CV action inert, not as an anchor', () => {
@@ -104,31 +103,28 @@ describe('the home page frame', () => {
     expect(anchorBodies.some((body) => body.includes('Download CV'))).toBe(false)
   })
 
-  it('links the GitHub glyph and the email action at the registered values', () => {
-    const html = home()
-    expect(html).toContain('href="https://github.com/carlouinely"')
-    expect(html).toContain('href="mailto:hello@carlouinely.example"')
+  it('links the GitHub profile at the registered value', () => {
+    expect(home()).toContain(`href="${site.github}"`)
   })
 
-  it('renders the footer with the wordmark, a copyright line, and exactly five entry points', () => {
+  it('renders the footer with the wordmark, a copyright line, and the ways on it offers', () => {
     const html = home()
     const text = htmlToText(html)
     expect(text).toContain('carlouinely')
     expect(text).toMatch(/©\s*\d{4}\s*carlouinely/)
 
-    const footer = footerRegion()
-    expect(footer.match(/<a\b/g) ?? []).toHaveLength(5)
+    const footer = footerHtml()
+    expect(footer.match(/<a\b/g) ?? []).toHaveLength(4)
 
     const links = internalLinks(footer)
     expect(links).toContain('/projects')
     expect(links).toContain('/#about')
     expect(links).toContain('/#experience')
-    expect(footer).toContain(`href="mailto:${site.email}"`)
     expect(footer).toContain(`href="${site.github}"`)
   })
 
   it('ships no build credit in the footer', () => {
-    expect(htmlToText(footerRegion())).not.toContain('Built with')
+    expect(htmlToText(footerHtml())).not.toContain('Built with')
   })
 })
 
@@ -139,11 +135,16 @@ describe('the responsive nav', () => {
     expect(primaryNav()).toContain(`id="${controls}"`)
   })
 
-  it('names the collapsed links and the Projects Index in the panel', () => {
+  it('names the home sections in the panel', () => {
     const links = internalLinks(menuPanel(menuTrigger().controls))
-    for (const href of ['/#about', '/#how-i-work', '/#work', '/#experience', '/projects']) {
+    for (const href of ['/#about', '/#how-i-work', '/#work', '/#experience']) {
       expect(links).toContain(href)
     }
+  })
+
+  it('leaves the Projects Index to the Work section and the footer', () => {
+    expect(primaryNav()).not.toContain('href="/projects"')
+    expect(internalLinks(footerHtml())).toContain('/projects')
   })
 
   it('keeps the CV action outside the panel so it stays visible', () => {

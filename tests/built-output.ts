@@ -107,9 +107,12 @@ export function homeSection(fromId: string, toId: string): string {
   return sliceHome(fromId, `id="${toId}"`, `the "${toId}" landmark`)
 }
 
-/** The delivered home page from a section landmark to a literal marker, end exclusive. */
-export function homeSectionUntil(fromId: string, marker: string): string {
-  return sliceHome(fromId, marker, `the "${marker}" marker`)
+/** A built page's footer landmark through to the end of its body. */
+export function footerRegion(html: string): string {
+  const start = html.indexOf('<footer')
+  const end = html.indexOf('</body>')
+  if (start === -1 || end === -1 || end < start) throw new Error('The page has no footer.')
+  return html.slice(start, end)
 }
 
 /** The rendered cards in a section of the home page, in document order. */
