@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from 'vite-plus/test'
 import { cardsIn, homeSection, htmlToText, readClientPage, requireFreshBuild } from './built-output'
 
 /**
- * The Experience section, observed through the delivered home page. The card
+ * The Experience section, observed through the delivered home page. The entry
  * copy is asserted as text a recruiter reads; nothing here depends on classes,
  * component names, or prop shapes.
  */
@@ -12,7 +12,7 @@ beforeAll(() => {
 })
 
 /** The employer, title, dates, engagement, and one outcome from the real history. */
-const CARDS = [
+const ENTRIES = [
   {
     employer: 'DEVGO Studio',
     title: 'Software Engineer',
@@ -48,37 +48,37 @@ function experienceRegion(): string {
   return homeSection('experience', 'contact')
 }
 
-/** The rendered cards, in document order. */
-function cards(): string[] {
+/** The rendered timeline entries, in document order. */
+function entries(): string[] {
   return cardsIn(experienceRegion())
 }
 
 describe('the Experience section', () => {
-  it('renders one card per engagement', () => {
-    expect(cards()).toHaveLength(CARDS.length)
+  it('renders one entry per engagement', () => {
+    expect(entries()).toHaveLength(ENTRIES.length)
   })
 
   it('lists the engagements in reverse-chronological order', () => {
     const html = home()
-    const positions = CARDS.map((card) => html.indexOf(card.employer))
+    const positions = ENTRIES.map((entry) => html.indexOf(entry.employer))
     expect(positions.every((position) => position !== -1)).toBe(true)
     expect(positions).toEqual([...positions].sort((a, b) => a - b))
   })
 
-  it.each(CARDS.map((card) => [card.employer, card] as const))(
+  it.each(ENTRIES.map((entry) => [entry.employer, entry] as const))(
     'shows employer, title, dates, engagement, and outcome bullets for %s',
-    (_employer, card) => {
-      const cardHtml = cards().find((html) => html.includes(card.employer))
-      expect(cardHtml, `a card for ${card.employer}`).toBeDefined()
+    (_employer, entry) => {
+      const entryHtml = entries().find((html) => html.includes(entry.employer))
+      expect(entryHtml, `an entry for ${entry.employer}`).toBeDefined()
 
-      const text = htmlToText(cardHtml ?? '')
-      expect(text).toContain(card.employer)
-      expect(text).toContain(card.title)
-      for (const date of card.dates) expect(text).toContain(date)
-      expect(text).toContain(card.engagement)
-      expect(text).toContain(card.outcome)
+      const text = htmlToText(entryHtml ?? '')
+      expect(text).toContain(entry.employer)
+      expect(text).toContain(entry.title)
+      for (const date of entry.dates) expect(text).toContain(date)
+      expect(text).toContain(entry.engagement)
+      expect(text).toContain(entry.outcome)
 
-      const bullets = (cardHtml ?? '').match(/<li\b/g) ?? []
+      const bullets = (entryHtml ?? '').match(/<li\b/g) ?? []
       expect(bullets.length).toBeGreaterThanOrEqual(2)
     },
   )
@@ -87,7 +87,7 @@ describe('the Experience section', () => {
     const text = htmlToText(experienceRegion())
     expect(text.match(/DEVGO Studio/g)).toHaveLength(1)
 
-    const devgo = cards().find((html) => html.includes('DEVGO Studio')) ?? ''
+    const devgo = entries().find((html) => html.includes('DEVGO Studio')) ?? ''
     const devgoText = htmlToText(devgo)
     expect(devgoText).toContain('Mar 2024 to Aug 2025')
     expect(devgoText).toContain('Mar 2026 to now')
@@ -95,12 +95,12 @@ describe('the Experience section', () => {
   })
 
   it('tags Zaigo as full-time and the other engagements as freelance', () => {
-    const zaigo = cards().find((html) => html.includes('Zaigo')) ?? ''
+    const zaigo = entries().find((html) => html.includes('Zaigo')) ?? ''
     expect(htmlToText(zaigo)).toContain('Full-time')
     expect(htmlToText(zaigo)).not.toContain('Freelance')
 
-    for (const card of CARDS.filter((card) => card.engagement === 'Freelance')) {
-      const html = cards().find((entry) => entry.includes(card.employer)) ?? ''
+    for (const entry of ENTRIES.filter((entry) => entry.engagement === 'Freelance')) {
+      const html = entries().find((candidate) => candidate.includes(entry.employer)) ?? ''
       expect(htmlToText(html)).toContain('Freelance')
     }
   })

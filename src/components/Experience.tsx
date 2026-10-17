@@ -1,9 +1,14 @@
 import { experience } from '~src/content/experience'
 
 /**
- * The employment history. The engagement is tagged so freelance and full-time
- * work stay distinguishable, and each role is reduced to a summary line plus its
- * outcomes so the section scans in seconds.
+ * The employment history as a timeline: one dotted spine with an Ember dot per
+ * role and the date opening each entry, so the marker the eye lands on is the
+ * one that says when. Entries are grid rows rather than cards, so a role with
+ * three outcomes and one with two keep the same top edge and the same columns
+ * once the boxes are gone. The date takes the first row alone, which leaves the
+ * role and its outcomes opening on one line and holds the body measure on a
+ * wide screen. The engagement is tagged so freelance and full-time work stay
+ * distinguishable.
  */
 export function Experience() {
   return (
@@ -17,27 +22,29 @@ export function Experience() {
         Where I&apos;ve worked
       </h2>
 
-      <div className="page-head page-stack">
+      <ol className="timeline page-head">
         {experience.map((role) => (
-          <article
-            key={`${role.employer}-${role.dates}`}
-            className="rounded-cards bg-limestone p-24 md:p-40"
-          >
-            <div className="grid gap-24 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-              <div>
+          <li key={`${role.employer}-${role.dates}`}>
+            <article className="timeline-entry">
+              <span aria-hidden className="timeline-dot col-start-1 row-start-1" />
+
+              <p className="col-start-2 row-start-1 font-system-sans-serif text-caption text-obsidian">
+                {role.dates}
+              </p>
+
+              <div className="col-start-2 row-start-2">
                 <h3 className="font-pp-neue-corp-compact text-heading font-regular tracking-heading text-obsidian uppercase">
                   {role.title}
                 </h3>
-                <p className="mt-8 font-dm-sans text-body text-obsidian">{role.employer}</p>
-                <p className="mt-8 font-system-sans-serif text-caption text-obsidian">
-                  {role.dates}
-                </p>
-                <p className="mt-16 w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
-                  {role.engagement}
-                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-x-12 gap-y-8">
+                  <p className="font-dm-sans text-body text-obsidian">{role.employer}</p>
+                  <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+                    {role.engagement}
+                  </p>
+                </div>
               </div>
 
-              <div>
+              <div className="col-start-2 row-start-3 mt-8 md:col-start-3 md:row-start-2 md:mt-0">
                 <p className="font-dm-sans text-body text-obsidian">{role.summary}</p>
                 <ul className="mt-16 space-y-8 list-disc pl-24 font-dm-sans text-body text-obsidian">
                   {role.outcomes.map((outcome) => (
@@ -45,10 +52,10 @@ export function Experience() {
                   ))}
                 </ul>
               </div>
-            </div>
-          </article>
+            </article>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   )
 }

@@ -157,6 +157,12 @@ Ember (#fc5000) solid background, Chalk (#ffffff) text. 40px border-radius. Padd
 
 Limestone (#f7f6f2) background, no border, no shadow. 40px border-radius. Padding 40px all sides. Contains a category tag, headline (PP Neue Corp Compact 26–32px in Obsidian), and date metadata. The image area at the top can be a halftone or solid Ember block.
 
+### Timeline Entry
+
+**Role:** One employment role in the home page's "Where I've worked" timeline
+
+No surface of its own. A 12px Ember dot sits on a 1.5px dotted Obsidian spine in a 12px left rail, and the date in system sans-serif opens the entry beside the dot it marks. The role, employer, and engagement tag (Sulfur pill) then hold the display column, while the summary and its outcome bullets fill the wider column beside them so running text keeps its measure. Nothing separates two entries but the group rhythm: the spine runs through the gap, so the roles read as one continuous history rather than a stack of boxes.
+
 ### Plasma Hero Card
 
 **Role:** Single standout content surface
@@ -197,7 +203,7 @@ Limestone (#f7f6f2) background card, 40px radius, 40px padding. Logos arranged i
 
 **Role:** Section separator and decorative detail
 
-1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, and occasionally as horizontal section breaks. The dotted (not dashed, not solid) style is a small but consistent signature detail.
+1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, as the spine of the employment timeline, and occasionally as horizontal section breaks. The dotted (not dashed, not solid) style is a small but consistent signature detail.
 
 ## Do's and Don'ts
 
