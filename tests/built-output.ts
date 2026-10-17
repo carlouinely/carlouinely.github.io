@@ -36,7 +36,7 @@ export function requireFreshBuild(): void {
   const indexHtml = join(clientDir, 'index.html')
   if (!existsSync(indexHtml)) {
     throw new Error(
-      'Built client output not found at dist/client. The suite reads the real build, so run `vp build` before `vp test` (the deploy workflow runs the build step first).',
+      'Built client output not found at dist/client. The suite reads the real build, so run `vp run build` before `vp run test` (the deploy workflow runs the build step first).',
     )
   }
 
@@ -47,7 +47,7 @@ export function requireFreshBuild(): void {
 
     if (newestMtime(path) > builtAt) {
       throw new Error(
-        `Built client output at dist/client is stale: ${input} changed after it was built. Run \`vp build\` before \`vp test\` so the suite reads the current site.`,
+        `Built client output at dist/client is stale: ${input} changed after it was built. Run \`vp run build\` before \`vp run test\` so the suite reads the current site.`,
       )
     }
   }

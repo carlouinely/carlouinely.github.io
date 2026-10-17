@@ -6,7 +6,9 @@ Use `vp` for everything (`vp help`; docs in `node_modules/vite-plus/docs`).
 - `vp` built-ins shadow same-named scripts, so `vp build` skips this repo's `tsc`; run project scripts with `vp run <name>`.
 - Trouble: `vp env doctor` (include its output), `vp toolchain [tool]`, `vp why <pkg>`.
 
-**Done means `vp check` and `vp build` both pass** — `vp build` catches the client/server boundary `vp check` misses.
+**Done means `vp check`, `vp run build`, and `vp run test` all pass** — `vp run build` catches the client/server boundary `vp check` misses.
+
+The suite reads the real prerendered site in `dist/client`, so `vp run test` must follow a build; run one out of order and `requireFreshBuild()` fails loudly rather than passing against a stale build.
 
 ## Code
 
