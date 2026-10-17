@@ -11,13 +11,13 @@ export function Experience() {
       id="experience"
       aria-label="Where I've worked"
       data-reveal
-      className="mx-auto max-w-page px-24 py-32 md:py-48"
+      className="page-shell page-block"
     >
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
         Where I&apos;ve worked
       </h2>
 
-      <div className="mt-40 flex flex-col gap-24">
+      <div className="page-head page-stack">
         {experience.map((role) => (
           <article
             key={`${role.employer}-${role.dates}`}

@@ -57,7 +57,7 @@ function TableOfContents({ outline }: { outline: Project['outline'] }) {
   if (outline.length === 0) return null
 
   return (
-    <nav aria-label="On this page" className="mt-48 md:mt-64">
+    <nav aria-label="On this page" className="page-break">
       <p className="font-system-sans-serif text-caption text-obsidian uppercase">On this page</p>
       <ol className="mt-12 flex flex-wrap gap-x-24 gap-y-8">
         {outline.map((heading) => (
@@ -82,7 +82,7 @@ function ReadingNavigation({ project }: { project: Project }) {
   return (
     <nav
       aria-label="Project navigation"
-      className="mx-auto mt-80 flex max-w-[52rem] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24"
+      className="page-break mx-auto flex max-w-[52rem] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24"
     >
       {previous ? (
         <Link
@@ -127,20 +127,21 @@ function CaseStudy() {
   const { CaseStudyBody, outline } = project
 
   return (
-    <main className="py-48 md:py-80">
+    <main className="page-block">
       {/* The padding sits on the capped article, not on the full-width main, so
           the article's own edges land on the page grid the nav and footer use
           instead of 24px outside it. */}
-      <article className="mx-auto max-w-page px-24">
+      <article className="page-shell">
         <header className="mx-auto flex max-w-[52rem] flex-col items-center text-center">
           <HeaderMeta project={project} />
-          <h1 className="mt-24 font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
+          {/* The tag and the year belong to the title, so they keep the group gap; the summary is body copy and takes the heading gap. */}
+          <h1 className="page-gap font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
             {project.title}
           </h1>
-          <p className="mt-24 font-dm-sans text-body text-obsidian">{project.summary}</p>
+          <p className="page-head font-dm-sans text-body text-obsidian">{project.summary}</p>
         </header>
 
-        <div className="mt-40 md:mt-56">
+        <div className="page-head">
           {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
           <Media
             kind="image"
@@ -154,7 +155,7 @@ function CaseStudy() {
 
         {/* The prose runs the article's width so an in-body figure can match the
             lead image; the measure lives on its running text instead. */}
-        <div className="prose mt-32 min-w-0">
+        <div className="prose page-gap min-w-0">
           <CaseStudyBody components={{ Media }} />
         </div>
 

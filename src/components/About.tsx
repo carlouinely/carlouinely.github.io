@@ -9,12 +9,7 @@ import { about } from '~src/content/about'
  */
 export function About() {
   return (
-    <section
-      id="about"
-      aria-label="About me"
-      data-reveal
-      className="mx-auto max-w-page px-24 py-32 md:py-48"
-    >
+    <section id="about" aria-label="About me" data-reveal className="page-shell page-block">
       <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
         About me
       </h2>
@@ -22,13 +17,13 @@ export function About() {
       {/* The lede is a wide-viewport gesture: at 30px a phone turns the same
           words into fourteen lines of large print, so it steps down to body
           size until the column can hold it. */}
-      <p className="mt-32 max-w-[48ch] font-dm-sans text-body text-obsidian md:text-heading-sm">
+      <p className="page-head max-w-[48ch] font-dm-sans text-body text-obsidian md:text-heading-sm">
         {about.summary}
       </p>
 
-      <div aria-hidden className="mt-48 border-t-[1.5px] border-dotted border-obsidian" />
+      <div aria-hidden className="page-gap border-t-[1.5px] border-dotted border-obsidian" />
 
-      <div className="mt-40 grid gap-32 sm:grid-cols-3 md:gap-0">
+      <div className="page-gap grid gap-24 sm:grid-cols-3 md:gap-0">
         {about.stack.map((group, index) => (
           <div
             key={group.label}

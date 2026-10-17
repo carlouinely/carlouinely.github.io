@@ -69,13 +69,13 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
  */
 function ProjectsIndex() {
   return (
-    <main className="mx-auto max-w-page px-24 py-48">
+    <main className="page-shell page-block">
       <h1 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
         Projects
       </h1>
-      <p className="mt-16 font-dm-sans text-body text-obsidian">{projectsIndex.description}</p>
+      <p className="page-head font-dm-sans text-body text-obsidian">{projectsIndex.description}</p>
 
-      <div className="mt-40 flex flex-col gap-16">
+      <div className="page-gap page-stack">
         {projects.map((project, index) => (
           <ProjectRow key={project.slug} project={project} index={index} />
         ))}

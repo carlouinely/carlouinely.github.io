@@ -11,20 +11,15 @@ import { site } from '~src/site'
  */
 export function Contact() {
   return (
-    <section
-      id="contact"
-      aria-label="Let's talk"
-      data-reveal
-      className="bg-obsidian py-56 md:py-80"
-    >
+    <section id="contact" aria-label="Let's talk" data-reveal className="page-block bg-obsidian">
       {/* The band bleeds, but its content still lands on the page grid: the
           padding sits on the capped inner box, not on the full-width section. */}
-      <div className="mx-auto max-w-page px-24">
+      <div className="page-shell">
         <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-chalk uppercase md:text-heading-2xl">
           Let&apos;s talk
         </h2>
 
-        <div className="mt-40 flex flex-wrap items-center gap-24">
+        <div className="page-head flex flex-wrap items-center gap-24">
           <p className="select-all font-dm-sans text-body text-chalk">{site.email}</p>
 
           <a

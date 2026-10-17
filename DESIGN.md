@@ -109,10 +109,21 @@ Buttons are always pills, so they carry `--radius-pills` and there is no separat
 
 ### Layout
 
+The page rhythm is five roles, and every surface builds from them: the home page, the Projects Index, and each Case Study. They live in `src/styles.css` as `page-shell`, `page-block`, `page-break`, `page-head`, `page-gap`, and `page-stack`, so a change lands on all three surfaces at once.
+
+| Role    | Mobile | From 768px | What it separates                                                                                                                                                                                          |
+| ------- | ------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Gutter  | 24px   | 24px       | Every page block's edge, and the footer. The nav pill is chrome: it bleeds 12px on small screens so the wordmark, the CV action, and the trigger fit on one row, and returns to the gutter from 768px up.  |
+| Block   | 40px   | 56px       | A block's own breathing above and below its content: the hero, every home section, both bands, the Projects Index main, a Case Study main, and the footer. Adjacent blocks therefore meet at 80px / 112px. |
+| Break   | 40px   | 56px       | A major group inside one block: a Case Study's lead image, its contents list, its prose, and its reading navigation.                                                                                       |
+| Heading | 32px   | 40px       | A page or section heading from the content it introduces: a home section heading from its first block, the Projects Index title from its description, a Case Study title from its summary.                 |
+| Group   | 24px   | 32px       | Sibling groups inside one block: a list of cards or rows, the About lede from its divider, an intro paragraph from the list under it.                                                                      |
+
 - **Page max-width:** 1280px (`--container-page`)
-- **Section gap:** 80px (`--spacing-80`)
-- **Card padding:** 40px (`--spacing-40`)
-- **Element gap:** 16px (`--spacing-16`)
+- **Card padding:** 40px from 768px up, 24px below it. Inside a card or a row, gaps stay on the 16px and 8px steps.
+- **Hierarchy:** the scale steps down from block (40px / 56px) to heading (32px / 40px) to group (24px / 32px), so a heading always sits closer to the content it introduces than to the block above it.
+
+The Case Study's prose keeps its own reading rhythm (`.prose`), since it answers to a reader following paragraphs rather than to the page grid.
 
 ## Components
 

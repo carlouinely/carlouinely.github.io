@@ -17,9 +17,9 @@ const LINKS: ReadonlyArray<{ label: string; href: string; rel?: string }> = [
  */
 export function Footer() {
   return (
-    <footer className="mx-auto w-full max-w-page px-24 pb-40 pt-80">
+    <footer className="page-shell page-block">
       <div className="border-t-[1.5px] border-dotted border-obsidian" />
-      <div className="mt-24 flex flex-wrap items-center justify-between gap-16 font-system-sans-serif text-caption text-obsidian">
+      <div className="page-gap flex flex-wrap items-center justify-between gap-16 font-system-sans-serif text-caption text-obsidian">
         <span className="flex items-center gap-8 font-dm-sans text-body">
           <MountainGlyph />
           {site.wordmark}

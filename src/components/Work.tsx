@@ -105,12 +105,7 @@ export function Work() {
   const [lead, ...supporting] = highlights
 
   return (
-    <section
-      id="work"
-      aria-label="Things I've built"
-      data-reveal
-      className="mx-auto max-w-page px-24 py-32 md:py-48"
-    >
+    <section id="work" aria-label="Things I've built" data-reveal className="page-shell page-block">
       <div className="flex flex-wrap items-center justify-between gap-x-24 gap-y-16">
         <h2 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase">
           Things I&apos;ve built
@@ -126,13 +121,13 @@ export function Work() {
       </div>
 
       {lead ? (
-        <div className="mt-32">
+        <div className="page-head">
           <LeadCard project={lead} />
         </div>
       ) : null}
 
       {supporting.length > 0 ? (
-        <ul className="mt-16 flex flex-col">
+        <ul className="page-gap flex flex-col">
           {supporting.map((project, index) => (
             <li
               key={project.slug}
