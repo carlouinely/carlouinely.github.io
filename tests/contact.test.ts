@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
+import { contact } from '~src/content/contact'
 import { site } from '~src/site'
 import {
   footerRegion,
@@ -11,9 +12,10 @@ import {
 /**
  * The closing block, observed through the delivered home page. The contact ask
  * lives in the footer rather than in a section of the page body, so this reads
- * the footer landmark. The email is asserted against the site constant rather
- * than a literal, so swapping a Placeholder for a real value stays a one-line
- * change. Nothing here depends on classes or DOM structure.
+ * the footer landmark. The email and the line above it are asserted against the
+ * site constants rather than literals, so swapping a Placeholder for a real
+ * value stays a one-line change. Nothing here depends on classes or DOM
+ * structure.
  */
 
 beforeAll(() => {
@@ -39,11 +41,11 @@ describe('the closing block', () => {
     expect(home().indexOf('id="contact"')).toBeGreaterThan(home().indexOf('id="experience"'))
   })
 
-  it('carries the ask, the address, and the CV action', () => {
+  it('carries the ask, the line that supports it, and the address', () => {
     const text = htmlToText(closing())
     expect(text).toContain("Let's talk")
+    expect(text).toContain(contact.ask)
     expect(text).toContain(site.email)
-    expect(text).toContain('Download CV')
   })
 
   it("makes the address a mailto link that opens the visitor's own client", () => {
@@ -57,9 +59,9 @@ describe('the closing block', () => {
     expect(internalLinks(closing())).toEqual([])
   })
 
-  it('carries the CV action, which references no CV file', () => {
+  it('leaves the CV action to the nav, so the address is the only thing to do here', () => {
     const region = closing()
-    expect(htmlToText(region)).toContain('Download CV')
+    expect(htmlToText(region)).not.toContain('Download CV')
     expect(region).not.toMatch(/href=["'][^"']*\.pdf/i)
   })
 })
