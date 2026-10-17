@@ -127,8 +127,11 @@ function CaseStudy() {
   const { CaseStudyBody, outline } = project
 
   return (
-    <main className="px-24 py-48 md:py-80">
-      <article className="mx-auto max-w-page">
+    <main className="py-48 md:py-80">
+      {/* The padding sits on the capped article, not on the full-width main, so
+          the article's own edges land on the page grid the nav and footer use
+          instead of 24px outside it. */}
+      <article className="mx-auto max-w-page px-24">
         <header className="mx-auto flex max-w-[52rem] flex-col items-center text-center">
           <HeaderMeta project={project} />
           <h1 className="mt-24 font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
