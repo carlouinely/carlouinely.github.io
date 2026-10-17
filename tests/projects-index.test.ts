@@ -35,9 +35,19 @@ function rowFor(title: string): string {
   return rows().find((html) => html.includes(title)) ?? ''
 }
 
+/** The Index's own page head: everything above the first disclosure row. */
+function head(): string {
+  const html = index()
+  return html.slice(html.indexOf('<main'), html.indexOf('<details'))
+}
+
 describe('the Projects Index', () => {
   it('is prerendered at /projects', () => {
     expect(pageExists('/projects')).toBe(true)
+  })
+
+  it('offers the way back to the home page from its title row', () => {
+    expect(internalLinks(head())).toContain('/')
   })
 
   it('renders one native disclosure per Project, collapsed by default', () => {

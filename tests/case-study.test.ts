@@ -148,6 +148,14 @@ describe('the reading navigation', () => {
   )
 
   it.each(projects.map((project) => [project.title, project] as const))(
+    'offers the way back to the home page from %s',
+    (_title, project) => {
+      const readingNav = nav(caseStudy(project.slug), 'Project navigation')
+      expect(internalLinks(readingNav)).toContain('/')
+    },
+  )
+
+  it.each(projects.map((project) => [project.title, project] as const))(
     'does not mark the Index link as the current page of %s',
     (_title, project) => {
       const readingNav = nav(caseStudy(project.slug), 'Project navigation')

@@ -70,6 +70,26 @@ export function ArrowGlyph(props: SVGProps<SVGSVGElement>) {
   )
 }
 
+/**
+ * The back affordance on a link that returns up to the home page. The mirror of
+ * `ArrowGlyph`, drawn to the same stroke so the two read as one family.
+ * Decorative: the link's own label carries the meaning.
+ */
+export function BackArrowGlyph(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" {...props}>
+      <path
+        d="M20 12H5m6-7-7 7 7 7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 /** The disclosure indicator on a Projects Index row. Decorative. */
 export function ChevronGlyph(props: SVGProps<SVGSVGElement>) {
   return (

@@ -75,7 +75,11 @@ function TableOfContents({ outline }: { outline: Project['outline'] }) {
   )
 }
 
-/** The previous, next, and back-to-Index links that close a Case Study. */
+/**
+ * The previous, next, and back-to-Index links that close a Case Study. The
+ * Index and the home page are the two ways up from a Project, so they share the
+ * middle slot and leave Previous and Next on the ends.
+ */
 function ReadingNavigation({ project }: { project: Project }) {
   const { previous, next } = adjacentProjects(project.slug)
 
@@ -95,10 +99,15 @@ function ReadingNavigation({ project }: { project: Project }) {
       ) : (
         <span />
       )}
-      {/* A plain anchor, so the Index is not marked as the page you are already on. */}
-      <a href="/projects" className="font-dm-sans text-body text-obsidian underline">
-        All projects
-      </a>
+      <span className="flex flex-wrap items-baseline justify-center gap-x-24 gap-y-8">
+        {/* Plain anchors, so neither is marked as the page you are already on. */}
+        <a href="/projects" className="font-dm-sans text-body text-obsidian underline">
+          All projects
+        </a>
+        <a href="/" className="font-dm-sans text-body text-obsidian underline">
+          Home
+        </a>
+      </span>
       {next ? (
         <Link
           to="/projects/$slug"

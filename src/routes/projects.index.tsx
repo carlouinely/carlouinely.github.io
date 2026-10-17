@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ChevronGlyph } from '~src/components/glyphs'
+import { BackArrowGlyph, ChevronGlyph } from '~src/components/glyphs'
 import { ToolGlyph } from '~src/components/toolGlyphs'
 import { projects } from '~src/content/index'
 import type { Project } from '~src/content/projects'
@@ -70,9 +70,23 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 function ProjectsIndex() {
   return (
     <main className="page-shell page-block">
-      <h1 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
-        Projects
-      </h1>
+      <div className="flex flex-wrap items-center justify-between gap-x-24 gap-y-16">
+        <h1 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
+          Projects
+        </h1>
+
+        {/* A visitor reaches the Index from the home page's Work section, so the
+            way back sits in the title row, where this site puts a page action,
+            rather than above the heading as a label of its own. */}
+        <a
+          href="/"
+          className="action-pill action-pill--quiet w-full justify-center gap-8 sm:w-auto"
+        >
+          <BackArrowGlyph />
+          Back to home
+        </a>
+      </div>
+
       <p className="page-head font-dm-sans text-body text-obsidian">{projectsIndex.description}</p>
 
       <div className="page-gap page-stack">
