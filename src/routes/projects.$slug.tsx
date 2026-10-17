@@ -82,7 +82,7 @@ function ReadingNavigation({ project }: { project: Project }) {
   return (
     <nav
       aria-label="Project navigation"
-      className="mt-80 flex flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24"
+      className="mx-auto mt-80 flex max-w-[49ch] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24 lg:max-w-[52rem]"
     >
       {previous ? (
         <Link
@@ -150,7 +150,13 @@ function CaseStudy() {
           />
         </div>
 
-        <div className="mx-auto mt-48 max-w-[64rem] md:mt-64 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-64">
+        {/* The text column and the header share one capped width, so the table
+            of contents, the prose measure, and the title all land on the same
+            edges. The lead image above stays the article's one full-width
+            block. Below the two-column breakpoint there is no contents rail, so
+            the cap becomes the measure itself and the column stays centred
+            instead of sitting against the left edge of a wider box. */}
+        <div className="mx-auto mt-48 max-w-[49ch] md:mt-64 lg:grid lg:max-w-[52rem] lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-64">
           <TableOfContents outline={outline} />
           <div className="prose min-w-0">
             <CaseStudyBody components={{ Media }} />
