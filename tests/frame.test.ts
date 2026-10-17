@@ -103,8 +103,10 @@ describe('the home page frame', () => {
     expect(anchorBodies.some((body) => body.includes('Download CV'))).toBe(false)
   })
 
-  it('links the GitHub profile at the registered value', () => {
-    expect(home()).toContain(`href="${site.github}"`)
+  it('links the GitHub glyph and the email action at the registered values', () => {
+    const html = home()
+    expect(html).toContain(`href="${site.github}"`)
+    expect(html).toContain(`href="mailto:${site.email}"`)
   })
 
   it('renders the footer with the wordmark, a copyright line, and the ways on it offers', () => {
@@ -114,13 +116,14 @@ describe('the home page frame', () => {
     expect(text).toMatch(/©\s*\d{4}\s*carlouinely/)
 
     const footer = footerHtml()
-    expect(footer.match(/<a\b/g) ?? []).toHaveLength(4)
+    expect(footer.match(/<a\b/g) ?? []).toHaveLength(5)
 
     const links = internalLinks(footer)
     expect(links).toContain('/projects')
     expect(links).toContain('/#about')
     expect(links).toContain('/#experience')
     expect(footer).toContain(`href="${site.github}"`)
+    expect(footer).toContain(`href="mailto:${site.email}"`)
   })
 
   it('ships no build credit in the footer', () => {

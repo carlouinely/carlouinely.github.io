@@ -20,8 +20,9 @@ const LINKS: ReadonlyArray<{ label: string; href: string }> = [
  *
  * It is the site's only dark surface, so it wears the palette inverted: the
  * dotted rule, the wordmark, and the links are Chalk where the rest of the page
- * draws them in Obsidian. The address stays plain selectable text rather than a
- * mailto link, so a recruiter can copy it into whichever client they use.
+ * draws them in Obsidian. The address is a mailto link as well as legible text,
+ * so it opens the visitor's client on a phone and still copies on a desktop.
+ * The offsets are em-based because the address steps a size down at `md`.
  */
 export function Footer() {
   return (
@@ -36,14 +37,17 @@ export function Footer() {
         </div>
 
         <div className="page-head flex flex-wrap items-baseline gap-x-24 gap-y-8">
-          <p className="font-dm-sans text-body break-words select-all md:text-heading-sm">
+          <a
+            href={`mailto:${site.email}`}
+            className="font-dm-sans text-body break-words underline underline-offset-[0.3em] transition-colors hover:text-ember md:text-heading-sm"
+          >
             {site.email}
-          </p>
+          </a>
 
           <a
             href={site.github}
             rel="me"
-            className="inline-flex items-center gap-8 py-8 font-dm-sans text-body underline underline-offset-4 transition-colors hover:text-ember"
+            className="inline-flex items-center gap-8 py-8 font-dm-sans text-body underline underline-offset-[0.3em] transition-colors hover:text-ember"
           >
             <GitHubGlyph />
             GitHub

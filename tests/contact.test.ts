@@ -37,10 +37,10 @@ describe('the closing block', () => {
     expect(closing()).toContain(`href="${site.github}"`)
   })
 
-  it('renders the address as plain text, not a mailto link, so it copies into any client', () => {
+  it("makes the address a mailto link that opens the visitor's own client", () => {
     const region = closing()
     expect(htmlToText(region)).toContain(site.email)
-    expect(region).not.toContain('mailto:')
+    expect(region).toContain(`href="mailto:${site.email}"`)
   })
 
   it('carries the CV action, which references no CV file', () => {
