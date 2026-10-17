@@ -49,22 +49,23 @@ function HeaderMeta({ project }: { project: Project }) {
 }
 
 /**
- * The table of contents, built from the body's level-2 headings. It reads as one
- * strip above the prose rather than a sticky rail: a rail would sit in the path
- * of the in-body figures, which span the article's full width.
+ * The contents rail. It names the body's level-2 headings and takes the reading
+ * frame's left column, where it sticks for the length of the article so the
+ * section list is still in reach halfway down. Below the rail breakpoint the
+ * frame stacks and it reads as the group above the prose.
  */
 function TableOfContents({ outline }: { outline: Project['outline'] }) {
   if (outline.length === 0) return null
 
   return (
-    <nav aria-label="On this page" className="page-break">
+    <nav aria-label="On this page" className="reading-rail">
       <p className="font-system-sans-serif text-caption text-obsidian uppercase">On this page</p>
-      <ol className="mt-12 flex flex-wrap gap-x-24 gap-y-8">
+      <ol className="mt-8 flex flex-col gap-4">
         {outline.map((heading) => (
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
-              className="font-dm-sans text-body-sm text-obsidian underline underline-offset-2 hover:text-ember"
+              className="block py-4 font-dm-sans text-body-sm leading-body text-obsidian transition-colors hover:text-ember"
             >
               {heading.text}
             </a>
@@ -76,9 +77,11 @@ function TableOfContents({ outline }: { outline: Project['outline'] }) {
 }
 
 /**
- * The previous, next, and back-to-Index links that close a Case Study. The
- * Index and the home page are the two ways up from a Project, so they share the
- * middle slot and leave Previous and Next on the ends.
+ * The reading navigation. The two directions a reader can keep going sit at the
+ * ends of the reading column, each as the constant label above the Project it
+ * leads to, so the pair reads as one row. The two ways up from the article
+ * follow on their own line a size down, where they cannot compete with the
+ * direction a reader is most likely to take.
  */
 function ReadingNavigation({ project }: { project: Project }) {
   const { previous, next } = adjacentProjects(project.slug)
@@ -86,46 +89,64 @@ function ReadingNavigation({ project }: { project: Project }) {
   return (
     <nav
       aria-label="Project navigation"
-      className="page-break mx-auto flex max-w-[52rem] flex-wrap items-baseline justify-between gap-x-24 gap-y-16 border-t-[1.5px] border-dotted border-obsidian pt-24"
+      className="page-break mx-auto w-full max-w-[var(--measure-prose)] border-t-[1.5px] border-dotted border-obsidian pt-24"
     >
-      {previous ? (
-        <Link
-          to="/projects/$slug"
-          params={{ slug: previous.slug }}
-          className="font-dm-sans text-body text-obsidian underline"
-        >
-          Previous: {previous.title}
-        </Link>
-      ) : (
-        <span />
-      )}
-      <span className="flex flex-wrap items-baseline justify-center gap-x-24 gap-y-8">
+      <div className="grid gap-x-24 gap-y-24 sm:grid-cols-2">
+        {previous ? (
+          <div>
+            <p className="font-system-sans-serif text-caption text-obsidian uppercase">Previous</p>
+            <Link
+              to="/projects/$slug"
+              params={{ slug: previous.slug }}
+              aria-label={`Previous Project: ${previous.title}`}
+              className="mt-8 block font-dm-sans text-body text-obsidian underline underline-offset-2 hover:text-ember"
+            >
+              {previous.title}
+            </Link>
+          </div>
+        ) : (
+          <span />
+        )}
+
+        {next ? (
+          <div className="sm:text-right">
+            <p className="font-system-sans-serif text-caption text-obsidian uppercase">Next</p>
+            <Link
+              to="/projects/$slug"
+              params={{ slug: next.slug }}
+              aria-label={`Next Project: ${next.title}`}
+              className="mt-8 block font-dm-sans text-body text-obsidian underline underline-offset-2 hover:text-ember"
+            >
+              {next.title}
+            </Link>
+          </div>
+        ) : (
+          <span />
+        )}
+      </div>
+
+      <div className="page-gap flex flex-wrap items-center gap-x-24 gap-y-8">
         {/* Plain anchors, so neither is marked as the page you are already on. */}
-        <a href="/projects" className="font-dm-sans text-body text-obsidian underline">
-          All projects
-        </a>
-        <a href="/" className="font-dm-sans text-body text-obsidian underline">
-          Home
-        </a>
-      </span>
-      {next ? (
-        <Link
-          to="/projects/$slug"
-          params={{ slug: next.slug }}
-          className="font-dm-sans text-body text-obsidian underline"
+        <a
+          href="/projects"
+          className="font-dm-sans text-body-sm text-obsidian underline underline-offset-2 hover:text-ember"
         >
-          Next: {next.title}
-        </Link>
-      ) : (
-        <span />
-      )}
+          Back to projects
+        </a>
+        <a
+          href="/"
+          className="font-dm-sans text-body-sm text-obsidian underline underline-offset-2 hover:text-ember"
+        >
+          Back to home
+        </a>
+      </div>
     </nav>
   )
 }
 
 /**
  * The Case Study at its slug: a centred header, a wide lead media block, then
- * the prose body beside a table of contents, closed by reading navigation.
+ * the prose body inside the reading frame, closed by reading navigation.
  */
 function CaseStudy() {
   const { slug } = Route.useParams()
@@ -160,12 +181,15 @@ function CaseStudy() {
           />
         </div>
 
-        <TableOfContents outline={outline} />
+        <div className="reading-frame page-break">
+          <TableOfContents outline={outline} />
 
-        {/* The prose runs the article's width so an in-body figure can match the
-            lead image; the measure lives on its running text instead. */}
-        <div className="prose page-gap min-w-0">
-          <CaseStudyBody components={{ Media }} />
+          {/* The prose keeps the reading column's measure, and an in-body figure
+              takes that same measure, so nothing in the body can run under the
+              rail or read as loud as the lead image. */}
+          <div className="prose reading-column min-w-0">
+            <CaseStudyBody components={{ Media }} />
+          </div>
         </div>
 
         <ReadingNavigation project={project} />

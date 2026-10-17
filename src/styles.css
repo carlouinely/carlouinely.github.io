@@ -88,6 +88,10 @@
 
   --container-page: 1280px;
 
+  /* The Case Study reading column. One token, because the frame, the running
+     text, the in-body figures, and the closing navigation all answer to it. */
+  --measure-prose: 40rem;
+
   /* Motion is restrained and one-shot. The easing is a soft ease-out and the
      two durations cover the scroll reveal and the hero entrance. */
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
@@ -160,6 +164,22 @@
     gap: var(--spacing-24);
   }
 
+  /* A Case Study's reading frame: the contents rail, the reading column, and a
+     trailing track that holds the column on the page's own centre line instead
+     of letting the rail push it off centre. Below the rail breakpoint there is
+     no room for a third track, so the frame stacks and the contents read as the
+     group above the prose. */
+  .reading-frame {
+    display: grid;
+    row-gap: var(--spacing-24);
+  }
+
+  /* The rail itself. Sticky needs the item to stop stretching to its row's
+     height, or it would have no room to travel in. */
+  .reading-rail {
+    align-self: start;
+  }
+
   @media (min-width: 48rem) {
     .page-block {
       padding-block: var(--spacing-56);
@@ -179,6 +199,35 @@
 
     .page-stack {
       gap: var(--spacing-32);
+    }
+
+    .reading-frame {
+      row-gap: var(--spacing-32);
+    }
+  }
+
+  /* The rail needs the reading column plus a track either side of it, which is
+     the page's own width and then some: below this the contents stay in the
+     flow above the prose, where there is no rail to run under. */
+  @media (min-width: 70rem) {
+    .reading-frame {
+      grid-template-columns: minmax(0, 1fr) minmax(0, var(--measure-prose)) minmax(0, 1fr);
+      column-gap: var(--spacing-40);
+      justify-content: center;
+    }
+
+    .reading-rail {
+      position: sticky;
+      top: var(--spacing-24);
+      grid-column: 1;
+      justify-self: end;
+      width: 11rem;
+    }
+
+    /* Every track is named, so a Project whose body has no sections still puts
+       its prose in the reading column instead of the rail's. */
+    .reading-column {
+      grid-column: 2;
     }
   }
 
@@ -293,6 +342,19 @@
     color: var(--color-ember);
   }
 
+  /* The outlined action on the site's one dark surface, where the quiet pill's
+     Obsidian border would disappear. Same weight, inverted: Chalk where the
+     light surfaces draw Obsidian. */
+  .action-pill--dark {
+    border-color: var(--color-chalk);
+    color: var(--color-chalk);
+  }
+
+  .action-pill--dark:not(:disabled):hover {
+    border-color: var(--color-ember);
+    color: var(--color-ember);
+  }
+
   /* Disabled keeps the pill's full size and fill and fades only the label, so
      the control still reads as the primary action everywhere it sits, the dark
      contact strip included, without pretending to be usable. */
@@ -312,18 +374,15 @@
     line-height: var(--leading-body);
   }
 
-  /* Running text holds the measure; media keeps the article's full width, so an
-     in-body figure matches the lead image above it. The cap is in rem, not ch:
-     `ch` tracks the element's own font-size, which would give a 48px heading a
-     48px-wide character and break it out of the column the paragraphs sit in. */
-  .prose > :is(p, ul, ol, h2, h3, blockquote, hr) {
-    max-width: 34rem;
+  /* Running text holds the measure. In-body media takes that same measure: a
+     figure the width of the article would run under the contents rail and would
+     read as loud as the lead image, which is the one block that earns that size.
+     The cap is in rem, not ch: `ch` tracks the element's own font-size, which
+     would give a 48px heading a 48px-wide character and break it out of the
+     column the paragraphs sit in. */
+  .prose > :is(p, ul, ol, h2, h3, blockquote, hr, figure) {
+    max-width: var(--measure-prose);
     margin-inline: auto;
-  }
-
-  /* The caption hangs on the media's edge, not the article's. */
-  .prose figcaption {
-    max-width: 34rem;
   }
 
   .prose > * + * {
@@ -348,6 +407,12 @@
     font-size: var(--text-subheading);
     font-weight: var(--font-weight-medium);
     line-height: var(--leading-subheading);
+  }
+
+  /* A contents entry lands its section with air above it rather than flush
+     against the top of the viewport. */
+  .prose :is(h2, h3) {
+    scroll-margin-top: var(--spacing-24);
   }
 
   .prose figure {

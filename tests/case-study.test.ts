@@ -156,6 +156,25 @@ describe('the reading navigation', () => {
   )
 
   it.each(projects.map((project) => [project.title, project] as const))(
+    'names the way up from %s, rather than leaving the destination to the link',
+    (_title, project) => {
+      const text = htmlToText(nav(caseStudy(project.slug), 'Project navigation'))
+      expect(text).toContain('Back to projects')
+      expect(text).toContain('Back to home')
+    },
+  )
+
+  it.each(projects.map((project) => [project.title, project] as const))(
+    'gives every direction in the navigation of %s an accessible name beyond the Project title',
+    (_title, project) => {
+      const readingNav = nav(caseStudy(project.slug), 'Project navigation')
+      const { previous, next } = projectAt(project.slug)
+      if (previous) expect(readingNav).toContain(`aria-label="Previous Project: ${previous.title}"`)
+      if (next) expect(readingNav).toContain(`aria-label="Next Project: ${next.title}"`)
+    },
+  )
+
+  it.each(projects.map((project) => [project.title, project] as const))(
     'does not mark the Index link as the current page of %s',
     (_title, project) => {
       const readingNav = nav(caseStudy(project.slug), 'Project navigation')

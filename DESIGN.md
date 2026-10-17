@@ -120,10 +120,11 @@ The page rhythm is five roles, and every surface builds from them: the home page
 | Group   | 24px   | 32px       | Sibling groups inside one block: a list of cards or rows, the About lede from its divider, an intro paragraph from the list under it.                                                                      |
 
 - **Page max-width:** 1280px (`--container-page`)
+- **Reading measure:** 40rem (`--measure-prose`). One column, because the Case Study's running text, its in-body figures, and its closing navigation all answer to it.
 - **Card padding:** 40px from 768px up, 24px below it. Inside a card or a row, gaps stay on the 16px and 8px steps.
 - **Hierarchy:** the scale steps down from block (40px / 56px) to heading (32px / 40px) to group (24px / 32px), so a heading always sits closer to the content it introduces than to the block above it.
 
-The Case Study's prose keeps its own reading rhythm (`.prose`), since it answers to a reader following paragraphs rather than to the page grid.
+The Case Study's body is the one block with a frame of its own, because it answers to a reader following paragraphs rather than to the page grid. From 1120px up that frame is three tracks: the contents rail, the reading column, and a trailing track that holds the reading column on the page's own centre line instead of letting the rail push it off. The rail sticks for the length of the article, so the section list is still in reach halfway down. Below that width the frame stacks and the contents read as the group above the prose. Everything inside the body takes the reading measure, so an in-body figure sits in the column with the paragraphs; the lead image is the one block that spans the article, which is what makes it read as the lead.
 
 ## Components
 
