@@ -350,9 +350,16 @@
     .timeline > li {
       padding-bottom: var(--spacing-32);
     }
+  }
 
+  /* The identity rail and the outcomes only split once there is room for both:
+     below this the entry stacks and the summary keeps its measure instead of
+     being squeezed into a third of the tablet. The rail is sized to the role it
+     carries rather than given a share of the row, so no empty page opens between
+     a title and the proof beside it. */
+  @media (min-width: 64rem) {
     .timeline-entry {
-      grid-template-columns: var(--timeline-dot) minmax(0, 1fr) minmax(0, 1.25fr);
+      grid-template-columns: var(--timeline-dot) minmax(0, 17rem) minmax(0, 1fr);
       column-gap: var(--spacing-24);
     }
   }

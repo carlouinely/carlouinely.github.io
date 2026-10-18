@@ -14,8 +14,9 @@ export type StackListProps = {
  * The tools a Project was built with: each one's monochrome mark beside its
  * name, the name carrying the meaning and the mark decorative. A tool with no
  * mark of its own still reads, so a new tool never needs an icon to ship. The
- * Projects Index row and the Case Study's facts both use it, which is what keeps
- * one stack reading the same way wherever it appears.
+ * Projects Index row, the Case Study's facts, and a role's credited Case Studies
+ * all use it, which is what keeps one stack reading the same way wherever it
+ * appears.
  */
 export function StackList({ stack, className = '' }: StackListProps) {
   if (stack.length === 0) return null

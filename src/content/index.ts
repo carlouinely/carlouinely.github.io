@@ -16,6 +16,15 @@ export function findProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug)
 }
 
+/**
+ * The Projects a role produced: the Case Studies whose `credit` names this
+ * employer, in Project order. A role is authored in one module and its evidence
+ * in another, so the join is derived rather than written down twice.
+ */
+export function projectsByCredit(credit: string): Project[] {
+  return projects.filter((project) => project.credit === credit)
+}
+
 /** The Projects immediately before and after `slug` in Project order. */
 export function adjacentProjects(slug: string): {
   previous: Project | undefined

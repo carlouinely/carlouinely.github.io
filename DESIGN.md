@@ -183,7 +183,7 @@ No surface of its own: a 1.5px dotted Obsidian rule opens the row, then each fac
 
 ### Stack List
 
-**Role:** The tools a Project was built with, on the home page's Work preview, the Projects Index row, and a Case Study's facts
+**Role:** The tools a Project was built with, on the home page's Work preview, the Projects Index row, a Case Study's facts, and a role's credited Case Studies on the employment timeline
 
 A wrapping row of tool names in DM Sans at the caller's step, each with its monochrome mark at 1.25em beside it. The mark is decorative and the name carries the meaning, so a tool with no mark of its own (AI/LLM, MySQL, WooCommerce) still reads and a new tool never needs an icon to ship. Every surface renders the same list, which is what keeps one stack reading the same way wherever a visitor meets it.
 
@@ -191,7 +191,9 @@ A wrapping row of tool names in DM Sans at the caller's step, each with its mono
 
 **Role:** One employment role in the home page's "Where I've worked" timeline
 
-No surface of its own. A 12px Ember dot sits on a 1.5px dotted Obsidian spine in a 12px left rail, and the date in DM Sans at 14px opens the entry beside the dot it marks. The role, employer, and engagement tag (Sulfur pill) then hold the display column, while the summary and its outcome bullets take the 18px reading step in the wider column beside them, capped at a 64ch measure. Nothing separates two entries but the group rhythm: the spine runs through the gap, so the roles read as one continuous history rather than a stack of boxes.
+No surface of its own. A 12px Ember dot sits on a 1.5px dotted Obsidian spine in a 12px left rail, and the date in DM Sans at 14px opens the entry beside the dot it marks. The role, employer, and engagement tag (Sulfur pill) then hold a 17rem rail sized to the role it carries, while the summary and its outcome bullets take the 18px reading step in the column beside it, capped at a 36rem measure. The rail rather than a fraction is what keeps a title and the proof beside it from being separated by a handspan of empty page, and the outcomes are marked in the same Ember as the spine, at the list's own small step, so they read as the entry's evidence rather than a document list. The rail and the outcomes only split from the large breakpoint up; below it the entry stacks and each keeps its measure. Nothing separates two entries but the group rhythm: the spine runs through the gap, so the roles read as one continuous history rather than a stack of boxes.
+
+Each entry then closes on the Case Studies that role produced: the Projects whose `credit` names the employer, under a 12px system-sans micro-label and opened by the dotted rule the way a lead Project's stack is. Every row carries the Project's title, its year, and its stack, and links into the Case Study, so the employment history is where a visitor keyword-matches the tools against a payroll rather than a hobby. A role with nothing in the catalogue ends where its outcomes do rather than promising evidence it cannot show.
 
 ### Plasma Hero Card
 
@@ -243,7 +245,7 @@ Limestone (#f7f6f2) background card, 40px radius, 40px padding. Logos arranged i
 
 **Role:** Section separator and decorative detail
 
-1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, as the spine of the employment timeline, as a row's own top edge in the Work list, as the rule that opens a lead Project's stack, and occasionally as horizontal section breaks. It draws itself out from its left end wherever it divides something. The dotted (not dashed, not solid) style is a small but consistent signature detail.
+1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, as the spine of the employment timeline, as a row's own top edge in the Work list and in a role's credited Case Studies, as the rule that opens a lead Project's stack, and occasionally as horizontal section breaks. It draws itself out from its left end wherever it divides something. The dotted (not dashed, not solid) style is a small but consistent signature detail.
 
 ### Band Surface
 
@@ -293,7 +295,7 @@ Motion is restrained and one-shot: it establishes arrival, then gets out of the 
 
 - **Hero print.** One rehearsed sequence, about 900ms. Each word of the display claim rises out of the line box that clips it, each one 110ms behind the word before it; the artwork panel wipes in from its left edge at 160ms while its halftone screen tightens from a 24px dot grid to its printed 10px one, settling from a 4% over-scale; the dotted axis rule draws out from the left at 220ms; the meta-and-action rail fades up 16px at 320ms. The claim prints rather than fades, which is the halftone motif read as motion.
 - **Band pour.** The Ember band and the closing block are the page's only two full-bleed surfaces, and each pours its surface down from the top edge a visitor meets first, over `--duration-entrance`. The content follows 200ms behind the surface. The surface is a layer under the content rather than the block's own background, which is what lets it be painted on instead of being there already. A band carries no section fade: two entrances on one block read as neither.
-- **Rule draw.** Every dotted rule on the page draws out from its left end as the block it divides arrives: the hero axis, the footer rule, the top edge of every row in the Work list, and the rule that opens the lead Project's stack. A rule that is a row's own top edge draws from its own layer, so the row under it stays free to move. The employment spine is the vertical case: it grows down from the first dot over 900ms, so the history unwinds rather than snapping into place.
+- **Rule draw.** Every dotted rule on the page draws out from its left end as the block it divides arrives: the hero axis, the footer rule, the top edge of every row in the Work list, the rule that opens the lead Project's stack, and the rule that opens a role's credited Case Studies. A rule that is a row's own top edge draws from its own layer, so the row under it stays free to move. The employment spine is the vertical case: it grows down from the first dot over 900ms, so the history unwinds rather than snapping into place.
 - **Section reveal.** Each remaining section fades up 24px the first time it enters the viewport, then is left alone; a reveal runs once per element, so scrolling back does not replay it. This is the quiet baseline the rules and lists play against, and it carries no stagger of its own.
 - **List cascade.** A list that appears as a list steps in one item at a time on a 60ms step capped at six items, with the step published as `--stag` so a mark inside an item lands with the item it belongs to: the How I work passages and the Projects Index rows step up 16px, while the Work section's supporting rows step in 20px from the left, matching the rule that opens each one. Four timeline entries land inside one beat, and each employment dot scales in a beat behind its entry.
 - **Hover feedback.** A card or Index-row title shifts to Ember, a Project thumbnail leans in 3%, and an action's arrow steps 4px forward. A card answers the pointer the way its title already does.
