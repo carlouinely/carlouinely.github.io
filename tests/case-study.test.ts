@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vite-plus/test'
+import { toolGlyphs } from '~src/components/toolGlyphs'
 import { projects } from '~src/content/index'
 import {
   elementIds,
@@ -6,6 +7,7 @@ import {
   internalLinks,
   readClientPage,
   requireFreshBuild,
+  toolMarkBefore,
 } from './built-output'
 
 /**
@@ -40,6 +42,16 @@ function header(html: string): string {
   return article(html).match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
 }
 
+/** Every labelled fact in the masthead of a delivered page, in document order. */
+function facts(page: string): Array<{ label: string; value: string }> {
+  return [
+    ...header(page).matchAll(/<dt\b[^>]*>([\s\S]*?)<\/dt>[\s\S]*?<dd\b[^>]*>([\s\S]*?)<\/dd>/g),
+  ].map((match) => ({
+    label: htmlToText(match[1] ?? ''),
+    value: htmlToText(match[2] ?? ''),
+  }))
+}
+
 /** Every level-2 section of a page: its id and its rendered text. */
 function sections(html: string): Array<{ id: string; text: string }> {
   return [...html.matchAll(/<h2\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g)].map((match) => ({
@@ -66,7 +78,7 @@ function projectAt(slug: string) {
 
 describe('the Case Study header', () => {
   it.each(projects.map((project) => [project.title, project] as const))(
-    'renders the tag, year, and credit of %s in a centred header',
+    'renders the tag, year, and credit of %s in the masthead',
     (_title, project) => {
       const text = htmlToText(header(caseStudy(project.slug)))
       expect(text).toContain(project.title)
@@ -98,6 +110,40 @@ describe('the Case Study lead media', () => {
       } else {
         expect(html).toContain(`aria-label="${project.title} lead image"`)
         expect(html).toContain('role="img"')
+      }
+    },
+  )
+})
+
+describe('the Case Study facts', () => {
+  it.each(projects.map((project) => [project.title, project] as const))(
+    'labels the type and year of %s, and a client only when it has one',
+    (_title, project) => {
+      const labels = facts(caseStudy(project.slug)).map((fact) => fact.label)
+      expect(labels).toContain('Type')
+      expect(labels).toContain('Year')
+
+      if (project.credit) expect(labels).toContain('Client')
+      else expect(labels).not.toContain('Client')
+    },
+  )
+
+  it.each(projects.map((project) => [project.title, project] as const))(
+    'brings the stack of %s into the article, with a mark beside every tool that has one',
+    (_title, project) => {
+      const head = header(caseStudy(project.slug))
+      const stack = facts(caseStudy(project.slug)).find((fact) => fact.label === 'Stack')
+      expect(stack).toBeDefined()
+
+      for (const tool of project.stack) {
+        expect(stack?.value).toContain(tool)
+        const mark = toolMarkBefore(head, tool)
+        if (toolGlyphs[tool]) {
+          expect(mark, `Expected a mark before "${tool}" on ${project.title}.`).not.toBeNull()
+          expect(mark).toContain('aria-hidden="true"')
+        } else {
+          expect(mark, `Expected no mark before "${tool}" on ${project.title}.`).toBeNull()
+        }
       }
     },
   )

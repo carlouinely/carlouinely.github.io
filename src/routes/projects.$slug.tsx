@@ -1,5 +1,7 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
 import { Media } from '~src/components/Media'
+import { StackList } from '~src/components/StackList'
 import { adjacentProjects, findProject } from '~src/content/index'
 import type { Project } from '~src/content/projects'
 import {
@@ -32,23 +34,82 @@ export const Route = createFileRoute('/projects/$slug')({
   component: CaseStudy,
 })
 
-/** The tagged meta row above the title, with a Source link only when `repo` is set. */
-function HeaderMeta({ project }: { project: Project }) {
+/**
+ * One labelled fact in the Case Study masthead: the micro-label above the value
+ * it names. Reading label above value is what lets a recruiter scan the opening
+ * instead of parsing a sentence, and it is where the Project's stack finally
+ * appears inside the article.
+ */
+function Fact({
+  label,
+  children,
+  className = '',
+}: {
+  label: string
+  children: ReactNode
+  className?: string
+}) {
   return (
-    <p className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-      <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
-        {project.tag}
-      </span>
-      <span className="font-dm-sans text-body-sm text-obsidian">{project.year}</span>
-      {project.credit ? (
-        <span className="font-dm-sans text-body-sm text-obsidian">with {project.credit}</span>
-      ) : null}
-      {project.repo ? (
-        <a href={project.repo} className="font-dm-sans text-body-sm text-obsidian underline">
-          Source
-        </a>
-      ) : null}
-    </p>
+    <div className={className}>
+      <dt className="font-system-sans-serif text-caption text-obsidian uppercase">{label}</dt>
+      <dd className="mt-8 font-dm-sans text-body text-obsidian">{children}</dd>
+    </div>
+  )
+}
+
+/**
+ * The Case Study masthead: the title and its summary centred as one statement,
+ * then the Project's facts along the page's dotted rule. The tag, year, client,
+ * and stack used to trail the title as one run-on line; as labelled facts they
+ * read as a spec sheet instead, and the stack reaches the article rather than
+ * living only on the Projects Index. A `repo` that is set adds the one link the
+ * masthead carries.
+ */
+function CaseStudyHeader({ project }: { project: Project }) {
+  return (
+    <header>
+      <div className="mx-auto flex max-w-[52rem] flex-col items-center text-center">
+        <h1 className="font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
+          {project.title}
+        </h1>
+
+        <p className="page-head max-w-[var(--measure-prose)] font-dm-sans text-body md:text-body-lg text-obsidian">
+          {project.summary}
+        </p>
+      </div>
+
+      <dl className="page-head flex flex-wrap items-start gap-x-16 gap-y-24 border-t-[1.5px] border-dotted border-obsidian pt-24 sm:gap-x-32 lg:gap-x-40">
+        <Fact label="Type" className="min-w-[5rem] flex-1">
+          <span className="inline-block w-fit rounded-pills bg-sulfur px-12 py-4 text-body-sm">
+            {project.tag}
+          </span>
+        </Fact>
+
+        <Fact label="Year" className="min-w-[5rem] flex-1">
+          {project.year}
+        </Fact>
+
+        {project.credit ? (
+          <Fact label="Client" className="min-w-[6rem] flex-1">
+            {project.credit}
+          </Fact>
+        ) : null}
+
+        {project.stack.length > 0 ? (
+          <Fact label="Stack" className="min-w-[16rem] flex-[2]">
+            <StackList stack={project.stack} />
+          </Fact>
+        ) : null}
+
+        {project.repo ? (
+          <Fact label="Source" className="min-w-[5rem] flex-1">
+            <a href={project.repo} className="underline hover:text-ember">
+              Repository
+            </a>
+          </Fact>
+        ) : null}
+      </dl>
+    </header>
   )
 }
 
@@ -103,7 +164,7 @@ function ReadingNavigation({ project }: { project: Project }) {
               to="/projects/$slug"
               params={{ slug: previous.slug }}
               aria-label={`Previous Project: ${previous.title}`}
-              className="mt-8 block font-dm-sans text-body text-obsidian underline underline-offset-2 hover:text-ember"
+              className="mt-8 block font-dm-sans text-body-lg text-obsidian underline underline-offset-2 hover:text-ember"
             >
               {previous.title}
             </Link>
@@ -119,7 +180,7 @@ function ReadingNavigation({ project }: { project: Project }) {
               to="/projects/$slug"
               params={{ slug: next.slug }}
               aria-label={`Next Project: ${next.title}`}
-              className="mt-8 block font-dm-sans text-body text-obsidian underline underline-offset-2 hover:text-ember"
+              className="mt-8 block font-dm-sans text-body-lg text-obsidian underline underline-offset-2 hover:text-ember"
             >
               {next.title}
             </Link>
@@ -166,16 +227,9 @@ function CaseStudy() {
           the article's own edges land on the page grid the nav and footer use
           instead of 24px outside it. */}
       <article className="page-shell">
-        <header className="mx-auto flex max-w-[52rem] flex-col items-center text-center">
-          <HeaderMeta project={project} />
-          {/* The tag and the year belong to the title, so they keep the group gap; the summary is body copy and takes the heading gap. */}
-          <h1 className="page-gap font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase md:text-heading-2xl">
-            {project.title}
-          </h1>
-          <p className="page-head font-dm-sans text-body text-obsidian">{project.summary}</p>
-        </header>
+        <CaseStudyHeader project={project} />
 
-        <div className="page-head">
+        <div className="page-break">
           {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
           <Media
             kind="image"

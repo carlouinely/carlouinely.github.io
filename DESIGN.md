@@ -125,6 +125,7 @@ The page rhythm is five roles, and every surface builds from them: the home page
 - **Section head:** every home section opens with its heading on the gutter, and what sits beside that heading follows from what the section has. About me sets its lede in the column beside the heading from 768px up, so a section with one paragraph keeps the page's compact head rhythm instead of running a lone column under the heading. Things I've built puts its action there instead, and the closing block puts its address there, on the baseline of the ask it answers. The heading itself never leaves the gutter line, which is what holds the six sections together as one page.
 - **Heading scale:** section headings run at 48px (`heading-lg`); the home page's closing "Let's talk" steps up to 80px (`heading-2xl`) from 768px, because that block is where the page stops being a document and becomes an ask, and it answers the hero rather than the sections above it. A lead Project title carries the same 80px as the closing. Nothing else on the home page competes with those two.
 - **Reading measure:** 40rem (`--measure-prose`). One column, because the Case Study's running text, its in-body figures, and its closing navigation all answer to it.
+- **Case Study masthead:** the title and its summary sit centred as one statement at the reading measure, then the Project's facts run along the page's dotted rule in labelled cells: Type, Year, Client, and Stack. The cells flex to share the article width, so a Project with no Client closes its gap instead of leaving a hole, and the stack takes the wider share because a tool list wraps. The label is a 12px system-sans micro-label above a DM Sans value at the body step, and the tag keeps its Sulfur pill as the Type value, so the masthead's one accent sits inside the spec rather than floating above the title. This is where a stack reaches the article; before, the list lived only on the Projects Index.
 - **Card padding:** 40px from 768px up, 24px below it. Inside a card or a row, gaps stay on the 16px and 8px steps.
 - **Hierarchy:** the scale steps down from block (40px / 56px) to heading (32px / 40px) to group (24px / 32px), so a heading always sits closer to the content it introduces than to the block above it.
 
@@ -167,6 +168,18 @@ Ember (#fc5000) solid background, Chalk (#ffffff) text. 40px border-radius. Padd
 **Role:** Blog posts, announcements, program entries
 
 Limestone (#f7f6f2) background, no border, no shadow. 40px border-radius. Padding 40px all sides. Contains a category tag, headline (PP Neue Corp Compact 26–32px in Obsidian), and date metadata. The image area at the top can be a halftone or solid Ember block.
+
+### Case Study Facts
+
+**Role:** The Project's metadata in a Case Study masthead, under the title and summary
+
+No surface of its own: a 1.5px dotted Obsidian rule opens the row, then each fact is a labelled cell with a 12px system-sans micro-label in Obsidian above a DM Sans 500 value at the body step. Cells flex to share the article width, with the stack taking the wider share; a Project with no `credit` renders no Client cell, so the row never carries an empty slot. The Type cell's value is the Category Tag Badge itself, which keeps the masthead's one Sulfur accent inside the spec. The row is the article's spec sheet: it replaced a run-on meta line that trailed the title, and it is where a stack appears on a Case Study at all.
+
+### Stack List
+
+**Role:** The tools a Project was built with, on the Projects Index row and in a Case Study's facts
+
+A wrapping row of tool names in DM Sans at the caller's step, each with its monochrome mark at 1.25em beside it. The mark is decorative and the name carries the meaning, so a tool with no mark of its own (AI/LLM, MySQL, WooCommerce) still reads and a new tool never needs an icon to ship. Both surfaces render the same list, which is what keeps one stack reading the same way wherever a visitor meets it.
 
 ### Timeline Entry
 

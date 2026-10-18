@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowGlyph, BackArrowGlyph, ChevronGlyph } from '~src/components/glyphs'
 import { Media } from '~src/components/Media'
-import { ToolGlyph } from '~src/components/toolGlyphs'
+import { StackList } from '~src/components/StackList'
 import { projects } from '~src/content/index'
 import type { Project } from '~src/content/projects'
 import { pageHead } from '~src/meta'
@@ -79,14 +79,7 @@ function ProjectRow({ project }: { project: Project }) {
             {project.tag}
           </p>
 
-          <ul className="flex flex-wrap items-center gap-x-12 gap-y-4 font-dm-sans text-body-sm text-obsidian">
-            {project.stack.map((tool) => (
-              <li key={tool} className="inline-flex items-center gap-4">
-                <ToolGlyph tool={tool} className="size-[1.25em] shrink-0" />
-                {tool}
-              </li>
-            ))}
-          </ul>
+          <StackList stack={project.stack} className="text-body-sm text-obsidian" />
         </div>
 
         {/* The chevron stays the last thing in the row, so a stack mark is

@@ -464,6 +464,16 @@
     line-height: var(--leading-body);
   }
 
+  /* Running copy takes the page's reading step, so a Case Study paragraph and
+     the summary above it read at one size instead of the article descending a
+     step below the rest of the site. */
+  @media (min-width: 48rem) {
+    .prose {
+      font-size: var(--text-body-lg);
+      line-height: var(--leading-body-lg);
+    }
+  }
+
   /* Running text holds the measure. In-body media takes that same measure: a
      figure the width of the article would run under the contents rail and would
      read as loud as the lead image, which is the one block that earns that size.
@@ -494,9 +504,9 @@
 
   .prose h3 {
     margin-top: var(--spacing-48);
-    font-size: var(--text-subheading);
+    font-size: var(--text-heading-sm);
     font-weight: var(--font-weight-medium);
-    line-height: var(--leading-subheading);
+    line-height: var(--leading-heading-sm);
   }
 
   /* A contents entry lands its section with air above it rather than flush
