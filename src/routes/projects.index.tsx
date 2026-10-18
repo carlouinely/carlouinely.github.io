@@ -33,14 +33,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         <h2 className="font-pp-neue-corp-compact text-heading font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember">
           {project.title}
         </h2>
-        <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+        <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
           {project.tag}
         </span>
-        <span className="font-system-sans-serif text-caption text-obsidian">{project.year}</span>
+        <span className="font-dm-sans text-body-sm text-obsidian">{project.year}</span>
         <span className="flex flex-wrap items-center gap-x-12 gap-y-4 font-dm-sans text-body-sm text-obsidian">
           {project.stack.map((tool) => (
             <span key={tool} className="inline-flex items-center gap-4">
-              <ToolGlyph tool={tool} className="shrink-0" />
+              <ToolGlyph tool={tool} className="size-[1.25em] shrink-0" />
               {tool}
             </span>
           ))}

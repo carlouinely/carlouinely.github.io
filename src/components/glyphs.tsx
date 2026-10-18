@@ -11,27 +11,19 @@ export function GitHubGlyph(props: SVGProps<SVGSVGElement>) {
   )
 }
 
-/** The address mark, drawn in the outline family with the nav's own glyphs. */
+/**
+ * The address mark, drawn solid so it carries the same ink as the two brand
+ * marks beside it. An outline envelope at this size read a step lighter than
+ * GitHub and LinkedIn, which are the only other marks in the row.
+ */
 export function MailGlyph(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" {...props}>
-      <rect
-        x="3"
-        y="5.5"
-        width="18"
-        height="13"
-        rx="2.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
       <path
-        d="m4.5 7.5 7.5 5 7.5-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.4 4h15.2A2.4 2.4 0 0 1 22 6.4v11.2a2.4 2.4 0 0 1-2.4 2.4H4.4A2.4 2.4 0 0 1 2 17.6V6.4A2.4 2.4 0 0 1 4.4 4Zm-1.6 2.24v1.84l8.65 5.19a1.2 1.2 0 0 0 1.2 0l8.65-5.19V6.24l-8.65 5.19a3.2 3.2 0 0 1-3.2 0L2.8 6.24Z"
       />
     </svg>
   )
@@ -52,7 +44,7 @@ export function LinkedInGlyph(props: SVGProps<SVGSVGElement>) {
 /** The collapsed-nav trigger mark. The button's label carries the meaning. */
 export function MenuGlyph(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" {...props}>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" {...props}>
       <path
         d="M3 6h18M3 12h18M3 18h18"
         fill="none"
@@ -67,7 +59,7 @@ export function MenuGlyph(props: SVGProps<SVGSVGElement>) {
 /** The open-nav trigger mark. The button's label carries the meaning. */
 export function CloseGlyph(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" {...props}>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" {...props}>
       <path
         d="M5 5l14 14M19 5L5 19"
         fill="none"

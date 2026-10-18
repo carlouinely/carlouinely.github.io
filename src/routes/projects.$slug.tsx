@@ -30,17 +30,15 @@ export const Route = createFileRoute('/projects/$slug')({
 function HeaderMeta({ project }: { project: Project }) {
   return (
     <p className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-      <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+      <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
         {project.tag}
       </span>
-      <span className="font-system-sans-serif text-caption text-obsidian">{project.year}</span>
+      <span className="font-dm-sans text-body-sm text-obsidian">{project.year}</span>
       {project.credit ? (
-        <span className="font-system-sans-serif text-caption text-obsidian">
-          with {project.credit}
-        </span>
+        <span className="font-dm-sans text-body-sm text-obsidian">with {project.credit}</span>
       ) : null}
       {project.repo ? (
-        <a href={project.repo} className="font-dm-sans text-caption text-obsidian underline">
+        <a href={project.repo} className="font-dm-sans text-body-sm text-obsidian underline">
           Source
         </a>
       ) : null}

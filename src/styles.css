@@ -22,10 +22,16 @@
 
   --text-caption: 12px;
   --text-caption--line-height: 1.2;
+  /* Small text carries the page's metadata, which wraps; 1.2 packed those
+     lines together and read as fine print, so the step leads like body copy. */
   --text-body-sm: 14px;
-  --text-body-sm--line-height: 1.2;
+  --text-body-sm--line-height: 1.4;
   --text-body: 16px;
   --text-body--line-height: 1.55;
+  /* The reading step: every running paragraph on a wide viewport, so the page
+     does not descend from display type straight into 16px body. */
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
   --text-subheading: 26px;
   --text-subheading--line-height: 1.2;
   --text-heading-sm: 30px;
@@ -43,8 +49,9 @@
   --text-display--line-height: 0.94;
 
   --leading-caption: 1.2;
-  --leading-body-sm: 1.2;
+  --leading-body-sm: 1.4;
   --leading-body: 1.55;
+  --leading-body-lg: 1.6;
   --leading-subheading: 1.2;
   --leading-heading-sm: 1.5;
   --leading-heading: 1;

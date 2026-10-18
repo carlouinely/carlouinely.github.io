@@ -23,7 +23,7 @@ export function About() {
           {/* The lede is a wide-viewport gesture: at 30px a phone turns the same
               words into fourteen lines of large print, so it steps up only once
               the column beside the heading can hold it. */}
-          <p className="max-w-[46ch] font-dm-sans text-body text-obsidian lg:text-heading-sm">
+          <p className="max-w-[46ch] font-dm-sans text-body-lg text-obsidian lg:text-heading-sm">
             {about.summary}
           </p>
 

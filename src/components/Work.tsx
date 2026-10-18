@@ -21,13 +21,15 @@ function LeadCard({ project }: { project: Project }) {
         className="group grid gap-24 rounded-cards bg-limestone p-24 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:items-center md:gap-x-40 md:p-40"
       >
         <div>
-          <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+          <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
             {project.tag}
           </p>
           <h3 className="mt-16 font-pp-neue-corp-compact text-heading-lg font-regular tracking-heading text-obsidian uppercase transition-colors group-hover:text-ember lg:text-heading-2xl">
             {project.title}
           </h3>
-          <p className="mt-16 font-dm-sans text-body text-obsidian">{project.summary}</p>
+          <p className="mt-16 font-dm-sans text-body md:text-body-lg text-obsidian">
+            {project.summary}
+          </p>
           <p className="mt-24 flex items-center gap-8 font-dm-sans text-body text-obsidian">
             <span className="underline">Read the case study</span>
             <ArrowGlyph className="arrow-nudge" />
@@ -85,16 +87,16 @@ function HighlightRow({ project }: { project: Project }) {
             {project.title}
           </h3>
           <div className="mt-8 flex items-center gap-12">
-            <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+            <span className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
               {project.tag}
             </span>
-            <span className="font-system-sans-serif text-caption text-obsidian">
-              {project.year}
-            </span>
+            <span className="font-dm-sans text-body-sm text-obsidian">{project.year}</span>
           </div>
         </div>
 
-        <p className="col-span-2 col-start-2 font-dm-sans text-body-sm text-obsidian md:col-span-1 md:col-start-3 md:row-start-1">
+        {/* Running text keeps a reading measure even when the row is wide: at
+            18px the summary column would otherwise run past 85ch. */}
+        <p className="col-span-2 col-start-2 max-w-[36rem] font-dm-sans text-body md:col-span-1 md:col-start-3 md:row-start-1 md:text-body-lg">
           {project.summary}
         </p>
 

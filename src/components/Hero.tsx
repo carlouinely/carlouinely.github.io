@@ -43,7 +43,7 @@ export function Hero() {
       <div className="hero-rail page-gap flex flex-col gap-24 md:flex-row md:items-center md:justify-between md:gap-40">
         <div className="flex flex-wrap items-center gap-x-16 gap-y-8">
           <p className="font-dm-sans text-body text-obsidian">{site.location}</p>
-          <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian uppercase">
+          <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian uppercase">
             {site.availability}
           </p>
         </div>

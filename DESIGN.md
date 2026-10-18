@@ -43,25 +43,26 @@ Body copy, nav links, button labels, supporting headings up to 30px. Medium weig
 - **Substitute:** Inter, Manrope
 - **Weights:** 500 (Medium only — never Regular or Bold)
 - **Sizes:** 14px, 16px, 18px, 30px
-- **Line height:** 1.20–1.55
-- **Role:** Body copy, nav links, button labels, supporting headings up to 30px. Medium weight throughout is deliberate — Regular would feel too thin against the ultrabold display type, and Bold would compete with it. DM Sans provides a humanist, slightly geometric counterpoint to the industrial display face.
+- **Line height:** 1.40–1.60
+- **Role:** Body copy, nav links, button labels, supporting headings up to 30px. Medium weight throughout is deliberate — Regular would feel too thin against the ultrabold display type, and Bold would compete with it. DM Sans provides a humanist, slightly geometric counterpoint to the industrial display face. Running copy takes the 18px reading step from 768px up, so the page never descends from display type straight into 16px body.
 
 ### System sans-serif
 
-Captions, meta text, dates, micro-labels. Only used at 12px where weight and brand presence matter less than size economy. · `--font-system-sans-serif`
+Micro-labels and development-only Placeholder captions. Only used at 12px where a label sits apart from the running text. · `--font-system-sans-serif`
 
 - **Weights:** 400
 - **Sizes:** 12px
 - **Line height:** 1.20
-- **Role:** Captions, meta text, dates, micro-labels. Only used at 12px where weight and brand presence matter less than size economy.
+- **Role:** Micro-labels ("On this page", "Previous", "Next") and the development-only caption that marks a Placeholder. Anything a visitor reads for meaning, including the copyright line, stays in DM Sans.
 
 ### Type Scale
 
 | Role        | Family | Weight | Size  | Line Height | Letter Spacing | Token                |
 | ----------- | ------ | ------ | ----- | ----------- | -------------- | -------------------- |
 | caption     | —      | —      | 12px  | 1.2         | —              | `--text-caption`     |
-| body-sm     | —      | —      | 14px  | 1.2         | —              | `--text-body-sm`     |
+| body-sm     | —      | —      | 14px  | 1.4         | —              | `--text-body-sm`     |
 | body        | —      | —      | 16px  | 1.55        | —              | `--text-body`        |
+| body-lg     | —      | —      | 18px  | 1.6         | —              | `--text-body-lg`     |
 | subheading  | —      | —      | 26px  | 1.2         | —              | `--text-subheading`  |
 | heading-sm  | —      | —      | 30px  | 1.5         | —              | `--text-heading-sm`  |
 | heading     | —      | —      | 32px  | 1           | 0.64px         | `--text-heading`     |
@@ -171,7 +172,7 @@ Limestone (#f7f6f2) background, no border, no shadow. 40px border-radius. Paddin
 
 **Role:** One employment role in the home page's "Where I've worked" timeline
 
-No surface of its own. A 12px Ember dot sits on a 1.5px dotted Obsidian spine in a 12px left rail, and the date in system sans-serif opens the entry beside the dot it marks. The role, employer, and engagement tag (Sulfur pill) then hold the display column, while the summary and its outcome bullets fill the wider column beside them so running text keeps its measure. Nothing separates two entries but the group rhythm: the spine runs through the gap, so the roles read as one continuous history rather than a stack of boxes.
+No surface of its own. A 12px Ember dot sits on a 1.5px dotted Obsidian spine in a 12px left rail, and the date in DM Sans at 14px opens the entry beside the dot it marks. The role, employer, and engagement tag (Sulfur pill) then hold the display column, while the summary and its outcome bullets take the 18px reading step in the wider column beside them, capped at a 64ch measure. Nothing separates two entries but the group rhythm: the spine runs through the gap, so the roles read as one continuous history rather than a stack of boxes.
 
 ### Plasma Hero Card
 
@@ -183,13 +184,13 @@ Plasma Violet (#524ae9) background with white halftone dot pattern overlay. 40px
 
 **Role:** Label blog posts and announcements
 
-Sulfur (#f5f28e) background, Obsidian (#070607) text. Pill shape (800px radius). DM Sans 500 at 12–14px. Padding approximately 3–4px vertical, 8–10px horizontal. Small, bright, and functionally pure — the only yellow element in the system.
+Sulfur (#f5f28e) background, Obsidian (#070607) text. Pill shape (800px radius). DM Sans 500 at 14px. Padding approximately 3–4px vertical, 8–10px horizontal. Small, bright, and functionally pure — the only yellow element in the system.
 
 ### Navigation Bar
 
 **Role:** Top-level site navigation, and the section being read
 
-Pumice (#e2e2df) page background continues through: the sticky header carries no surface of its own, so the pill floats on the page and content scrolls behind it, disappearing only where the pill itself covers it instead of being cut at an invisible band around it. Nav items are Obsidian text in DM Sans 500 at 16px, separated by 9px gaps. The entire nav row sits inside a Limestone (#f7f6f2) pill container with 800px radius — a signature element. The wordmark sits left and the section links right. The nav carries no action and no profile link: the page's one action lives in the hero, and the profiles live once under About, so the chrome stays to wayfinding.
+Pumice (#e2e2df) page background continues through: the sticky header carries no surface of its own, so the pill floats on the page and content scrolls behind it, disappearing only where the pill itself covers it instead of being cut at an invisible band around it. Nav items are Obsidian text in DM Sans 500 at 16px, separated by 9px gaps. The entire nav row sits inside a Limestone (#f7f6f2) pill container with 800px radius — a signature element. The wordmark sits left and the section links right, and below the extra-large breakpoint the links collapse behind a 44px trigger carrying the same 20px menu glyph as every other control. The nav carries no action and no profile link: the page's one action lives in the hero, and the profiles live once under About, so the chrome stays to wayfinding.
 
 The pill sticks to the top of the viewport for the whole scroll, and the section being read wears the employment timeline's Ember dot ahead of its label, with the slot always held so the row never shifts as the dot moves; the link carries `aria-current="location"`. It is not decoration: a page four thousand pixels long needs a place in it.
 
@@ -199,7 +200,7 @@ Because the pill is sticky, a section a nav link jumps to lands below it rather 
 
 **Role:** The owner's address and profiles, gathered under About and repeated in the footer
 
-One quiet row, no surface and no container: each link is a small monochrome mark beside its name in DM Sans 500 at 16px, Obsidian on the light surfaces and Chalk on the footer, shifting to Ember on hover. Under About it carries the address and both profiles; the footer repeats the profiles alone, because the closing ask already carries the address. It is deliberately not a row of pills: these are not the page's actions, and the one action a screen offers should stay its loudest control.
+One quiet row, no surface and no container: each link is a small monochrome mark beside its name in DM Sans 500 at 16px, Obsidian on the light surfaces and Chalk on the footer, shifting to Ember on hover. Every mark fills its own box and sits at 1.25em, so it follows the label's size instead of staying a fixed 20px; the address mark is solid, because an outline envelope read a step lighter than the two brand marks beside it. Under About it carries the address and both profiles; the footer repeats the profiles alone, because the closing ask already carries the address. It is deliberately not a row of pills: these are not the page's actions, and the one action a screen offers should stay its loudest control.
 
 ### Hero Halftone Block
 
@@ -283,7 +284,7 @@ Every transition and entrance above sits inside a `prefers-reduced-motion: no-pr
 
 ## Imagery
 
-Imagery is minimal and deliberate. The hero uses an abstract halftone dot pattern (orange dots on a violet-to-orange gradient) rather than photography — it functions as brand artwork, not decoration. Product and announcement cards use either solid Ember blocks or the Plasma Violet halftone as image-area fills, keeping a consistent graphic system. Partner/integration logos are rendered as monochrome marks on light backgrounds. No photography, no 3D renders, no lifestyle imagery anywhere. Icons are small, monochrome, and minimal — Discord, X, and Telegram sit in the nav as simple glyphs. The visual language is graphic and editorial, not photographic: think poster design, not stock imagery.
+Imagery is minimal and deliberate. The hero uses an abstract halftone dot pattern (orange dots on a violet-to-orange gradient) rather than photography — it functions as brand artwork, not decoration. Product and announcement cards use either solid Ember blocks or the Plasma Violet halftone as image-area fills, keeping a consistent graphic system. Partner/integration logos are rendered as monochrome marks on light backgrounds. No photography, no 3D renders, no lifestyle imagery anywhere. Icons are one monochrome family in `currentColor`: brand marks (GitHub, LinkedIn, the tool logos) fill their 24-unit box solid, and UI glyphs (arrow, back arrow, chevron, menu, close) are drawn at a 2px stroke. A mark that sits beside a label is sized at 1.25em so it follows the type it belongs to; a standalone row affordance stays at 20px. The visual language is graphic and editorial, not photographic: think poster design, not stock imagery.
 
 ## Voice
 
@@ -312,7 +313,7 @@ Internal docs (`README.md`, `PLACEHOLDERS.md`, `docs/`) are exempt; this governs
 
 2. **Stat Row**: Four Ember (#fc5000) cards in a row, each 40px radius, 40px padding. Label in DM Sans 500 at 14px, Chalk (#ffffff) text. Metric value in PP Neue Corp Compact at 80px weight 400, Chalk text, line-height 1.1.
 
-3. **Content Card**: Limestone (#f7f6f2) background, 40px radius, 40px padding. Sulfur (#f5f28e) pill tag at top with DM Sans 500 12px Obsidian text, 800px radius. Headline at 32px PP Neue Corp Compact, Obsidian, letter-spacing 0.64px. Date at 12px system sans-serif, Obsidian.
+3. **Content Card**: Limestone (#f7f6f2) background, 40px radius, 40px padding. Sulfur (#f5f28e) pill tag at top with DM Sans 500 14px Obsidian text, 800px radius. Headline at 32px PP Neue Corp Compact, Obsidian, letter-spacing 0.64px. Date at 14px DM Sans 500, Obsidian.
 
 4. **Dark Input Section**: Obsidian (#070607) background. Chalk (#ffffff) pill input with 100px radius, 24px/32px padding, 1.5px Chalk border. DM Sans 500 16px Chalk text. Submit button: Ember fill, 800px radius, 12px/24px padding.
 

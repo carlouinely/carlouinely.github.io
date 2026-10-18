@@ -111,7 +111,7 @@ export function Nav() {
           aria-controls={PANEL_ID}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((value) => !value)}
-          className="flex shrink-0 items-center rounded-pills px-8 py-8 text-obsidian xl:hidden"
+          className="flex shrink-0 items-center rounded-pills px-12 py-12 text-obsidian xl:hidden"
         >
           {open ? <CloseGlyph /> : <MenuGlyph />}
         </button>

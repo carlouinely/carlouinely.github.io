@@ -34,7 +34,7 @@ export function HowIWork() {
             it clears AA where Chalk on Ember would not. */}
         <div className="page-head grid gap-24 md:grid-cols-2 md:gap-40" data-stagger>
           {about.howIWork.map((paragraph) => (
-            <p key={paragraph} className="font-dm-sans text-body text-obsidian">
+            <p key={paragraph} className="font-dm-sans text-body md:text-body-lg text-obsidian">
               {paragraph}
             </p>
           ))}

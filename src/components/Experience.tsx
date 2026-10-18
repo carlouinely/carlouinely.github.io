@@ -32,7 +32,7 @@ export function Experience() {
             <article className="timeline-entry">
               <span aria-hidden data-dot className="timeline-dot col-start-1 row-start-1" />
 
-              <p className="col-start-2 row-start-1 font-system-sans-serif text-caption text-obsidian">
+              <p className="col-start-2 row-start-1 font-dm-sans text-body-sm text-obsidian">
                 {role.dates}
               </p>
 
@@ -41,16 +41,20 @@ export function Experience() {
                   {role.title}
                 </h3>
                 <div className="mt-8 flex flex-wrap items-center gap-x-12 gap-y-8">
-                  <p className="font-dm-sans text-body text-obsidian">{role.employer}</p>
-                  <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-caption text-obsidian">
+                  <p className="font-dm-sans text-body md:text-body-lg text-obsidian">
+                    {role.employer}
+                  </p>
+                  <p className="w-fit rounded-pills bg-sulfur px-12 py-4 font-dm-sans text-body-sm text-obsidian">
                     {role.engagement}
                   </p>
                 </div>
               </div>
 
-              <div className="col-start-2 row-start-3 mt-8 md:col-start-3 md:row-start-2 md:mt-0">
-                <p className="font-dm-sans text-body text-obsidian">{role.summary}</p>
-                <ul className="mt-16 space-y-8 list-disc pl-24 font-dm-sans text-body text-obsidian">
+              <div className="col-start-2 row-start-3 mt-8 md:col-start-3 md:row-start-2 md:mt-0 md:max-w-[36rem]">
+                <p className="font-dm-sans text-body md:text-body-lg text-obsidian">
+                  {role.summary}
+                </p>
+                <ul className="mt-16 space-y-8 list-disc pl-24 font-dm-sans text-body md:text-body-lg text-obsidian">
                   {role.outcomes.map((outcome) => (
                     <li key={outcome}>{outcome}</li>
                   ))}

@@ -46,7 +46,7 @@ export function SocialLinks({
             rel={me ? 'me' : undefined}
             className={`inline-flex items-center gap-8 font-dm-sans text-body transition-colors ${TONE[tone]}`}
           >
-            <Glyph className="shrink-0" />
+            <Glyph className="size-[1.25em] shrink-0" />
             {label}
           </a>
         </li>

@@ -51,7 +51,7 @@ export function Footer() {
               Let&apos;s talk
             </h2>
 
-            <p className="page-head font-dm-sans text-body">{contact.ask}</p>
+            <p className="page-head font-dm-sans text-body md:text-body-lg">{contact.ask}</p>
           </div>
 
           <a
@@ -66,7 +66,7 @@ export function Footer() {
 
         <div className="page-gap flex flex-col items-center gap-16">
           <SocialLinks tone="dark" />
-          <p className="font-system-sans-serif text-caption text-chalk/70">
+          <p className="font-dm-sans text-caption text-chalk/70">
             © {new Date().getFullYear()} {site.wordmark}
           </p>
         </div>
