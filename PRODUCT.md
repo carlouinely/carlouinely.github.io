@@ -34,7 +34,7 @@ Surfaces: a home page ordered Hero, About me, How I work, Things I've built, Whe
 - Media that does not exist yet ships as design-native Placeholders at the correct ratio (halftone or Ember, never a grey box), registered in `PLACEHOLDERS.md` with a matching `TODO(placeholder:<key>)` in source. Nothing in that registry may survive launch. The production build carries neither the placeholder border nor its caption.
 - `repo` stays unset everywhere so no private repository is exposed; a Source link renders only when it is set.
 - The CV action is inert (disabled, not focusable, referencing no file) until a redacted PDF exists, so no phone number enters git history or a search index.
-- Every volatile value (email, GitHub URL, canonical origin, default title, description, availability label, shared brand assets) lives in `src/site.ts`. Nothing else hard-codes them.
+- Every volatile value (email, GitHub and LinkedIn URLs, canonical origin, default title, description, availability label, shared brand assets) lives in `src/site.ts`. Nothing else hard-codes them.
 - TanStack Start file-based routing prerendered to static HTML for GitHub Pages, with `failOnError` so a throwing route fails the build. No component library, no state management, and no routing beyond the home page, the Projects Index, and the Case Study route.
 - The owner's legal name appears nowhere; the wordmark is the only name the site uses.
 

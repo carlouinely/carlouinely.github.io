@@ -54,12 +54,12 @@ describe('the closing block', () => {
     expect(region).toContain(`href="mailto:${site.email}"`)
   })
 
-  it('offers the address as its only link, so nothing competes with the ask', () => {
-    expect(anchors()).toEqual([`mailto:${site.email}`])
+  it('keeps the address the ask, with the profiles the only other links', () => {
+    expect(anchors()).toEqual([`mailto:${site.email}`, site.github, site.linkedin])
     expect(internalLinks(closing())).toEqual([])
   })
 
-  it('leaves the CV action to the nav, so the address is the only thing to do here', () => {
+  it('leaves the CV action to the hero, so the footer closes on contact alone', () => {
     const region = closing()
     expect(htmlToText(region)).not.toContain('Download CV')
     expect(region).not.toMatch(/href=["'][^"']*\.pdf/i)

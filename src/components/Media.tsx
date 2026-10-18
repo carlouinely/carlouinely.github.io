@@ -25,6 +25,12 @@ export type MediaProps = {
   label: string
   /** Defaults to the card radius, which suits every block the size of a card. */
   radius?: MediaRadius
+  /**
+   * Extra classes for the media box itself, never for the development frame
+   * around it. A caller's hover or entrance treatment belongs on the picture, so
+   * the dotted border and caption marking a Placeholder stay still.
+   */
+  className?: string
 }
 
 const RADIUS_CLASS: Record<MediaRadius, string> = {
@@ -44,15 +50,16 @@ function placeholderTreatment(kind: MediaKind): string {
  * readers, and in development only it also carries a dotted border and a 12px
  * caption naming the asset it stands in for.
  */
-export function Media({ kind, ratio, src, label, radius = 'cards' }: MediaProps) {
+export function Media({ kind, ratio, src, label, radius = 'cards', className = '' }: MediaProps) {
   const corner = RADIUS_CLASS[radius]
   const shape = { aspectRatio: ratio }
+  const box = `w-full ${corner} ${className}`.trimEnd()
 
   if (src) {
     if (kind === 'video') {
       return (
         <video
-          className={`w-full ${corner} object-cover`}
+          className={`${box} object-cover`}
           style={shape}
           src={src}
           controls
@@ -61,12 +68,12 @@ export function Media({ kind, ratio, src, label, radius = 'cards' }: MediaProps)
       )
     }
 
-    return <img className={`w-full ${corner} object-cover`} style={shape} src={src} alt={label} />
+    return <img className={`${box} object-cover`} style={shape} src={src} alt={label} />
   }
 
   const block = (
     <div
-      className={`w-full ${corner} ${placeholderTreatment(kind)}`}
+      className={`${box} ${placeholderTreatment(kind)}`}
       style={shape}
       role="img"
       aria-label={label}

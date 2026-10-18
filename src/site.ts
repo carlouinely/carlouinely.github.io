@@ -25,6 +25,8 @@ export const site = {
 
   github: 'https://github.com/carlouinely',
 
+  linkedin: 'https://www.linkedin.com/in/carlouinely',
+
   // TODO(placeholder:origin): replace with the custom domain's origin once it exists. See PLACEHOLDERS.md.
   origin: 'https://carlouinely.github.io',
 

@@ -97,12 +97,23 @@
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-reveal: 600ms;
   --duration-entrance: 700ms;
+
+  /* The sticky nav pill's own band, measured off the rendered header rather than
+     derived: the pill's height follows its content. A section carries the block
+     padding above its heading, so it only needs the pill's height less its own
+     padding to land under it; prose has no such padding and clears the pill
+     whole. */
+  --nav-height: 104px;
 }
 
 @layer base {
   html {
     background-color: var(--color-pumice);
     color: var(--color-obsidian);
+    /* The document's own scrollbar is a surface a visitor touches, so it wears
+       the palette instead of the platform's grey. */
+    scrollbar-color: color-mix(in srgb, var(--color-obsidian) 28%, var(--color-pumice))
+      var(--color-pumice);
   }
 
   body {
@@ -122,6 +133,19 @@
     background-color: var(--color-ember);
     color: var(--color-obsidian);
   }
+
+  /* An underline that clears the descenders it runs under, on every link that
+     carries one rather than only the prose. */
+  a {
+    text-underline-offset: 0.16em;
+  }
+
+  /* A section the nav can jump to lands below the sticky pill. The Case Study's
+     headings answer the same offset in the prose layer below. */
+  section[id],
+  footer[id] {
+    scroll-margin-top: calc(var(--nav-height) - var(--spacing-32));
+  }
 }
 
 @layer components {
@@ -130,6 +154,7 @@
      nav and adjacent blocks always meet identically wherever a visitor lands.
      The horizontal shell is the only container any page block needs. */
   .page-shell {
+    position: relative;
     width: 100%;
     max-width: var(--container-page);
     margin-inline: auto;
@@ -162,6 +187,40 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-24);
+  }
+
+  /* A full-bleed band's own surface, held as a layer under the content so the
+     block can pour it in rather than appearing with it already painted. The
+     Ember band and the closing block both wear it; the shell above is
+     positioned, so the surface never covers what it carries. */
+  .band-surface {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The section a visitor is reading, marked by the same Ember dot the
+     employment spine uses. The slot is always held, so moving through the page
+     lights the dot up instead of shifting the row. */
+  .nav-dot {
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+    border-radius: var(--radius-pills);
+    background-color: var(--color-ember);
+    transition: opacity 150ms var(--ease-reveal);
+  }
+
+  /* A row that divides itself from the one above with the page's dotted rule,
+     drawn as its own layer so the row stays free to move as it arrives. */
+  [data-row] {
+    position: relative;
+  }
+
+  [data-row]::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    border-top: 1.5px dotted var(--color-obsidian);
   }
 
   /* A Case Study's reading frame: the contents rail, the reading column, and a
@@ -216,9 +275,12 @@
       justify-content: center;
     }
 
+    /* The rail sticks below the nav pill, not under it: the pill owns the top
+       of the viewport on every surface, so the contents stay readable the whole
+       way down the article. */
     .reading-rail {
       position: sticky;
-      top: var(--spacing-24);
+      top: calc(var(--nav-height) + var(--spacing-24));
       grid-column: 1;
       justify-self: end;
       width: 11rem;
@@ -297,6 +359,27 @@
     background-size:
       10px 10px,
       100% 100%;
+  }
+
+  /* The hero claim. Each word owns a line box, and that box is the mask the
+     word travels out of, so the display type prints onto the page instead of
+     fading onto it. The padding is room for glyphs the tight display leading
+     would otherwise clip; the matching negative margin keeps the claim's
+     height unchanged. */
+  .hero-claim {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.06em;
+    margin-block: -0.06em;
+  }
+
+  .hero-word {
+    display: inline-block;
   }
 
   /* One control recipe for every action on the site. Both variants declare the
@@ -410,9 +493,9 @@
   }
 
   /* A contents entry lands its section with air above it rather than flush
-     against the top of the viewport. */
+     against the top of the viewport, and clears the sticky nav pill on the way. */
   .prose :is(h2, h3) {
-    scroll-margin-top: var(--spacing-24);
+    scroll-margin-top: var(--nav-height);
   }
 
   .prose figure {
@@ -480,11 +563,20 @@
     font-size: var(--text-body-sm);
   }
 
-  /* Motion. The `reveal-enabled` class is set by an inline head script only
-     when scripts run and motion is welcome, so the no-script and
-     reduced-motion states ship every section visible with no transition. */
+  /* Motion. `reveal-enabled` is set by an inline head script only when motion
+     is welcome, so the no-script and reduced-motion states ship every section
+     visible with no transition.
+
+     Four gestures carry the page, each named for what it says. The claim
+     prints. A band pours its surface down from the top edge the eye meets
+     first. A dotted rule draws out from its left end. A list that appears as a
+     list cascades one item at a time. The hero and the two bands are peaks; the
+     sections that only need to arrive stay on the quiet fade under them, so the
+     page has a cadence instead of one entrance repeated down its length. */
   @media (prefers-reduced-motion: no-preference) {
-    .reveal-enabled [data-reveal] {
+    /* The quiet baseline. A band is excluded: its own surface pour is its
+       entrance, and two entrances on one block read as neither. */
+    .reveal-enabled [data-reveal]:not([data-band]) {
       opacity: 0;
       transform: translateY(24px);
       transition:
@@ -492,46 +584,178 @@
         transform var(--duration-reveal) var(--ease-reveal);
     }
 
-    .reveal-enabled [data-reveal][data-visible] {
+    .reveal-enabled [data-reveal]:not([data-band])[data-visible] {
       opacity: 1;
       transform: none;
     }
 
-    /* The hero arrives as one cascade: the claim, its artwork a beat behind,
-       the axis rule drawing out from the left, then the rail. */
-    .reveal-enabled [data-hero] > * {
-      animation: hero-enter var(--duration-entrance) var(--ease-reveal) both;
+    /* A band pours its surface down, so the block is painted in as it enters
+       rather than arriving already filled. Its content follows a beat behind
+       the surface, which is what makes the pour read as the band's entrance. */
+    .reveal-enabled [data-band] .band-surface {
+      clip-path: inset(0 0 100% 0);
     }
 
-    .reveal-enabled [data-hero] > :first-child > :nth-child(2) {
-      animation: hero-enter var(--duration-entrance) var(--ease-reveal) 90ms both;
+    .reveal-enabled [data-band][data-visible] .band-surface {
+      animation: surface-pour var(--duration-entrance) var(--ease-reveal) both;
     }
 
-    .reveal-enabled [data-hero] > :nth-child(2) {
+    .reveal-enabled [data-band] .page-shell > :not([data-rule]) {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity var(--duration-reveal) var(--ease-reveal),
+        transform var(--duration-reveal) var(--ease-reveal);
+      transition-delay: 200ms;
+    }
+
+    .reveal-enabled [data-band][data-visible] .page-shell > :not([data-rule]) {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Every dotted rule on the page draws itself out from its left end as the
+       block it divides arrives. A rule that is a row's own top edge draws from
+       its own layer, so the row under it stays free to move. Horizontal rules
+       scale on X; the employment spine is its own vertical case below. */
+    .reveal-enabled [data-reveal]:not([data-visible]) [data-rule] {
+      transform: scaleX(0);
       transform-origin: left center;
-      animation: hero-rule var(--duration-entrance) var(--ease-reveal) 120ms both;
     }
 
-    .reveal-enabled [data-hero] > :nth-child(3) {
-      animation-delay: 180ms;
+    .reveal-enabled [data-reveal][data-visible] [data-rule] {
+      animation: rule-draw var(--duration-entrance) var(--ease-reveal) 120ms both;
     }
 
-    /* Sections that enter together read as a short stagger; the delay is a
-       no-op for a section entered on its own. The order is the home page's. */
-    .reveal-enabled main > [data-reveal]:nth-child(3) {
-      transition-delay: 60ms;
+    .reveal-enabled [data-reveal]:not([data-visible]) [data-row]::before {
+      transform: scaleX(0);
+      transform-origin: left center;
     }
 
-    .reveal-enabled main > [data-reveal]:nth-child(4) {
-      transition-delay: 120ms;
+    .reveal-enabled [data-reveal][data-visible] [data-row]::before {
+      animation: rule-draw var(--duration-entrance) var(--ease-reveal) both;
     }
 
-    .reveal-enabled main > [data-reveal]:nth-child(5) {
-      transition-delay: 180ms;
+    /* The employment spine grows down from the first dot, so the history
+       unwinds rather than snapping into place. */
+    .reveal-enabled [data-reveal] .timeline::before {
+      transform: scaleY(0);
+      transform-origin: top center;
     }
 
-    .reveal-enabled main > [data-reveal]:nth-child(6) {
-      transition-delay: 240ms;
+    .reveal-enabled [data-reveal][data-visible] .timeline::before {
+      animation: spine-draw 900ms var(--ease-reveal) 160ms both;
+    }
+
+    /* A list reveals as a list: each item steps in behind the one before it.
+       The step is published as `--stag`, so a mark inside an item (the
+       employment dot) lands with the entry it marks rather than all at once.
+       The total delay stays capped, and the step is short enough that a four
+       item list still lands inside one beat. A list that reads as rows of one
+       table steps in from the left, matching the rule that opens each row. */
+    .reveal-enabled [data-reveal]:not([data-visible]) [data-stagger] > * {
+      opacity: 0;
+      transform: translate(var(--stag-x, 0px), var(--stag-y, 16px));
+    }
+
+    .reveal-enabled [data-stagger] > * {
+      transition:
+        opacity var(--duration-reveal) var(--ease-reveal),
+        transform var(--duration-reveal) var(--ease-reveal);
+      transition-delay: var(--stag, 0ms);
+    }
+
+    .reveal-enabled [data-stagger='row'] {
+      --stag-x: -20px;
+      --stag-y: 0px;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(1) {
+      --stag: 120ms;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(2) {
+      --stag: 180ms;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(3) {
+      --stag: 240ms;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(4) {
+      --stag: 300ms;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(5) {
+      --stag: 360ms;
+    }
+
+    .reveal-enabled [data-stagger] > :nth-child(n + 6) {
+      --stag: 420ms;
+    }
+
+    /* The employment dot lands on the spine a beat behind its entry, so the
+       marker arrives with the work it dates instead of already sitting there. */
+    .reveal-enabled [data-reveal]:not([data-visible]) [data-dot] {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+
+    .reveal-enabled [data-dot] {
+      transition:
+        opacity 320ms var(--ease-reveal),
+        transform 320ms var(--ease-reveal);
+      transition-delay: calc(var(--stag, 0ms) + 120ms);
+    }
+
+    /* The hero, one rehearsed sequence. Each word rises out of the line that
+       clips it, the artwork prints (it wipes in from its left edge while its
+       halftone screen tightens), the axis rule draws out from the same origin
+       the page's rules use, and the rail settles last. */
+    .reveal-enabled [data-hero] .hero-word {
+      animation: word-rise var(--duration-entrance) var(--ease-reveal) both;
+    }
+
+    .reveal-enabled [data-hero] .hero-art {
+      animation: art-print 820ms var(--ease-reveal) 160ms both;
+    }
+
+    .reveal-enabled [data-hero] .hero-art .media-halftone {
+      animation: halftone-print 900ms var(--ease-reveal) 160ms both;
+    }
+
+    .reveal-enabled [data-hero] .hero-rule {
+      transform-origin: left center;
+      animation: rule-draw var(--duration-entrance) var(--ease-reveal) 220ms both;
+    }
+
+    .reveal-enabled [data-hero] .hero-rail {
+      animation: hero-enter var(--duration-entrance) var(--ease-reveal) 320ms both;
+    }
+  }
+
+  /* A card answers the pointer the way its title already does: the thumbnail
+     leans in a hair and an action's arrow steps forward. Both are movement, so
+     both are confined to motion-safe visits. */
+  .media-zoom {
+    transition: transform 400ms var(--ease-reveal);
+  }
+
+  .arrow-nudge {
+    transition: transform 300ms var(--ease-reveal);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .group:hover .media-zoom,
+    .group:focus-visible .media-zoom {
+      transform: scale(1.03);
+    }
+
+    .group:hover .arrow-nudge,
+    .group:focus-visible .arrow-nudge,
+    .action-pill:hover .arrow-nudge,
+    .action-pill:focus-visible .arrow-nudge {
+      transform: translateX(4px);
     }
   }
 }
@@ -548,7 +772,34 @@
   }
 }
 
-@keyframes hero-rule {
+/* The mask that makes the claim print: the word travels up out of a line box
+   that clips it, so the glyphs arrive rather than fade. */
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+/* Brand artwork arriving on the page rather than behind it. It wipes in from
+   the left and settles a hair, the way ink meets paper. */
+@keyframes art-print {
+  from {
+    clip-path: inset(0 100% 0 0);
+    transform: scale(1.04);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+
+/* The one recurring gesture: a dotted rule drawing out from its left end. */
+@keyframes rule-draw {
   from {
     opacity: 0;
     transform: scaleX(0);
@@ -557,5 +808,44 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes spine-draw {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A band's surface pouring down from the top edge a visitor meets first. */
+@keyframes surface-pour {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* The halftone motif read as motion: the dot grid arrives coarse and tightens
+   into its printed screen, so the panel is printed rather than merely revealed. */
+@keyframes halftone-print {
+  from {
+    background-size:
+      24px 24px,
+      100% 100%;
+  }
+
+  to {
+    background-size:
+      10px 10px,
+      100% 100%;
   }
 }

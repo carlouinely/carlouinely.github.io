@@ -63,7 +63,7 @@ export function personStructuredData(): Record<string, unknown> {
       addressCountry: site.address.country,
     },
     alumniOf: { '@type': 'CollegeOrUniversity', name: site.alumniOf },
-    sameAs: [site.github],
+    sameAs: [site.github, site.linkedin],
   }
 }
 

@@ -9,7 +9,8 @@ import type { Project } from '~src/content/projects'
  * thumbnail keeps hero-scale weight. Title and thumbnail share the card the way
  * the hero's claim shares its row with the artwork, so the lead reads as the
  * highlight while the titles below it stay compact. The whole card is the link
- * to the Case Study, so the target is the same wherever a visitor clicks.
+ * to the Case Study, so the target is the same wherever a visitor clicks, and
+ * the thumbnail leans in a hair under the pointer.
  */
 function LeadCard({ project }: { project: Project }) {
   return (
@@ -29,17 +30,22 @@ function LeadCard({ project }: { project: Project }) {
           <p className="mt-16 font-dm-sans text-body text-obsidian">{project.summary}</p>
           <p className="mt-24 flex items-center gap-8 font-dm-sans text-body text-obsidian">
             <span className="underline">Read the case study</span>
-            <ArrowGlyph />
+            <ArrowGlyph className="arrow-nudge" />
           </p>
         </div>
 
+        {/* The clip holds the thumbnail's hover lean inside the card's own
+            radius, so the picture never breaks the surface it sits in. */}
         {/* TODO(placeholder:project-thumbnails): add a `thumbnail` to each Project once real screenshots exist. See PLACEHOLDERS.md. */}
-        <Media
-          kind="image"
-          ratio="16 / 9"
-          src={project.thumbnail ?? undefined}
-          label={`${project.title} thumbnail`}
-        />
+        <div className="overflow-hidden rounded-cards">
+          <Media
+            className="media-zoom"
+            kind="image"
+            ratio="16 / 9"
+            src={project.thumbnail ?? undefined}
+            label={`${project.title} thumbnail`}
+          />
+        </div>
       </Link>
     </article>
   )
@@ -49,7 +55,12 @@ function LeadCard({ project }: { project: Project }) {
  * A supporting Highlight: a compact row on the page canvas, its thumbnail
  * reduced to a chip and the dotted rule above it the same one the rest of the
  * page divides with. Only the title carries display type, so the rows scan as
- * one list under the lead card instead of competing with it.
+ * one list under the lead card instead of competing with it. The rows step in
+ * from the left as they arrive, matching the rule that opens each one.
+ *
+ * The title holds a rail from the large breakpoint up rather than a share of
+ * the row. Split by fraction it took more width than any title needed, and the
+ * eye crossed a handspan of empty page between a name and its summary.
  */
 function HighlightRow({ project }: { project: Project }) {
   return (
@@ -57,7 +68,7 @@ function HighlightRow({ project }: { project: Project }) {
       <Link
         to="/projects/$slug"
         params={{ slug: project.slug }}
-        className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-16 gap-y-8 py-16 md:grid-cols-[auto_minmax(0,0.9fr)_minmax(0,1.3fr)_auto] md:gap-x-24 md:py-20"
+        className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-16 gap-y-8 py-16 md:grid-cols-[auto_minmax(0,0.9fr)_minmax(0,1.3fr)_auto] md:gap-x-24 md:py-20 lg:grid-cols-[auto_minmax(0,17rem)_minmax(0,1fr)_auto]"
       >
         <div className="w-64 self-center md:w-72">
           <Media
@@ -87,7 +98,7 @@ function HighlightRow({ project }: { project: Project }) {
           {project.summary}
         </p>
 
-        <ArrowGlyph className="col-start-3 row-start-1 self-center text-obsidian transition-colors group-hover:text-ember md:col-start-4" />
+        <ArrowGlyph className="arrow-nudge col-start-3 row-start-1 self-center text-obsidian transition-colors group-hover:text-ember md:col-start-4" />
       </Link>
     </article>
   )
@@ -116,7 +127,7 @@ export function Work() {
           className="action-pill action-pill--primary w-full justify-center gap-8 sm:w-auto"
         >
           See everything I&apos;ve built
-          <ArrowGlyph />
+          <ArrowGlyph className="arrow-nudge" />
         </a>
       </div>
 
@@ -127,12 +138,9 @@ export function Work() {
       ) : null}
 
       {supporting.length > 0 ? (
-        <ul className="page-gap flex flex-col">
+        <ul className="page-gap flex flex-col" data-stagger="row">
           {supporting.map((project, index) => (
-            <li
-              key={project.slug}
-              className={index > 0 ? 'border-t-[1.5px] border-dotted border-obsidian' : ''}
-            >
+            <li key={project.slug} data-row={index > 0 ? '' : undefined}>
               <HighlightRow project={project} />
             </li>
           ))}

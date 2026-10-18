@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 
 /**
  * The inline head script that opts the document into reveals. It runs before
- * the first paint, so it only sets the class when scripts can actually reveal
- * the sections again: without it every section ships visible, which is the
- * no-script and reduced-motion fallback.
+ * the first paint, so it only sets `reveal-enabled` when scripts can actually
+ * reveal the sections again: without it every section ships visible, which is
+ * the no-script and reduced-motion fallback.
  */
-export const revealBootstrap = `(function(){try{if(!('IntersectionObserver' in window))return;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.documentElement.classList.add('reveal-enabled')}catch(e){}})()`
+export const revealBootstrap = `(function(){try{var d=document.documentElement;if(!('IntersectionObserver' in window))return;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('reveal-enabled')}catch(e){}})()`
 
 /**
  * Reveals each `[data-reveal]` element once it enters the viewport, by marking
@@ -20,12 +20,24 @@ export const revealBootstrap = `(function(){try{if(!('IntersectionObserver' in w
  */
 export function useReveal(): void {
   useEffect(() => {
+    const show = (element: Element) => {
+      element.setAttribute('data-visible', '')
+      reveal.unobserve(element)
+    }
+
     const reveal = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          entry.target.setAttribute('data-visible', '')
-          reveal.unobserve(entry.target)
+          if (entry.isIntersecting) show(entry.target)
+        }
+
+        // An anchor, the End key, or a restored scroll position can carry a
+        // block past the viewport between observations. It never intersects on
+        // the way, so waiting for a second visit would leave a section hidden
+        // above the reader with nothing on screen to bring it back. Anything
+        // already above the fold has arrived as far as the page is concerned.
+        for (const element of pending(document)) {
+          if (element.getBoundingClientRect().bottom < 0) show(element)
         }
       },
       { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },

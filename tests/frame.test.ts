@@ -104,21 +104,23 @@ describe('the home page frame', () => {
     expect(anchorBodies.some((body) => body.includes('Download CV'))).toBe(false)
   })
 
-  it('links the GitHub glyph and the email action at the registered values', () => {
+  it('links the address and both profiles at the registered values', () => {
     const html = home()
     expect(html).toContain(`href="${site.github}"`)
+    expect(html).toContain(`href="${site.linkedin}"`)
     expect(html).toContain(`href="mailto:${site.email}"`)
   })
 
-  it('renders the footer with the wordmark, a copyright line, and the address alone', () => {
-    const html = home()
-    const text = htmlToText(html)
+  it('closes with the address, both profiles, and a centred copyright', () => {
+    const text = htmlToText(home())
     expect(text).toContain('carlouinely')
     expect(text).toMatch(/©\s*\d{4}\s*carlouinely/)
 
     const footer = footerHtml()
-    expect(footer.match(/<a\b/g) ?? []).toHaveLength(1)
     expect(footer).toContain(`href="mailto:${site.email}"`)
+    expect(footer).toContain(`href="${site.github}"`)
+    expect(footer).toContain(`href="${site.linkedin}"`)
+    expect(footer.match(/<a\b/g) ?? []).toHaveLength(3)
     expect(internalLinks(footer)).toEqual([])
   })
 
@@ -146,9 +148,9 @@ describe('the responsive nav', () => {
     expect(internalLinks(homeSection('work', 'experience'))).toContain('/projects')
   })
 
-  it('keeps the CV action outside the panel so it stays visible', () => {
-    expect(menuPanel(menuTrigger().controls)).not.toContain('Download CV')
-    expect(primaryNav()).toContain('Download CV')
+  it('leaves the CV action and the profiles to the page, so the nav stays to wayfinding', () => {
+    expect(primaryNav()).not.toContain('Download CV')
+    expect(primaryNav()).not.toContain(`href="${site.github}"`)
   })
 
   it('gives the trigger an accessible name', () => {

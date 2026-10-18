@@ -222,6 +222,7 @@ describe('structured data', () => {
       expect.objectContaining({ '@type': 'CollegeOrUniversity', name: site.alumniOf }),
     )
     expect(person?.sameAs).toContain(site.github)
+    expect(person?.sameAs).toContain(site.linkedin)
   })
 
   it('describes every Case Study with a BreadcrumbList and an Article', () => {

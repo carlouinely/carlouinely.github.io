@@ -9,6 +9,10 @@ import { experience } from '~src/content/experience'
  * role and its outcomes opening on one line and holds the body measure on a
  * wide screen. The engagement is tagged so freelance and full-time work stay
  * distinguishable.
+ *
+ * The spine unwinds from its first dot as the section arrives and each dot
+ * lands a beat behind the entry it dates, so the history is drawn rather than
+ * already laid out.
  */
 export function Experience() {
   return (
@@ -22,11 +26,11 @@ export function Experience() {
         Where I&apos;ve worked
       </h2>
 
-      <ol className="timeline page-head">
+      <ol className="timeline page-head" data-stagger>
         {experience.map((role) => (
           <li key={`${role.employer}-${role.dates}`}>
             <article className="timeline-entry">
-              <span aria-hidden className="timeline-dot col-start-1 row-start-1" />
+              <span aria-hidden data-dot className="timeline-dot col-start-1 row-start-1" />
 
               <p className="col-start-2 row-start-1 font-system-sans-serif text-caption text-obsidian">
                 {role.dates}

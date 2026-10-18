@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { CvAction } from '~src/components/CvAction'
-import { CloseGlyph, GitHubGlyph, MenuGlyph, MountainGlyph } from '~src/components/glyphs'
+import { CloseGlyph, MenuGlyph } from '~src/components/glyphs'
+import { useNavPosition } from '~src/nav-position'
 import { site } from '~src/site'
 
 /** The panel id the trigger controls. One nav per page, so one stable id. */
@@ -9,27 +9,37 @@ const PANEL_ID = 'primary-menu'
 /**
  * Where the nav goes: the home page's sections, in the order they read. The
  * Projects Index is not among them, because the Work section's own action and
- * the footer both open it, and a fifth label would only crowd the row.
+ * the footer both open it, and a fifth label would only crowd the row. Each
+ * link names the section `id` it points at, so the nav can say which one the
+ * visitor is reading without parsing its own hrefs.
  */
 const LINKS = [
-  { label: 'About me', href: '/#about' },
-  { label: 'How I work', href: '/#how-i-work' },
-  { label: "Things I've built", href: '/#work' },
-  { label: "Where I've worked", href: '/#experience' },
+  { label: 'About me', href: '/#about', id: 'about' },
+  { label: 'How I work', href: '/#how-i-work', id: 'how-i-work' },
+  { label: "Things I've built", href: '/#work', id: 'work' },
+  { label: "Where I've worked", href: '/#experience', id: 'experience' },
 ] as const
 
 /**
- * The site nav. On wide viewports the links sit inline in the pill; below the
- * extra-large breakpoint they collapse behind a trigger whose panel holds the
- * same links, because the labels and the CV action stop fitting on one row
- * before that and would otherwise break mid-phrase. The extra-large breakpoint
- * is the page's own max width, so the nav only opens up once the row it sits in
- * can hold it. The CV action never enters the panel, so the primary action
- * stays visible whichever way the menu is.
+ * The site nav. The pill sticks to the top of the viewport, and the section
+ * being read wears the same Ember dot the employment spine marks a role with,
+ * so four thousand pixels of scrolling keep a place in the document rather
+ * than reading as a stack of blocks with no chrome.
+ *
+ * The header carries no background of its own, so the pill floats on the page:
+ * content scrolls behind it and disappears only where the pill itself covers
+ * it, instead of being cut at an invisible band around the pill.
+ *
+ * On wide viewports the links sit inline in the pill; below the extra-large
+ * breakpoint they collapse behind a trigger whose panel holds the same links,
+ * because the labels stop fitting on one row before that and would otherwise
+ * break mid-phrase. The extra-large breakpoint is the page's own max width, so
+ * the nav only opens up once the row it sits in can hold it.
  */
 export function Nav() {
   const [open, setOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
+  const { activeId } = useNavPosition(navRef)
 
   useEffect(() => {
     if (!open) return
@@ -59,18 +69,13 @@ export function Nav() {
   }, [open])
 
   return (
-    <header className="mx-auto w-full max-w-page px-12 py-24 md:px-24">
+    <header className="pointer-events-none sticky top-0 z-20 px-12 py-12 md:px-24">
       <nav
         ref={navRef}
         aria-label="Primary"
-        className="relative flex items-center gap-4 rounded-pills bg-limestone px-12 py-12 md:gap-9 md:px-24"
+        className="pointer-events-auto relative mx-auto flex w-full max-w-page items-center gap-4 rounded-pills bg-limestone px-12 py-12 md:gap-9 md:px-24"
       >
-        <a
-          href="/"
-          className="mr-auto flex items-center gap-9 text-obsidian"
-          onClick={() => setOpen(false)}
-        >
-          <MountainGlyph />
+        <a href="/" className="mr-auto text-obsidian" onClick={() => setOpen(false)}>
           <span className="font-dm-sans text-body">{site.wordmark}</span>
         </a>
 
@@ -85,24 +90,20 @@ export function Nav() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-pills px-12 py-8 font-dm-sans text-body text-obsidian xl:py-0"
+                aria-current={activeId === link.id ? 'location' : undefined}
+                className="flex items-center gap-8 rounded-pills px-12 py-8 font-dm-sans text-body text-obsidian xl:py-0"
               >
+                {/* The slot is always held, so moving down the page lights the
+                    dot up instead of shifting the row under the pointer. */}
+                <span
+                  aria-hidden
+                  className={`nav-dot shrink-0 ${activeId === link.id ? 'opacity-100' : 'opacity-0'}`}
+                />
                 {link.label}
               </a>
             </li>
           ))}
         </ul>
-
-        <a
-          href={site.github}
-          aria-label="GitHub"
-          rel="me"
-          className="hidden items-center px-12 py-4 text-obsidian xl:flex"
-        >
-          <GitHubGlyph />
-        </a>
-
-        <CvAction />
 
         <button
           type="button"
