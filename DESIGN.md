@@ -125,7 +125,7 @@ The page rhythm is five roles, and every surface builds from them: the home page
 - **Section head:** every home section opens with its heading on the gutter, and what sits beside that heading follows from what the section has. About me sets its lede in the column beside the heading from 768px up, so a section with one paragraph keeps the page's compact head rhythm instead of running a lone column under the heading. Things I've built puts its action there instead, and the closing block puts its address there, on the baseline of the ask it answers. The heading itself never leaves the gutter line, which is what holds the six sections together as one page.
 - **Heading scale:** section headings run at 48px (`heading-lg`); the home page's closing "Let's talk" steps up to 80px (`heading-2xl`) from 768px, because that block is where the page stops being a document and becomes an ask, and it answers the hero rather than the sections above it. A lead Project title carries the same 80px as the closing. Nothing else on the home page competes with those two.
 - **Reading measure:** 40rem (`--measure-prose`). One column, because the Case Study's running text, its in-body figures, and its closing navigation all answer to it.
-- **Case Study masthead:** the title and its summary sit centred as one statement at the reading measure, then the Project's facts run along the page's dotted rule in labelled cells: Type, Year, Client, and Stack. The cells flex to share the article width, so a Project with no Client closes its gap instead of leaving a hole, and the stack takes the wider share because a tool list wraps. The label is a 12px system-sans micro-label above a DM Sans value at the body step, and the tag keeps its Sulfur pill as the Type value, so the masthead's one accent sits inside the spec rather than floating above the title. This is where a stack reaches the article; before, the list lived only on the Projects Index.
+- **Case Study masthead:** the title and its summary sit centred as one statement at the reading measure, then the Project's facts run along the page's dotted rule in labelled cells: Type, Year, Client, and Stack. The cells flex to share the article width, so a Project with no Client closes its gap instead of leaving a hole, and the stack takes the wider share because a tool list wraps. The label is a 12px system-sans micro-label above a DM Sans value at the body step, and the tag keeps its Sulfur pill as the Type value, so the masthead's one accent sits inside the spec rather than floating above the title. The stack reaches the article here; the home page's Work preview and the Projects Index each carry the same list at their own step.
 - **Card padding:** 40px from 768px up, 24px below it. Inside a card or a row, gaps stay on the 16px and 8px steps.
 - **Hierarchy:** the scale steps down from block (40px / 56px) to heading (32px / 40px) to group (24px / 32px), so a heading always sits closer to the content it introduces than to the block above it.
 
@@ -169,6 +169,12 @@ Ember (#fc5000) solid background, Chalk (#ffffff) text. 40px border-radius. Padd
 
 Limestone (#f7f6f2) background, no border, no shadow. 40px border-radius. Padding 40px all sides. Contains a category tag, headline (PP Neue Corp Compact 26–32px in Obsidian), and date metadata. The image area at the top can be a halftone or solid Ember block.
 
+### Project Preview
+
+**Role:** A Highlight in the home page's "Things I've built" section, as the lead card or a supporting row
+
+Every Highlight carries the same four facts in the same order: the Category Tag Badge and year, the title, the summary, and the Stack List, so the section is evidence of what shipped rather than a list of names. The lead Highlight is the section's one card: a Limestone surface at the card padding, the text column holding the kind and year, the display title (48px, stepping to 80px from 1024px), the summary, and the stack behind the dotted rule the Case Study masthead uses, while the thumbnail takes the other column at 16:9. The supporting Highlights are specimen rows on the Pumice canvas, divided from each other by the page's dotted rule, with the thumbnail in a small-radius 4:3 chip, the title and its kind in the identity column, and the summary and stack in the evidence column. The row's stack is what lets a visitor keyword-match the tools without opening the Case Study.
+
 ### Case Study Facts
 
 **Role:** The Project's metadata in a Case Study masthead, under the title and summary
@@ -177,9 +183,9 @@ No surface of its own: a 1.5px dotted Obsidian rule opens the row, then each fac
 
 ### Stack List
 
-**Role:** The tools a Project was built with, on the Projects Index row and in a Case Study's facts
+**Role:** The tools a Project was built with, on the home page's Work preview, the Projects Index row, and a Case Study's facts
 
-A wrapping row of tool names in DM Sans at the caller's step, each with its monochrome mark at 1.25em beside it. The mark is decorative and the name carries the meaning, so a tool with no mark of its own (AI/LLM, MySQL, WooCommerce) still reads and a new tool never needs an icon to ship. Both surfaces render the same list, which is what keeps one stack reading the same way wherever a visitor meets it.
+A wrapping row of tool names in DM Sans at the caller's step, each with its monochrome mark at 1.25em beside it. The mark is decorative and the name carries the meaning, so a tool with no mark of its own (AI/LLM, MySQL, WooCommerce) still reads and a new tool never needs an icon to ship. Every surface renders the same list, which is what keeps one stack reading the same way wherever a visitor meets it.
 
 ### Timeline Entry
 
@@ -237,7 +243,7 @@ Limestone (#f7f6f2) background card, 40px radius, 40px padding. Logos arranged i
 
 **Role:** Section separator and decorative detail
 
-1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, as the spine of the employment timeline, as a row's own top edge in the Work list, and occasionally as horizontal section breaks. It draws itself out from its left end wherever it divides something. The dotted (not dashed, not solid) style is a small but consistent signature detail.
+1.5px dotted line in Obsidian (#070607). Used as vertical dividers in nav and partner strips, as the spine of the employment timeline, as a row's own top edge in the Work list, as the rule that opens a lead Project's stack, and occasionally as horizontal section breaks. It draws itself out from its left end wherever it divides something. The dotted (not dashed, not solid) style is a small but consistent signature detail.
 
 ### Band Surface
 
@@ -287,10 +293,10 @@ Motion is restrained and one-shot: it establishes arrival, then gets out of the 
 
 - **Hero print.** One rehearsed sequence, about 900ms. Each word of the display claim rises out of the line box that clips it, each one 110ms behind the word before it; the artwork panel wipes in from its left edge at 160ms while its halftone screen tightens from a 24px dot grid to its printed 10px one, settling from a 4% over-scale; the dotted axis rule draws out from the left at 220ms; the meta-and-action rail fades up 16px at 320ms. The claim prints rather than fades, which is the halftone motif read as motion.
 - **Band pour.** The Ember band and the closing block are the page's only two full-bleed surfaces, and each pours its surface down from the top edge a visitor meets first, over `--duration-entrance`. The content follows 200ms behind the surface. The surface is a layer under the content rather than the block's own background, which is what lets it be painted on instead of being there already. A band carries no section fade: two entrances on one block read as neither.
-- **Rule draw.** Every dotted rule on the page draws out from its left end as the block it divides arrives: the hero axis, the footer rule, and the top edge of every row in the Work list. A row's own rule draws from its own layer, so the row under it stays free to move. The employment spine is the vertical case: it grows down from the first dot over 900ms, so the history unwinds rather than snapping into place.
+- **Rule draw.** Every dotted rule on the page draws out from its left end as the block it divides arrives: the hero axis, the footer rule, the top edge of every row in the Work list, and the rule that opens the lead Project's stack. A rule that is a row's own top edge draws from its own layer, so the row under it stays free to move. The employment spine is the vertical case: it grows down from the first dot over 900ms, so the history unwinds rather than snapping into place.
 - **Section reveal.** Each remaining section fades up 24px the first time it enters the viewport, then is left alone; a reveal runs once per element, so scrolling back does not replay it. This is the quiet baseline the rules and lists play against, and it carries no stagger of its own.
 - **List cascade.** A list that appears as a list steps in one item at a time on a 60ms step capped at six items, with the step published as `--stag` so a mark inside an item lands with the item it belongs to: the How I work passages and the Projects Index rows step up 16px, while the Work section's supporting rows step in 20px from the left, matching the rule that opens each one. Four timeline entries land inside one beat, and each employment dot scales in a beat behind its entry.
-- **Hover feedback.** A card or Index-row title shifts to Ember, the lead Project's thumbnail leans in 3%, and an action's arrow steps 4px forward. A card answers the pointer the way its title already does.
+- **Hover feedback.** A card or Index-row title shifts to Ember, a Project thumbnail leans in 3%, and an action's arrow steps 4px forward. A card answers the pointer the way its title already does.
 - **Easing and duration.** `--ease-reveal` (a soft ease-out) with `--duration-reveal` (600ms) for scroll reveals, `--duration-entrance` (700ms) for the hero, every rule draw, and both band pours, 820ms for the artwork wipe, and 900ms for the employment spine.
 
 Every transition and entrance above sits inside a `prefers-reduced-motion: no-preference` guard, so reduced motion suppresses the animation; discrete state changes such as the chevron flip still land instantly, and hover movement is removed while the color changes stay. The document sets `reveal-enabled` only when a script can reveal the sections again and motion is welcome, so reduced motion and no JavaScript at all both ship the page fully visible and unanimated. A scroll that carries a block past the viewport between observations, as an anchor jump or the End key does, marks it arrived rather than leaving it hidden above the reader.
