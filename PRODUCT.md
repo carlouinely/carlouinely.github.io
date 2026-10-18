@@ -27,7 +27,7 @@ A full-stack engineer in Cebu, Philippines who ships end to end (polished fronte
 
 ## Capabilities and Constraints
 
-Surfaces: a home page ordered Hero, About me, How I work, Things I've built, Where I've worked, Let's talk; a Projects Index at `/projects` built on native disclosure rows that expand without JavaScript; and one Case Study per Project at `/projects/<slug>` with a table of contents and previous/next reading navigation. No other surfaces exist and none are planned. There is no Article surface: the reserved "Article" term in `GLOSSARY.md` exists only to keep Case Studies from drifting into blog-style writing.
+Surfaces: a home page ordered Hero, About me, How I work, Things I've built, Where I've worked, Let's talk; a Projects Index at `/projects` built on native disclosure rows that expand without JavaScript; one Case Study per Project at `/projects/<slug>` with a table of contents and previous/next reading navigation; and a Not Found page that any unknown URL lands on, prerendered to `404.html`. No other surfaces exist and none are planned. There is no Article surface: the reserved "Article" term in `GLOSSARY.md` exists only to keep Case Studies from drifting into blog-style writing.
 
 - Project content lives in a root `projects/` directory outside `src`, per ADR-0002, imported through the `~projects/*` alias. YAML frontmatter is the single source of truth for both the home page card and the Case Study header.
 - The content loader skips `_`-prefixed files, derives the slug from the filename, validates required fields and fails the build naming the offending file and field, sorts by `order`, and normalizes optional fields to explicit defaults.

@@ -65,7 +65,7 @@ export const site = {
 export const projectsIndex = {
   title: `Projects | ${site.wordmark}`,
   description:
-    "Every project I've built, with the stack behind it and a link to the full case study.",
+    "Every project I've built, newest first, with the kind of build it is, the stack behind it, and a link to the full case study.",
 } as const
 
 /** The absolute URL for a site path, for canonical and Open Graph tags. */

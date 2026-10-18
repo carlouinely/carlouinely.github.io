@@ -44,6 +44,10 @@ export default defineConfig({
     }),
     tailwindcss(),
     tanstackStart({
+      // The catch-all route carries `$`, so static path discovery skips it. Ask
+      // for it here and write it as `404.html`, which GitHub Pages serves for
+      // any unknown path. It is excluded from the sitemap.
+      pages: [{ path: '/404', prerender: { outputPath: '/404.html' }, sitemap: { exclude: true } }],
       prerender: { enabled: true, failOnError: true },
     }),
     viteReact(),

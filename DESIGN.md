@@ -110,7 +110,7 @@ Buttons are always pills, so they carry `--radius-pills` and there is no separat
 
 ### Layout
 
-The page rhythm is five roles, and every surface builds from them: the home page, the Projects Index, and each Case Study. They live in `src/styles.css` as `page-shell`, `page-block`, `page-break`, `page-head`, `page-gap`, and `page-stack`, so a change lands on all three surfaces at once.
+The page rhythm is five roles, and every surface builds from them: the home page, the Projects Index, each Case Study, and the Not Found page. They live in `src/styles.css` as `page-shell`, `page-block`, `page-break`, `page-head`, `page-gap`, and `page-stack`, so a change lands on all four surfaces at once.
 
 | Role    | Mobile | From 768px | What it separates                                                                                                                                                                                          |
 | ------- | ------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

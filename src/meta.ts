@@ -35,6 +35,28 @@ export function pageHead({
   }
 }
 
+/**
+ * The document head for the Not Found page. The catch-all route and an unknown
+ * Case Study slug both render the same page, so they share one head: a title, a
+ * plain description, and no canonical, because a missing URL is not an address
+ * worth indexing.
+ */
+export function notFoundHead() {
+  const title = `Page not found | ${site.wordmark}`
+  const description =
+    'That page is not here. Head back to the home page or browse the projects I have shipped.'
+
+  return {
+    meta: [
+      { title },
+      { name: 'description', content: description },
+      { name: 'robots', content: 'noindex' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+    ],
+  }
+}
+
 /** The fields a Project contributes to its Case Study's structured data. */
 type CaseStudyIdentity = Pick<Project, 'title' | 'summary' | 'tag' | 'slug'>
 
